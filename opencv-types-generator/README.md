@@ -25,11 +25,12 @@ and `platforms/js/build_js.py` for building opencv.js; enable `BUILD_DOCS=ON` +
 ## Usage
 
 ```sh
+cd opencv-types-generator
 pip install -e .
 opencv-types-generator \
-  --opencv-build-dir /path/to/opencv/build_js \
-  --opencv-doc-build-dir /path/to/opencv/build \
-  --out-dir ./tmp_output \
+  --opencv-build-dir ../opencv-compiler/output/opencv/build_js/build_js \
+  --opencv-doc-build-dir ../opencv-compiler/output/opencv/build_js \
+  --out-dir ../opencv-ts \
   --package-name opencv-ts \
   --package-version 5.0.0 \
   --jobs 8

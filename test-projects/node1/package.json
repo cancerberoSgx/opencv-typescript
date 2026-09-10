@@ -1,0 +1,29 @@
+{
+  "name": "node1",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Standalone Node.js + TypeScript CLI used to smoke-test the opencv-ts typings against a real opencv.js build under Node, decoding/encoding images via jimp.",
+  "type": "module",
+  "bin": {
+    "node1": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b --noEmit",
+    "dev": "tsx src/cli.ts",
+    "start": "node dist/cli.js"
+  },
+  "dependencies": {
+    "commander": "^15.0.0",
+    "jimp": "^1.6.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.2",
+    "opencv-ts": "file:../../opencv-ts",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}

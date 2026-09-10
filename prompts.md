@@ -30,6 +30,29 @@ for now you can copy or reference opencv.js from /home/sg/git/opencv/build_js/bi
 the html will display a canvas with some image, and some buttons that trigger some opencv operations 
 The project must install opencv-ts to support typings and all the code must be 100% typescript 
 
+p2
+create another test project test-projects/node1 which uses typescript and runs on node.js and loads opencv.js from /home/sg/git/opencv/build_js/bin/opencv.js similarly to how test-projects/react1. The project must be 100% typed using opencv-ts and use a small library to load .jpeg or .png image and perform some transformations using opencv.js. It must have a CLI, something like node1 --inputImage foo.png --outputImage bar.png --transformation (one of sobelEdges, grayscale, blur, cannyEdges)
+
+
+
+# opencv builder project
+For opencv-types-generator to work, there must be an opencv project cloned locally with opencv.js compilation and docs (with XML) compiled too. 
+
+We want to have all of this orchestrated in a separate project opencv-compiler, based in docker which git-clones opencv, compiles opencv.js with emscripten and xml docs with doxygen. The only dependency needed by the user is docker. Something similar to /home/sg/git/mirada/doxygen2typescript/docker
+
+This project must have a single runnable .sh which performs all of this. and put the output opencv.js and xml docs build folders so those locations can be used by opencv-types-generator
+
+
+p2
+
+cd opencv-compiler; ./build.sh fails with error:
+
+CMake Error at modules/js/CMakeLists.txt:83 (message):
+  [OpenCV.js Build Error] Emscripten 6.0.9 requires C++17 or newer for
+  Embind, but CMAKE_CXX_STANDARD is set to '11'.
+
+Can you make sure you use latest versions of cxx and emscripten
+
 # TODO
 
  * opencv-ts version must be the same as opencv's
