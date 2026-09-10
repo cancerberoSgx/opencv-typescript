@@ -2,7 +2,6 @@
 
 import type { InputArray, InputOutputArray, OutputArray } from '../hacks/mat';
 import type { RotatedRect, Size, TermCriteria } from '../hacks/scalars';
-import type { Tracking } from './_unresolved';
 
 /* @defgroup Object Tracking */
 

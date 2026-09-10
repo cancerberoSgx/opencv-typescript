@@ -3,6 +3,7 @@
 import type { InputArray } from '../hacks/mat';
 import type { Size } from '../hacks/scalars';
 import type { Dictionary, GridBoard } from './_unresolved';
+import type { aruco_Board } from './aruco_Board';
 
 /**
  * Planar board with grid arrangement of markers.

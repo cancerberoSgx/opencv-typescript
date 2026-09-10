@@ -4,7 +4,13 @@ import re
 
 from ..doxygen_schema import CompoundDef, Member
 from .enums import render_class_enums
-from .identifiers import HACK_OVERRIDDEN_MEMBERS, is_valid_id, resolve_base_class_name
+from .identifiers import (
+    HACK_OVERRIDDEN_MEMBERS,
+    STATIC_SIDE_INCOMPATIBLE_SUBCLASSES,
+    is_templated,
+    is_valid_id,
+    resolve_base_class_name,
+)
 from .jsdoc import jsdoc_function, to_jsdoc
 from .types import render_param, render_type
 
@@ -14,13 +20,18 @@ _OPERATOR_RE = re.compile(r"^operator[^a-zA-Z0-9_]")
 def _valid_attr(m: Member, class_js_name: str) -> bool:
     if m.name in HACK_OVERRIDDEN_MEMBERS.get(class_js_name, ()):
         return False
-    return is_valid_id(m.name)
+    return is_valid_id(m.name) and not is_templated(m)
 
 
 def _valid_method(m: Member, class_js_name: str) -> bool:
     if m.name in HACK_OVERRIDDEN_MEMBERS.get(class_js_name, ()):
         return False
-    return is_valid_id(m.name) and not m.name.startswith("~") and not _OPERATOR_RE.match(m.name)
+    return (
+        is_valid_id(m.name)
+        and not m.name.startswith("~")
+        and not _OPERATOR_RE.match(m.name)
+        and not is_templated(m)
+    )
 
 
 def _render_method(f: Member, class_js_name: str) -> str:
@@ -52,7 +63,11 @@ def render_compound_class(
     """Returns (rendered .d.ts source, set of emitted enum-constant names) - the latter
     feeds the generation report's unmatched-constants reconciliation, see pipeline.py."""
     base_name = resolve_base_class_name(class_js_name, compound, base_cpp_type, cpp_type_to_js_name)
-    extends = f" extends {base_name}" if base_name else ""
+    # See STATIC_SIDE_INCOMPATIBLE_SUBCLASSES: these get the base's instance members via a
+    # merged `interface`, not `class ... extends`, so their own conflicting static member
+    # doesn't have to satisfy TypeScript's static-side inheritance check.
+    instance_only_base = class_js_name in STATIC_SIDE_INCOMPATIBLE_SUBCLASSES
+    extends = f" extends {base_name}" if base_name and not instance_only_base else ""
 
     attrs = "\n\n".join(
         _render_attr(f, class_js_name) for f in compound.public_attribs if _valid_attr(f, class_js_name)
@@ -64,6 +79,8 @@ def render_compound_class(
 
     header = to_jsdoc(compound)
     class_decl = f"export declare class {class_js_name}{extends} {{\n{body}\n}}"
+    if base_name and instance_only_base:
+        class_decl += f"\n\nexport declare interface {class_js_name} extends {base_name} {{}}"
     enums_src, enum_names = render_class_enums(compound, class_js_name)
 
     parts = [p for p in (header, class_decl) if p]

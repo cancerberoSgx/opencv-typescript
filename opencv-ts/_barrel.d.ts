@@ -85,6 +85,7 @@ export * from './generated/photo_render';
 export * from './generated/core_quaternion';
 export * from './generated/_3d';
 export * from './generated/core_optim';
+export * from './hacks/dom-shims';
 export * from './hacks/mat';
 export * from './hacks/runtime';
 export * from './hacks/scalars';

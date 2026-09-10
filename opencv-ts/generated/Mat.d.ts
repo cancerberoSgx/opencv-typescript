@@ -2,7 +2,7 @@
 
 import type { InputArray, Mat_, OutputArray } from '../hacks/mat';
 import type { MatStep, Point, Range, Rect, Scalar, Size } from '../hacks/scalars';
-import type { AccessFlag, CV_NODISCARD_STD, MatAllocator, MatCommaInitializer_, MatConstIterator_, MatExpr, MatIterator_, MatShape, Matx, Point3_, Point_, UMat, UMatData, UMatUsageFlags, Vec } from './_unresolved';
+import type { AccessFlag, CV_NODISCARD_STD, MatAllocator, MatExpr, MatShape, UMat, UMatData, UMatUsageFlags } from './_unresolved';
 
 /**
  * n-dimensional dense array class
@@ -211,11 +211,6 @@ export declare class Mat extends Mat_ {
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public constructor(commaInitializer: MatCommaInitializer_)
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
  *
  * @param shape Array shape.
  * @param type Array type. Use CV_8UC1, ..., CV_64FC4 to create 1-4 channel matrices, or CV_8UC(n), ..., CV_64FC(n) to create multi-channel (up to CV_CN_MAX channels) matrices.
@@ -243,44 +238,6 @@ export declare class Mat extends Mat_ {
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public constructor(mtx: Matx, copyData?: boolean)
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public constructor(pt: Point3_, copyData?: boolean)
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public constructor(pt: Point_, copyData?: boolean)
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public constructor(arr: _Tp, copyData?: boolean)
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public constructor(list: _Tp)
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public constructor(sizes: any, list: _Tp)
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- *
- * @param vec STL vector whose elements form the matrix. The matrix has a single column and the number of rows equal to the number of vector elements. Type of the matrix matches the type of vector elements. The constructor can handle arbitrary types, for which there is a properly declared DataType . This means that the vector elements must be primitive numbers or uni-type numerical tuples of numbers. Mixed-type structures are not supported. The corresponding constructor is explicit. Since STL vectors are not automatically converted to Mat instances, you should write Mat(vec) explicitly. Unless you copy the data into the matrix ( copyData=true ), no new elements will be added to the vector because it can potentially yield vector data reallocation, and, thus, the matrix data pointer will be invalid.
- * @param copyData Flag to specify whether the underlying data of the STL vector should be copied to (true) or shared with (false) the newly constructed matrix. When the data is copied, the allocated buffer is managed using Mat reference counting mechanism. While the data is shared, the reference counter is NULL, and you should not deallocate the data until the matrix is destructed.
- */
-  public constructor(vec: _Tp, copyData?: boolean)
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
  *
  * @param sizes Array of integers specifying an n-dimensional array shape.
  * @param type Array type. Use CV_8UC1, ..., CV_64FC4 to create 1-4 channel matrices, or CV_8UC(n), ..., CV_64FC(n) to create multi-channel (up to CV_CN_MAX channels) matrices.
@@ -305,11 +262,6 @@ export declare class Mat extends Mat_ {
  * @param steps Array of ndims-1 steps in case of a multi-dimensional array (the last step is always set to the element size). If not specified, the matrix is assumed to be continuous.
  */
   public constructor(sizes: any, type: number, data: any, steps?: any)
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public constructor(vec: Vec, copyData?: boolean)
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
@@ -463,149 +415,6 @@ export declare class Mat extends Mat_ {
  * @param type Desired destination array depth (or -1 if it should be the same as the source type).
  */
   public assignTo(m: Mat, type?: number): void
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- *
- * @param idx Array of Mat::dims indices.
- */
-  public at(idx: any): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- *
- * @param idx Array of Mat::dims indices.
- */
-  public at(idx: any): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public at(idx: Vec): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public at(idx: Vec): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- *
- * @param i0 Index along the dimension 0
- * @param i1 Index along the dimension 1
- * @param i2 Index along the dimension 2
- */
-  public at(i0: number, i1: number, i2: number): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- *
- * @param i0 Index along the dimension 0
- * @param i1 Index along the dimension 1
- * @param i2 Index along the dimension 2
- */
-  public at(i0: number, i1: number, i2: number): _Tp
-
-/**
- * Returns a reference to the specified array element.
- *
- * The template methods return a reference to the specified array element. For the sake of higher performance, the index range checks are only performed in the Debug configuration.
- *
- *
- * Note that the variants with a single index (i) can be used to access elements of single-row or single-column 2-dimensional arrays. That is, if, for example, A is a 1 x N floating-point matrix and B is an M x 1 integer matrix, you can simply write `A.at<float>(k+4)` and `B.at<int>(2*i+1)` instead of `A.at<float>(0,k+4)` and `B.at<int>(2*i+1,0)`, respectively.
- *
- *
- * The example below initializes a Hilbert matrix: MatH(100,100,CV_64F);
- * for(inti=0;i<H.rows;i++)
- * for(intj=0;j<H.cols;j++)
- * H.at<double>(i,j)=1./(i+j+1);
- *
- *
- * Keep in mind that the size identifier used in the at operator cannot be chosen at random. It depends on the image from which you are trying to retrieve the data. The table below gives a better insight in this:
- * - If matrix is of type `CV_8U` then use `Mat.at<uchar>(y,x)`.
- * - If matrix is of type `CV_8S` then use `Mat.at<schar>(y,x)`.
- * - If matrix is of type `CV_16U` then use `Mat.at<ushort>(y,x)`.
- * - If matrix is of type `CV_16S` then use `Mat.at<short>(y,x)`.
- * - If matrix is of type `CV_32S` then use `Mat.at<int>(y,x)`.
- * - If matrix is of type `CV_32F` then use `Mat.at<float>(y,x)`.
- * - If matrix is of type `CV_64F` then use `Mat.at<double>(y,x)`.
- *
- * @param i0 Index along the dimension 0
- */
-  public at(i0?: number): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- *
- * @param i0 Index along the dimension 0
- */
-  public at(i0?: number): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- *
- * @param row Index along the dimension 0
- * @param col Index along the dimension 1
- */
-  public at(row: number, col: number): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- *
- * @param row Index along the dimension 0
- * @param col Index along the dimension 1
- */
-  public at(row: number, col: number): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. special versions for 2D arrays (especially convenient for referencing image pixels)
- *
- * @param pt Element position specified as Point(j,i) .
- */
-  public at(pt: Point): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. special versions for 2D arrays (especially convenient for referencing image pixels)
- *
- * @param pt Element position specified as Point(j,i) .
- */
-  public at(pt: Point): _Tp
-
-/**
- * Returns the matrix iterator and sets it to the first matrix element.
- *
- * The methods return the matrix read-only or read-write iterators. The use of matrix iterators is very similar to the use of bi-directional STL iterators. In the example below, the alpha blending function is rewritten using the matrix iterators: template<typenameT>
- * voidalphaBlendRGBA(constMat&src1,constMat&src2,Mat&dst)
- * {
- * typedefVec<T,4>VT;
- *
- * constfloatalpha_scale=(float)std::numeric_limits<T>::max(),
- * inv_scale=1.f/alpha_scale;
- *
- * CV_Assert(src1.type()==src2.type()&&
- * src1.type()==traits::Type<VT>::value&&
- * src1.size()==src2.size());
- * Sizesize=src1.size();
- * dst.create(size,src1.type());
- *
- * MatConstIterator_<VT>it1=src1.begin<VT>(),it1_end=src1.end<VT>();
- * MatConstIterator_<VT>it2=src2.begin<VT>();
- * MatIterator_<VT>dst_it=dst.begin<VT>();
- *
- * for(;it1!=it1_end;++it1,++it2,++dst_it)
- * {
- * VTpix1=*it1,pix2=*it2;
- * floatalpha=pix1[3]*inv_scale,beta=pix2[3]*inv_scale;
- * *dst_it=VT(saturate_cast<T>(pix1[0]*alpha+pix2[0]*beta),
- * saturate_cast<T>(pix1[1]*alpha+pix2[1]*beta),
- * saturate_cast<T>(pix1[2]*alpha+pix2[2]*beta),
- * saturate_cast<T>((1-(1-alpha)*(1-beta))*alpha_scale));
- * }
- * }
- */
-  public begin(): MatIterator_
-
-  public begin(): MatConstIterator_
 
 /**
  * Returns the number of matrix channels.
@@ -885,15 +694,6 @@ export declare class Mat extends Mat_ {
   public empty(): boolean
 
 /**
- * Returns the matrix iterator and sets it to the after-last matrix element.
- *
- * The methods return the matrix read-only or read-write iterators, set to the point following the last matrix element.
- */
-  public end(): MatIterator_
-
-  public end(): MatConstIterator_
-
-/**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
  *
  * @param shape The new shape.
@@ -950,63 +750,6 @@ export declare class Mat extends Mat_ {
  * @param type New matrix type.
  */
   public fitSameSize(arr: InputArray, type: number): void
-
-/**
- * Runs the given functor over all matrix elements in parallel.
- *
- * The operation passed as argument has to be a function pointer, a function object or a lambda(C++11).
- *
- *
- * Example 1. All of the operations below put 0xFF the first channel of all matrix elements: Matimage(1920,1080,CV_8UC3);
- * typedefcv::Point3_<uint8_t>Pixel;
- *
- * //first.rawpointeraccess.
- * for(intr=0;r<image.rows;++r){
- * Pixel*ptr=image.ptr<Pixel>(r,0);
- * constPixel*ptr_end=ptr+image.cols;
- * for(;ptr!=ptr_end;++ptr){
- * ptr->x=255;
- * }
- * }
- *
- * //UsingMatIterator.(SimplebutthereareaIterator'soverhead)
- * for(Pixel&p:cv::Mat_<Pixel>(image)){
- * p.x=255;
- * }
- *
- * //Parallelexecutionwithfunctionobject.
- * structOperator{
- * voidoperator()(Pixel&pixel,constint*position){
- * pixel.x=255;
- * }
- * };
- * image.forEach<Pixel>(Operator());
- *
- * //ParallelexecutionusingC++11lambda.
- * image.forEach<Pixel>([](Pixel&p,constint*position)->void{
- * p.x=255;
- * });
- *  Example 2. Using the pixel's position: //Creating3Dmatrix(255x255x255)typeduint8_t
- * //andinitializeallelementsbythevaluewhichequalselementsposition.
- * //i.e.pixels(x,y,z)=(1,2,3)is(b,g,r)=(1,2,3).
- *
- * intsizes[]={255,255,255};
- * typedefcv::Point3_<uint8_t>Pixel;
- *
- * Mat_<Pixel>image=Mat::zeros(3,sizes,CV_8UC3);
- *
- * image.forEach<Pixel>([](Pixel&pixel,constintposition[])->void{
- * pixel.x=position[0];
- * pixel.y=position[1];
- * pixel.z=position[2];
- * });
- */
-  public forEach(operation: any): void
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public forEach(operation: any): void
 
 /**
  * retrieve UMat from Mat
@@ -1126,57 +869,17 @@ export declare class Mat extends Mat_ {
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
  */
-  public ptr(idx: any): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
   public ptr(idx: any): number
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
  */
-  public ptr(idx: any): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public ptr(idx: Vec): number
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public ptr(idx: Vec): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public ptr(idx: Vec): number
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public ptr(idx: Vec): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
   public ptr(i0: number, i1: number, i2: number): number
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
  */
-  public ptr(i0: number, i1: number, i2: number): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
   public ptr(i0: number, i1: number, i2: number): number
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public ptr(i0: number, i1: number, i2: number): _Tp
 
 /**
  * Returns a pointer to the specified matrix row.
@@ -1190,20 +893,10 @@ export declare class Mat extends Mat_ {
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
  */
-  public ptr(i0?: number): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
   public ptr(i0?: number): number
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
-  public ptr(i0?: number): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
  *
  * @param row Index along the dimension 0
  * @param col Index along the dimension 1
@@ -1216,32 +909,7 @@ export declare class Mat extends Mat_ {
  * @param row Index along the dimension 0
  * @param col Index along the dimension 1
  */
-  public ptr(row: number, col: number): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- *
- * @param row Index along the dimension 0
- * @param col Index along the dimension 1
- */
   public ptr(row: number, col: number): number
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- *
- * @param row Index along the dimension 0
- * @param col Index along the dimension 1
- */
-  public ptr(row: number, col: number): _Tp
-
-/**
- * Adds elements to the bottom of the matrix.
- *
- * The methods add one or more elements to the bottom of the matrix. They emulate the corresponding method of the STL vector class. When elem is Mat , its type and the number of columns must be the same as in the container matrix.
- *
- * @param elem Added element(s).
- */
-  public push_back(elem: _Tp): void
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
@@ -1251,30 +919,9 @@ export declare class Mat extends Mat_ {
   public push_back(m: Mat): void
 
 /**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- *
- * @param elem Added element(s).
- */
-  public push_back(elem: Mat_): void
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- *
- * @param elem Added element(s).
- */
-  public push_back(elem: _Tp): void
-
-/**
  * internal function
  */
   public push_back_(elem: any): void
-
-/**
- * Same as begin() but for inverse traversal.
- */
-  public rbegin(): MatIterator_
-
-  public rbegin(): MatConstIterator_
 
 /**
  * Reset the type of matrix.
@@ -1294,13 +941,6 @@ export declare class Mat extends Mat_ {
  * This method can be called manually to force the matrix data deallocation. But since this method is automatically called in the destructor, or by any other method that changes the data pointer, it is usually not needed. The reference counter decrement and check for 0 is an atomic operation on the platforms that support it. Thus, it is safe to operate on the same matrices asynchronously in different threads.
  */
   public release(): void
-
-/**
- * Same as end() but for inverse traversal.
- */
-  public rend(): MatIterator_
-
-  public rend(): MatConstIterator_
 
 /**
  * Reserves space for the certain number of rows.

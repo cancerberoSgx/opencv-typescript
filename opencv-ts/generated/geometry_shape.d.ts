@@ -3,7 +3,7 @@
 import type { InputArray, OutputArray } from '../hacks/mat';
 import type { Point2f, Rect, RotatedRect } from '../hacks/scalars';
 import type { Mat } from './Mat';
-import type { M, Moments, Shape } from './_unresolved';
+import type { M, Moments } from './_unresolved';
 
 /* @defgroup Shape analysis and fitting */
 

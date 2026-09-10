@@ -31,16 +31,27 @@ _EXPORT_NAME_RE = re.compile(
 # opencv/C++ type names are consistently TitleCase (Mat, Scalar, MatExpr, InputArray, ...),
 # same convention JS/TS built-ins and DOM types happen to share - which is exactly why this
 # stays a candidate filter, not a decision: only names present in `export_index` (i.e.
-# genuinely ours) ever get imported.
-_IDENTIFIER_RE = re.compile(r"\b[A-Z][A-Za-z0-9_]*\b")
-_JSDOC_COMMENT_RE = re.compile(r"/\*\*.*?\*/", re.DOTALL)
+# genuinely ours) ever get imported. The second alternative additionally matches namespaced
+# runtime names (`aruco_Board`, `dnn_Net`, ...) - render/identifiers.py flattens a C++
+# namespace onto the JS name as an all-lowercase prefix, so these start with a lowercase
+# letter and would otherwise never match here at all (e.g. a class `extends aruco_Board`
+# silently missing its import, since the reference is invisible to this scan). The prefix
+# is required to be all-lowercase (not just lowercase-led) specifically so this doesn't
+# also swallow an ordinary camelCase method/accessor name that merely happens to contain an
+# underscore (e.g. ORB's `getWTA_K`/`setWTA_K`, named after the `WTA_K` enum constant).
+_IDENTIFIER_RE = re.compile(r"\b[A-Z][A-Za-z0-9_]*\b|\b[a-z][a-z0-9]*_[A-Z][A-Za-z0-9_]*\b")
+# Doxygen's own group titles are rendered as a plain (single-star) fallback comment
+# (render/group.py: `/* @defgroup ... */`) when a compound has no real doc text - matched
+# here too, not just `/** ... */` jsdoc, so an incidental TitleCase word in a group title
+# ("Basic structures", "Image Filtering", ...) never gets scanned as an identifier either.
+_JSDOC_COMMENT_RE = re.compile(r"/\*.*?\*/", re.DOTALL)
 
 
 def _strip_comments(content: str) -> str:
     """Real type references only ever appear in actual code positions (signatures, type
-    aliases) - never inside a jsdoc comment's prose/code-sample text. Stripping comments
-    before scanning for identifiers keeps both import-injection and the unresolved-types
-    report free of words like "Because"/"GaussianBlur" that a docstring merely mentions."""
+    aliases) - never inside a comment's prose/code-sample text. Stripping comments before
+    scanning for identifiers keeps both import-injection and the unresolved-types report
+    free of words like "Because"/"GaussianBlur" that a docstring merely mentions."""
     return _JSDOC_COMMENT_RE.sub("", content)
 
 

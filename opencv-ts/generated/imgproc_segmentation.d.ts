@@ -2,7 +2,6 @@
 
 import type { InputArray, InputOutputArray } from '../hacks/mat';
 import type { Rect } from '../hacks/scalars';
-import type { Image, Segmentation } from './_unresolved';
 
 /* @defgroup Image Segmentation */
 

@@ -2,7 +2,7 @@
 
 import type { InputArray, InputOutputArray, OutputArray } from '../hacks/mat';
 import type { TermCriteria } from '../hacks/scalars';
-import type { Clustering, K } from './_unresolved';
+import type { K } from './_unresolved';
 
 /* @defgroup Clustering */
 

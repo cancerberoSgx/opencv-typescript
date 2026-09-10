@@ -2,7 +2,6 @@
 
 import type { OutputArray } from '../hacks/mat';
 import type { Size } from '../hacks/scalars';
-import type { Analysis, Motion, Tracking } from './_unresolved';
 
 /* @defgroup Motion Analysis and Object Tracking */
 

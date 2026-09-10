@@ -2,7 +2,6 @@
 
 import type { InputArray, OutputArray, OutputArrayOfArrays } from '../hacks/mat';
 import type { Point } from '../hacks/scalars';
-import type { Analysis, Descriptors, Shape, Structural } from './_unresolved';
 
 /* @defgroup Structural Analysis and Shape Descriptors */
 

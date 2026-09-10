@@ -80,6 +80,8 @@ Can you fix test-projects/node1 always assuming opencv.js version 5.x ?
 
 in both test-projects/node1 and react1, tsconfig.json needs to have "skipLibCheck": true, in order for they to compile. This is something we want to avoid (the opencv-ts library must compile correctly). How can we check this in the opencv-ts project itself as a test of the project itself somehow? 
 
+OK now running npm test in opencv-ts fails with several errors, how do you suggest to fix these errors in opencv-types-generator ? perhaps adding a missing hack ? 
+
 
 
 # FUTURE

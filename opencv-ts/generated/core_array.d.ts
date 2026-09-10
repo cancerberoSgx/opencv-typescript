@@ -3,7 +3,6 @@
 import type { InputArray, InputArrayOfArrays, InputOutputArray, InputOutputArrayOfArrays, OutputArray, OutputArrayOfArrays } from '../hacks/mat';
 import type { Scalar } from '../hacks/scalars';
 import type { Mat } from './Mat';
-import type { Operations } from './_unresolved';
 
 /* @defgroup Operations on arrays */
 

@@ -27,12 +27,22 @@ CPP_PRIMITIVE_TO_TS: dict[str, str] = {
 # pointer/reference qualifiers, etc.) - not valid TS, and not safe to pass through.
 _VECTOR_TYPE_RE = re.compile(r"Vector<.*>")
 
+# A bare template-parameter name (`_Tp`, `_Ty`, ...) is a valid bare identifier by
+# is_valid_id's character-class check alone, so it would otherwise pass straight through as
+# if it were a real type name. render/identifiers.py#is_templated already excludes every
+# member/function this could come from at the source, but this stays as a second, cheap
+# line of defense: this identifier shape (leading underscore + capital letter) is the
+# consistent STL/OpenCV template-parameter naming convention and is never a real emitted
+# type name here, so it's still not safe to pass through even if it somehow reaches this
+# far.
+_TEMPLATE_PARAM_RE = re.compile(r"_[A-Z]\w*")
+
 
 def render_type(t: LinkedText) -> str:
     if t is None or not t.name:
         return "any"
     name = t.name
-    if is_valid_id(name):
+    if is_valid_id(name) and not _TEMPLATE_PARAM_RE.fullmatch(name):
         return CPP_PRIMITIVE_TO_TS.get(name, name)
     if _VECTOR_TYPE_RE.fullmatch(name):
         return name

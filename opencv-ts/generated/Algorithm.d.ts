@@ -78,36 +78,4 @@ export declare class Algorithm extends EmscriptenEmbindInstance {
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
  */
   public write(fs: FileStorage, name: String): void
-
-/**
- * Loads algorithm from the file.
- *
- * This is static template method of Algorithm. It's usage is following (in the case of SVM): Ptr<SVM>svm=Algorithm::load<SVM>("my_svm_model.xml");
- *  In order to make this method work, the derived class must overwrite Algorithm::read(const
- * FileNode& fn).
- *
- * @param filename Name of the file to read.
- * @param objname The optional name of the node to read (if empty, the first top-level node will be used)
- */
-  public static load(filename: String, objname?: String): Ptr
-
-/**
- * Loads algorithm from a String.
- *
- * This is static template method of Algorithm. It's usage is following (in the case of SVM): Ptr<SVM>svm=Algorithm::loadFromString<SVM>(myStringModel);
- *
- * @param strModel The string variable containing the model you want to load.
- * @param objname The optional name of the node to read (if empty, the first top-level node will be used)
- */
-  public static loadFromString(strModel: String, objname?: String): Ptr
-
-/**
- * Reads algorithm from the file node.
- *
- * This is static template method of Algorithm. It's usage is following (in the case of SVM): cv::FileStoragefsRead("example.xml",FileStorage::READ);
- * Ptr<SVM>svm=Algorithm::read<SVM>(fsRead.root());
- *  In order to make this method work, the derived class must overwrite Algorithm::read(const
- * FileNode& fn) and also have static create() method without parameters (or with all the optional parameters)
- */
-  public static read(fn: FileNode): Ptr
 }

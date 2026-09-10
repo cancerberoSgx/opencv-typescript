@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 
-from ..doxygen_schema import CompoundDef
+from ..doxygen_schema import CompoundDef, Member
 
 _INVALID_ID_CHARS_RE = re.compile(r"[^a-zA-Z0-9_]")
 _VALID_ID_RE = re.compile(r"[A-Za-z0-9_]+")
@@ -32,6 +32,30 @@ RUNTIME_ONLY_BASES: dict[str, str] = {
 HACK_OVERRIDDEN_MEMBERS: dict[str, set[str]] = {
     "Mat": {"data", "size", "clone"},
 }
+
+# Classes whose own doxygen-documented static member(s) genuinely collide, by name, with a
+# same-named static already declared on their real base class, with an incompatible
+# signature (e.g. `BFMatcher.create(normType?, crossCheck?)` vs.
+# `DescriptorMatcher.create(matcherType)`) - legal in C++ (static member functions aren't
+# virtual/overridden there, so an unrelated same-named static in a subclass is unremarkable)
+# but rejected by TypeScript's class declaration, which checks a derived class's static
+# side against its base's (TS2417). These still need the base's *instance* members, so
+# render_compound_class gives them those via a merged `interface X extends Base {}`
+# instead of `class X extends Base` - interface extends only ever affects instance shape,
+# so it sidesteps the static-side check entirely while leaving the class's own (real,
+# doxygen-documented) static member exactly as generated.
+STATIC_SIDE_INCOMPATIBLE_SUBCLASSES: frozenset[str] = frozenset({"BFMatcher"})
+
+
+def is_templated(m: Member) -> bool:
+    """True for a member-template (e.g. `template<typename _Tp> Mat(const std::vector<_Tp>&
+    ...)`) - embind can only ever bind a concrete, non-template function pointer, so a
+    templated member is never what opencv.js's bindings.cpp actually exposes, regardless of
+    whether its own name happens to appear there (bindings.cpp matches free functions by
+    name only - see parse_bindings_cpp.py - so an unrelated non-template overload of the
+    same name can still be genuinely bound). Rendering these anyway would leak the raw,
+    unresolved template parameter name (`_Tp`) as if it were a real type."""
+    return bool(m.templateparamlist)
 
 
 def normalize_id(s: str) -> str:

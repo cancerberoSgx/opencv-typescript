@@ -4,6 +4,7 @@ import type { InputArray } from '../hacks/mat';
 import type { Vector } from '../hacks/runtime';
 import type { Size } from '../hacks/scalars';
 import type { CharucoBoard, Dictionary } from './_unresolved';
+import type { aruco_Board } from './aruco_Board';
 
 /**
  * ChArUco board is a planar chessboard where the markers are placed inside the white squares of a chessboard.

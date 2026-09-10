@@ -8,7 +8,7 @@ import type { CV_NODISCARD_STD, Ptr } from './_unresolved';
  *
  * For each descriptor in the first set, this matcher finds the closest descriptor in the second set by trying each one. This descriptor matcher supports masking permissible matches of descriptor sets.
  */
-export declare class BFMatcher extends DescriptorMatcher {
+export declare class BFMatcher {
 /**
  * Brute-force matcher constructor (obsolete). Please use BFMatcher.create()
  */
@@ -34,3 +34,5 @@ export declare class BFMatcher extends DescriptorMatcher {
  */
   public static create(normType?: number, crossCheck?: boolean): Ptr
 }
+
+export declare interface BFMatcher extends DescriptorMatcher {}

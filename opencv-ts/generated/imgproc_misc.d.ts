@@ -2,7 +2,7 @@
 
 import type { InputArray, InputOutputArray, OutputArray } from '../hacks/mat';
 import type { Point, Scalar } from '../hacks/scalars';
-import type { C, Image, Miscellaneous, Transformations } from './_unresolved';
+import type { C } from './_unresolved';
 
 /* @defgroup Miscellaneous Image Transformations */
 
