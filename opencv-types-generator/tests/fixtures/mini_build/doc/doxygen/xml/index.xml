@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.13">
+  <compound refid="d3/d63/classcv_1_1Mat" kind="class">
+    <name>cv::Mat</name>
+    <member refid="d3/d63/classcv_1_1Mat_1af1d014cecd1510cdf580bf2ed7e5aafc" kind="function"><name>Mat</name></member>
+  </compound>
+  <compound refid="group__core__array" kind="group">
+    <name>core_array</name>
+    <member refid="gafn1" kind="function"><name>absdiff</name></member>
+    <member refid="gaenum1" kind="enum"><name>NormTypes</name></member>
+    <member refid="ganorm1" kind="enumvalue"><name>NORM_L1</name></member>
+    <member refid="ganorm2" kind="enumvalue"><name>NORM_L2</name></member>
+    <member refid="gadef1" kind="define"><name>CV_8UC1</name></member>
+  </compound>
+</doxygenindex>

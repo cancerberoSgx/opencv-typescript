@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "opencv-types-generator"
+version = "0.1.0"
+description = "Generates a full, installable npm TypeScript typings package for opencv.js from OpenCV's doxygen XML docs and its opencv.js bindings.cpp"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Sebastian Gurin" }]
+dependencies = [
+    "lxml>=5.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
+
+[project.scripts]
+opencv-types-generator = "opencv_types_generator.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+opencv_types_generator = ["hacks/*.d.ts", "templates/*.tmpl"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
