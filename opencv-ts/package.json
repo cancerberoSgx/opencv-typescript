@@ -1,0 +1,21 @@
+{
+  "name": "opencv-ts",
+  "version": "5.0.0",
+  "description": "Community TypeScript type declarations for opencv.js, generated from OpenCV's doxygen XML docs and its own opencv.js bindings.cpp. See https://github.com/opencv/opencv/tree/master/modules/js",
+  "types": "index.d.ts",
+  "main": "index.d.ts",
+  "files": [
+    "index.d.ts",
+    "opencv.js.d.ts",
+    "generated/**/*.d.ts",
+    "hacks/**/*.d.ts",
+    "generation-report.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": ["typescript", "opencv", "opencv.js", "types", "typings"],
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  }
+}
