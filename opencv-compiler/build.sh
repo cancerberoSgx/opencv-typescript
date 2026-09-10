@@ -10,7 +10,7 @@
 #
 # Config (env vars, or a .env file next to this script - see .env.example):
 #   OPENCV_REPO             git repo to clone            (default: https://github.com/opencv/opencv.git)
-#   OPENCV_REF              branch/tag/commit to build    (default: 4.x)
+#   OPENCV_REF              branch/tag/commit to build    (default: 5.x)
 #   OUTPUT_DIR               host dir the opencv checkout/build lands in (default: ./output/opencv)
 #   FORCE_REBUILD_OPENCVJS  1 = recompile opencv.js even if cached (default: 0)
 #   FORCE_REBUILD_DOCS      1 = rebuild the doxygen XML docs even if cached (default: 0)
@@ -36,7 +36,7 @@ if [ -f .env ]; then
 fi
 
 : "${OPENCV_REPO:=https://github.com/opencv/opencv.git}"
-: "${OPENCV_REF:=4.x}"
+: "${OPENCV_REF:=5.x}"
 : "${OUTPUT_DIR:=$SCRIPT_DIR/output/opencv}"
 : "${FORCE_REBUILD_OPENCVJS:=0}"
 : "${FORCE_REBUILD_DOCS:=0}"

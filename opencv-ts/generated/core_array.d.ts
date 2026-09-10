@@ -484,7 +484,7 @@ export declare function exp(src: InputArray, dst: OutputArray): void
 /**
  * Flips a 2D array around vertical, horizontal, or both axes.
  *
- * The function cv::flip flips the array in one of three different ways (row and column indices are 0-based):         The example scenarios of using the function are the following: Vertical flipping of the image (flipCode == 0) to switch between top-left and bottom-left image origin. This is a typical operation in video processing on Microsoft Windows* OS. Horizontal flipping of the image with the subsequent horizontal shift and absolute difference calculation to check for a vertical-axis symmetry (flipCode > 0). Simultaneous horizontal and vertical flipping of the image with the subsequent shift and absolute difference calculation to check for a central symmetry (flipCode < 0). Reversing the order of point arrays (flipCode > 0 or flipCode == 0).
+ * The function cv::flip flips the array in one of three different ways (row and column indices are 0-based):   The example scenarios of using the function are the following: Vertical flipping of the image (flipCode == 0) to switch between top-left and bottom-left image origin. This is a typical operation in video processing on Microsoft Windows* OS. Horizontal flipping of the image with the subsequent horizontal shift and absolute difference calculation to check for a vertical-axis symmetry (flipCode > 0). Simultaneous horizontal and vertical flipping of the image with the subsequent shift and absolute difference calculation to check for a central symmetry (flipCode < 0). Reversing the order of point arrays (flipCode > 0 or flipCode == 0).
  * @see transpose, repeat, completeSymm
  *
  * @param src input array.
@@ -939,7 +939,7 @@ export declare function norm(src1: InputArray, src2: InputArray, normType?: numb
  * This version of norm calculates the absolute norm of src1. The type of norm to calculate is specified using NormTypes.
  *
  *
- * As example for one array consider the function . The  and  norm for the sample value  is calculated as follows      and for  the calculation is      The following graphic shows all values for the three norm functions  and . It is notable that the  norm forms the upper and the  norm forms the lower border for the example function .
+ * As example for one array consider the function . The  and  norm for the sample value  is calculated as follows   and for  the calculation is   The following graphic shows all values for the three norm functions  and . It is notable that the  norm forms the upper and the  norm forms the lower border for the example function .
  *
  *
  * When the mask parameter is specified and it is not empty, the norm is

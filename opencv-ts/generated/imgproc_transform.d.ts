@@ -11,14 +11,14 @@ import type { AlgorithmHint, M, R } from './_unresolved';
  *
  *
  *
- * In case when you specify the forward mapping  , the OpenCV functions first compute the corresponding inverse mapping  and then use the above formula.
+ * In case when you specify the forward mapping , the OpenCV functions first compute the corresponding inverse mapping  and then use the above formula.
  *
  *
  * The actual implementations of the geometrical transformations, from the most generic remap and to the simplest and the fastest resize, need to solve two main problems with the above formula:
  *
  *
  * - Extrapolation of non-existing pixels. Similarly to the filtering functions described in the previous section, for some , either one of , or , or both of them may fall outside of the image. In this case, an extrapolation method needs to be used. OpenCV provides the same selection of extrapolation methods as in the filtering functions. In addition, it provides the method BORDER_TRANSPARENT. This means that the corresponding pixels in the destination image will not be modified at all.
- * - Interpolation of pixel values. Usually  and  are floating-point numbers. This means that  can be either an affine or perspective transformation, or radial lens distortion correction, and so on. So, a pixel value at fractional coordinates needs to be retrieved. In the simplest case, the coordinates can be just rounded to the nearest integer coordinates and the corresponding pixel can be used. This is called a nearest-neighbor interpolation. However, a better result can be achieved by using more sophisticated interpolation methods (https://en.wikipedia.org/wiki/Multivariate_interpolation) , where a polynomial function is fit into some neighborhood of the computed pixel  , and then the value of the polynomial at  is taken as the interpolated pixel value. In OpenCV, you can choose between several interpolation methods. See resize for details.
+ * - Interpolation of pixel values. Usually  and  are floating-point numbers. This means that  can be either an affine or perspective transformation, or radial lens distortion correction, and so on. So, a pixel value at fractional coordinates needs to be retrieved. In the simplest case, the coordinates can be just rounded to the nearest integer coordinates and the corresponding pixel can be used. This is called a nearest-neighbor interpolation. However, a better result can be achieved by using more sophisticated interpolation methods (https://en.wikipedia.org/wiki/Multivariate_interpolation) , where a polynomial function is fit into some neighborhood of the computed pixel , and then the value of the polynomial at  is taken as the interpolated pixel value. In OpenCV, you can choose between several interpolation methods. See resize for details.
  *
  *
  * @note The geometrical transformations do not work with `CV_8S` or `CV_32S` images.
@@ -77,7 +77,7 @@ export declare function getRectSubPix(image: InputArray, patchSize: Size, center
  * Also, this new camera is oriented differently in the coordinate space, according to R. That, for example, helps to align two heads of a stereo camera so that the epipolar lines on both images become horizontal and have the same y- coordinate (in case of a horizontally aligned stereo camera).
  *
  *
- * The function actually builds the maps for the inverse mapping algorithm that is used by remap. That is, for each pixel  in the destination (corrected and rectified) image, the function computes the corresponding coordinates in the source image (that is, in the original image from camera). The following process is applied:                     where  are the distortion coefficients.
+ * The function actually builds the maps for the inverse mapping algorithm that is used by remap. That is, for each pixel  in the destination (corrected and rectified) image, the function computes the corresponding coordinates in the source image (that is, in the original image from camera). The following process is applied:   where  are the distortion coefficients.
  *
  *
  * In case of a stereo camera, this function is called twice: once for each camera head, after stereoRectify, which in its turn is called after stereoCalibrate. But if the stereo camera was not calibrated, it is still possible to compute the rectification transformations directly from the fundamental matrix using stereoRectifyUncalibrated. For each camera, the function computes homography H as the rectification transformation in a pixel domain, not a rotation matrix R in 3D space. R can be computed from H as  where cameraMatrix can be chosen arbitrarily.
@@ -163,7 +163,7 @@ export declare function resize(src: InputArray, dst: OutputArray, dsize: Size, f
  * A particular subset of the source image that will be visible in the corrected image can be regulated by newCameraMatrix. You can use getOptimalNewCameraMatrix to compute the appropriate newCameraMatrix depending on your requirements.
  *
  *
- * The camera matrix and the distortion parameters can be determined using calibrateCamera. If the resolution of images is different from the resolution used at the calibration stage,   and  need to be scaled accordingly, while the distortion coefficients remain the same.
+ * The camera matrix and the distortion parameters can be determined using calibrateCamera. If the resolution of images is different from the resolution used at the calibration stage,  and  need to be scaled accordingly, while the distortion coefficients remain the same.
  *
  * @param src Input (distorted) image.
  * @param dst Output (corrected) image that has the same size and type as src .

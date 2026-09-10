@@ -19,7 +19,7 @@ git config --global --add safe.directory '*'
 
 : "${OPENCV_DIR:=/work/opencv}"
 : "${OPENCV_REPO:=https://github.com/opencv/opencv.git}"
-: "${OPENCV_REF:=4.x}"
+: "${OPENCV_REF:=5.x}"
 : "${FORCE_REBUILD_OPENCVJS:=0}"
 : "${FORCE_REBUILD_DOCS:=0}"
 : "${BUILD_JOBS:=0}"

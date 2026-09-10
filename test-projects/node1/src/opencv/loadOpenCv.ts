@@ -17,7 +17,7 @@ import { pathToFileURL } from "node:url";
 // static import, both because its path is configurable (see `OPENCV_JS_PATH` below) and
 // because - being a large, non-package build artifact outside this project - it has no
 // specifier `tsc`/Node's resolver could statically resolve.
-const DEFAULT_OPENCV_JS_PATH = "/home/sg/git/opencv/build_js/bin/opencv.js";
+const DEFAULT_OPENCV_JS_PATH = "../../opencv-compiler/output/opencv/build_js/bin/opencv.js";
 
 let openCvPromise: Promise<CV> | undefined;
 

@@ -21,7 +21,7 @@ import type { Detection, Feature, L2gradient } from './_unresolved';
 export declare function Canny(dx: InputArray, dy: InputArray, edges: OutputArray, threshold1: number, threshold2: number, L2gradient?: boolean): void
 
 /**
- * Finds edges in an image using the Canny algorithm [25] .
+ * Finds edges in an image using the Canny algorithm Canny86 .
  *
  * The function finds edges in the input image and marks them in the output map edges using the Canny algorithm. The smallest value between threshold1 and threshold2 is used for edge linking. The largest value is used to find initial segments of strong edges. See https://en.wikipedia.org/wiki/Canny_edge_detector (https://en.wikipedia.org/wiki/Canny_edge_detector)
  *
@@ -148,7 +148,7 @@ export declare function HoughLines(image: InputArray, lines: OutputArray, rho: n
 /**
  * Finds line segments in a binary image using the probabilistic Hough transform.
  *
- * The function implements the probabilistic Hough transform algorithm for line detection, described in [86]
+ * The function implements the probabilistic Hough transform algorithm for line detection, described in Matas00
  *
  *
  * See the line detection example below: #include<opencv2/imgproc.hpp>
@@ -247,7 +247,7 @@ export declare const HOUGH_PROBABILISTIC: number
 export declare const HOUGH_MULTI_SCALE: number
 
 /**
- * basically *21HT*, described in [139]
+ * basically *21HT*, described in Yuen90
  */
 export declare const HOUGH_GRADIENT: number
 

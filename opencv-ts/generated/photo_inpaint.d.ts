@@ -29,6 +29,6 @@ export declare function inpaint(src: InputArray, inpaintMask: InputArray, dst: O
 export declare const INPAINT_NS: number
 
 /**
- * Use the algorithm proposed by Alexandru Telea [122].
+ * Use the algorithm proposed by Alexandru Telea Telea04.
  */
 export declare const INPAINT_TELEA: number

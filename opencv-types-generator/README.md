@@ -27,18 +27,25 @@ and `platforms/js/build_js.py` for building opencv.js; enable `BUILD_DOCS=ON` +
 ```sh
 cd opencv-types-generator
 pip install -e .
+opencv-types-generator
+```
+
+All arguments are optional and default to the values below (matching the layout produced by
+`opencv-compiler`), so the bare command above is equivalent to:
+
+```sh
 opencv-types-generator \
-  --opencv-build-dir ../opencv-compiler/output/opencv/build_js/build_js \
-  --opencv-doc-build-dir ../opencv-compiler/output/opencv/build_js \
+  --opencv-build-dir ../opencv-compiler/output/opencv/build_js \
+  --opencv-doc-build-dir ../opencv-compiler/output/opencv/build \
   --out-dir ../opencv-ts \
   --package-name opencv-ts \
   --package-version 5.0.0 \
   --jobs 8
 ```
 
-`--opencv-doc-build-dir` defaults to `--opencv-build-dir` if your build produces both the
-wasm build and the docs in the same directory. The result in `--out-dir` is a complete npm
-project - `cd` into it, `npm install`, `npm install typescript --save-dev`, and
+Pass `--opencv-doc-build-dir` explicitly if your build produces the wasm build and docs in
+different directories. The result in `--out-dir` is a complete npm project - `cd` into it,
+`npm install`, `npm install typescript --save-dev`, and
 `npx tsc -p smoke-test/tsconfig.json` to type-check the bundled smoke test.
 
 ## Architecture

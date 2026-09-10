@@ -200,7 +200,7 @@ export declare const HISTCMP_BHATTACHARYYA: number
 export declare const HISTCMP_HELLINGER: number
 
 /**
- * Alternative Chi-Square  This alternative formula is regularly used for texture comparison. See e.g. [100]
+ * Alternative Chi-Square  This alternative formula is regularly used for texture comparison. See e.g. Puzicha1997
  */
 export declare const HISTCMP_CHISQR_ALT: number
 

@@ -6,9 +6,9 @@ import type { Vector } from '../hacks/runtime';
 export declare class GraphicalCodeDetector {
   public constructor()
 
-  public constructor(arg0: any)
+  public constructor(arg0: GraphicalCodeDetector)
 
-  public constructor(arg0: any)
+  public constructor(arg0: GraphicalCodeDetector)
 
 /**
  * Decodes graphical code in image once it's found by the detect() method.

@@ -174,7 +174,7 @@ export declare class Mat extends Mat_ {
  *
  * @param m Array that (as a whole or partly) is assigned to the constructed matrix. No data is copied by these constructors. Instead, the header pointing to m data or its sub-array is constructed and associated with it. The reference counter, if any, is incremented. So, when you modify the matrix formed using such a constructor, you also modify the corresponding elements of m . If you want to have an independent copy of the sub-array, use Mat::clone() .
  */
-  public constructor(m: any)
+  public constructor(m: Mat)
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
@@ -183,7 +183,7 @@ export declare class Mat extends Mat_ {
  * @param rowRange Range of the m rows to take. As usual, the range start is inclusive and the range end is exclusive. Use Range::all() to take all the rows.
  * @param colRange Range of the m columns to take. Use Range::all() to take all the columns.
  */
-  public constructor(m: any, rowRange: Range, colRange?: Range)
+  public constructor(m: Mat, rowRange: Range, colRange?: Range)
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
@@ -191,7 +191,7 @@ export declare class Mat extends Mat_ {
  * @param m Array that (as a whole or partly) is assigned to the constructed matrix. No data is copied by these constructors. Instead, the header pointing to m data or its sub-array is constructed and associated with it. The reference counter, if any, is incremented. So, when you modify the matrix formed using such a constructor, you also modify the corresponding elements of m . If you want to have an independent copy of the sub-array, use Mat::clone() .
  * @param ranges Array of selected ranges of m along each dimensionality.
  */
-  public constructor(m: any, ranges: Range)
+  public constructor(m: Mat, ranges: Range)
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
@@ -199,7 +199,7 @@ export declare class Mat extends Mat_ {
  * @param m Array that (as a whole or partly) is assigned to the constructed matrix. No data is copied by these constructors. Instead, the header pointing to m data or its sub-array is constructed and associated with it. The reference counter, if any, is incremented. So, when you modify the matrix formed using such a constructor, you also modify the corresponding elements of m . If you want to have an independent copy of the sub-array, use Mat::clone() .
  * @param roi Region of interest.
  */
-  public constructor(m: any, roi: Rect)
+  public constructor(m: Mat, roi: Rect)
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
@@ -207,7 +207,7 @@ export declare class Mat extends Mat_ {
  * @param m Array that (as a whole or partly) is assigned to the constructed matrix. No data is copied by these constructors. Instead, the header pointing to m data or its sub-array is constructed and associated with it. The reference counter, if any, is incremented. So, when you modify the matrix formed using such a constructor, you also modify the corresponding elements of m . If you want to have an independent copy of the sub-array, use Mat::clone() .
  * @param ranges Array of selected ranges of m along each dimensionality.
  */
-  public constructor(m: any, ranges: Range)
+  public constructor(m: Mat, ranges: Range)
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
@@ -371,7 +371,7 @@ export declare class Mat extends Mat_ {
  */
   public constructor(rows: number, cols: number, type: number, data: any, step?: number)
 
-  public constructor(m: any)
+  public constructor(m: Mat)
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
@@ -1121,11 +1121,6 @@ export declare class Mat extends Mat_ {
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
  */
-  public ptr(idx: any): _Tp
-
-/**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- */
   public ptr(idx: any): number
 
 /**
@@ -1141,7 +1136,7 @@ export declare class Mat extends Mat_ {
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
  */
-  public ptr(idx: Vec): _Tp
+  public ptr(idx: any): _Tp
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
@@ -1161,7 +1156,7 @@ export declare class Mat extends Mat_ {
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
  */
-  public ptr(i0: number, i1: number, i2: number): _Tp
+  public ptr(idx: Vec): _Tp
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
@@ -1181,7 +1176,7 @@ export declare class Mat extends Mat_ {
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
  */
-  public ptr(i0?: number): _Tp
+  public ptr(i0: number, i1: number, i2: number): _Tp
 
 /**
  * Returns a pointer to the specified matrix row.
@@ -1204,11 +1199,8 @@ export declare class Mat extends Mat_ {
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- *
- * @param row Index along the dimension 0
- * @param col Index along the dimension 1
  */
-  public ptr(row: number, col: number): _Tp
+  public ptr(i0?: number): _Tp
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
@@ -1233,6 +1225,14 @@ export declare class Mat extends Mat_ {
  * @param col Index along the dimension 1
  */
   public ptr(row: number, col: number): number
+
+/**
+ * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
+ *
+ * @param row Index along the dimension 0
+ * @param col Index along the dimension 1
+ */
+  public ptr(row: number, col: number): _Tp
 
 /**
  * Adds elements to the bottom of the matrix.
@@ -1611,12 +1611,6 @@ export declare class Mat extends Mat_ {
   public static zeros(size: Size, type: number): CV_NODISCARD_STD
 }
 
-export declare const Mat_MAGIC_MASK: number
-
-export declare const Mat_TYPE_MASK: number
-
-export declare const Mat_DEPTH_MASK: number
-
 export declare const Mat_MAGIC_VAL: number
 
 export declare const Mat_AUTO_STEP: number
@@ -1624,3 +1618,9 @@ export declare const Mat_AUTO_STEP: number
 export declare const Mat_CONTINUOUS_FLAG: number
 
 export declare const Mat_SUBMATRIX_FLAG: number
+
+export declare const Mat_MAGIC_MASK: number
+
+export declare const Mat_TYPE_MASK: number
+
+export declare const Mat_DEPTH_MASK: number

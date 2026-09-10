@@ -65,6 +65,11 @@ export declare class Algorithm extends EmscriptenEmbindInstance {
   public save(filename: String): void
 
 /**
+ * Deprecated
+ */
+  public write(fs: Ptr, name?: String): void
+
+/**
  * Stores algorithm parameters in a file storage.
  */
   public write(fs: FileStorage): void

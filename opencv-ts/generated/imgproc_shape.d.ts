@@ -9,7 +9,7 @@ import type { Analysis, Descriptors, Shape, Structural } from './_unresolved';
 /**
  * computes the connected components labeled image of boolean image
  *
- * image with 4 or 8 way connectivity - returns N, the total number of labels [0, N-1] where 0 represents the background label. ltype specifies the output label image type, an important consideration based on the total number of labels or alternatively the total number of pixels in the source image. ccltype specifies the connected components labeling algorithm to use, currently Bolelli (Spaghetti) [15], Grana (BBDT) [54] and Wu's (SAUF) [134] algorithms are supported, see the ConnectedComponentsAlgorithmsTypes for details. Note that SAUF algorithm forces a row major ordering of labels while Spaghetti and BBDT do not. This function uses parallel version of the algorithms if at least one allowed parallel framework is enabled and if the rows of the image are at least twice the number returned by getNumberOfCPUs.
+ * image with 4 or 8 way connectivity - returns N, the total number of labels [0, N-1] where 0 represents the background label. ltype specifies the output label image type, an important consideration based on the total number of labels or alternatively the total number of pixels in the source image. ccltype specifies the connected components labeling algorithm to use, currently Bolelli (Spaghetti) Bolelli2019, Grana (BBDT) Grana2010 and Wu's (SAUF) Wu2009 algorithms are supported, see the ConnectedComponentsAlgorithmsTypes for details. Note that SAUF algorithm forces a row major ordering of labels while Spaghetti and BBDT do not. This function uses parallel version of the algorithms if at least one allowed parallel framework is enabled and if the rows of the image are at least twice the number returned by getNumberOfCPUs.
  *
  * @param image the 8-bit single-channel image to be labeled
  * @param labels destination labeled image
@@ -32,7 +32,7 @@ export declare function connectedComponents(image: InputArray, labels: OutputArr
 /**
  * computes the connected components labeled image of boolean image and also produces a statistics output for each label
  *
- * image with 4 or 8 way connectivity - returns N, the total number of labels [0, N-1] where 0 represents the background label. ltype specifies the output label image type, an important consideration based on the total number of labels or alternatively the total number of pixels in the source image. ccltype specifies the connected components labeling algorithm to use, currently Bolelli (Spaghetti) [15], Grana (BBDT) [54] and Wu's (SAUF) [134] algorithms are supported, see the ConnectedComponentsAlgorithmsTypes for details. Note that SAUF algorithm forces a row major ordering of labels while Spaghetti and BBDT do not. This function uses parallel version of the algorithms (statistics included) if at least one allowed parallel framework is enabled and if the rows of the image are at least twice the number returned by getNumberOfCPUs.
+ * image with 4 or 8 way connectivity - returns N, the total number of labels [0, N-1] where 0 represents the background label. ltype specifies the output label image type, an important consideration based on the total number of labels or alternatively the total number of pixels in the source image. ccltype specifies the connected components labeling algorithm to use, currently Bolelli (Spaghetti) Bolelli2019, Grana (BBDT) Grana2010 and Wu's (SAUF) Wu2009 algorithms are supported, see the ConnectedComponentsAlgorithmsTypes for details. Note that SAUF algorithm forces a row major ordering of labels while Spaghetti and BBDT do not. This function uses parallel version of the algorithms (statistics included) if at least one allowed parallel framework is enabled and if the rows of the image are at least twice the number returned by getNumberOfCPUs.
  *
  * @param image the 8-bit single-channel image to be labeled
  * @param labels destination labeled image
@@ -67,7 +67,7 @@ export declare function findContours(image: InputArray, contours: OutputArrayOfA
  * The function retrieves contours from the binary image. The contours are a useful tool for shape analysis and object detection and recognition. See squares.cpp in the OpenCV sample directory.
  *
  *
- * @note Since OpenCV 4.14, when mode is RETR_LIST and no hierarchy is requested, this function automatically uses the TRUCO parallel algorithm [91], a scalable lock-free method for contour extraction. In all other cases, the sequential [118] algorithm is used.
+ * @note Since OpenCV 4.14, when mode is RETR_LIST and no hierarchy is requested, this function automatically uses the TRUCO parallel algorithm TRUCO2026, a scalable lock-free method for contour extraction. In all other cases, the sequential Suzuki85 algorithm is used.
  *
  * @note Since opencv 3.2 source image is not modified by this function.
  *
@@ -100,22 +100,22 @@ export declare function findContoursLinkRuns(image: InputArray, contours: Output
 export declare function findContoursLinkRuns(image: InputArray, contours: OutputArrayOfArrays, hierarchy: OutputArray): void
 
 /**
- * Spaghetti [15] algorithm for 8-way connectivity, Spaghetti4C [16] algorithm for 4-way connectivity.
+ * Spaghetti Bolelli2019 algorithm for 8-way connectivity, Spaghetti4C Bolelli2021 algorithm for 4-way connectivity.
  */
 export declare const CCL_DEFAULT: number
 
 /**
- * SAUF [134] algorithm for 8-way connectivity, SAUF algorithm for 4-way connectivity. The parallel implementation described in [14] is available for SAUF.
+ * SAUF Wu2009 algorithm for 8-way connectivity, SAUF algorithm for 4-way connectivity. The parallel implementation described in Bolelli2017 is available for SAUF.
  */
 export declare const CCL_WU: number
 
 /**
- * BBDT [54] algorithm for 8-way connectivity, SAUF algorithm for 4-way connectivity. The parallel implementation described in [14] is available for both BBDT and SAUF.
+ * BBDT Grana2010 algorithm for 8-way connectivity, SAUF algorithm for 4-way connectivity. The parallel implementation described in Bolelli2017 is available for both BBDT and SAUF.
  */
 export declare const CCL_GRANA: number
 
 /**
- * Spaghetti [15] algorithm for 8-way connectivity, Spaghetti4C [16] algorithm for 4-way connectivity. The parallel implementation described in [14] is available for both Spaghetti and Spaghetti4C.
+ * Spaghetti Bolelli2019 algorithm for 8-way connectivity, Spaghetti4C Bolelli2021 algorithm for 4-way connectivity. The parallel implementation described in Bolelli2017 is available for both Spaghetti and Spaghetti4C.
  */
 export declare const CCL_BOLELLI: number
 
@@ -175,12 +175,12 @@ export declare const CHAIN_APPROX_NONE: number
 export declare const CHAIN_APPROX_SIMPLE: number
 
 /**
- * applies one of the flavors of the Teh-Chin chain approximation algorithm [121]
+ * applies one of the flavors of the Teh-Chin chain approximation algorithm TehChin89
  */
 export declare const CHAIN_APPROX_TC89_L1: number
 
 /**
- * applies one of the flavors of the Teh-Chin chain approximation algorithm [121]
+ * applies one of the flavors of the Teh-Chin chain approximation algorithm TehChin89
  */
 export declare const CHAIN_APPROX_TC89_KCOS: number
 

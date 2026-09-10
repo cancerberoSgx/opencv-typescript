@@ -18,7 +18,8 @@ import type { AlgorithmHint } from './_unresolved';
  *
  *
  *
- * Depth combinationsInput depth (src.depth())
+ * Depth combinations
+ * Input depth (src.depth())
  *
  *
  * Output depth (ddepth)
@@ -272,7 +273,7 @@ export declare function Laplacian(src: InputArray, dst: OutputArray, ddepth: num
 /**
  * Blurs an image using the median filter.
  *
- * The function smoothes an image using the median filter with the   aperture. Each channel of a multi-channel image is processed independently. In-place operation is supported.
+ * The function smoothes an image using the median filter with the  aperture. Each channel of a multi-channel image is processed independently. In-place operation is supported.
  *
  *
  * @note The median filter uses BORDER_REPLICATE internally to cope with border pixels, see BorderTypes

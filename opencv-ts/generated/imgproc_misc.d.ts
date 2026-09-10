@@ -57,10 +57,10 @@ export declare function distanceTransform(src: InputArray, dst: OutputArray, dis
  * The function cv::distanceTransform calculates the approximate or precise distance from every binary image pixel to the nearest zero pixel. For zero image pixels, the distance will obviously be zero.
  *
  *
- * When maskSize == DIST_MASK_PRECISE and distanceType == DIST_L2 , the function runs the algorithm described in [44] . This algorithm is parallelized with the TBB library.
+ * When maskSize == DIST_MASK_PRECISE and distanceType == DIST_L2 , the function runs the algorithm described in Felzenszwalb04 . This algorithm is parallelized with the TBB library.
  *
  *
- * In other cases, the algorithm [17] is used. This means that for a pixel the function finds the shortest path to the nearest zero pixel consisting of basic shifts: horizontal, vertical, diagonal, or knight's move (the latest is available for a  mask). The overall distance is calculated as a sum of these basic distances. Since the distance function should be symmetric, all of the horizontal and vertical shifts must have the same cost (denoted as a ), all the diagonal shifts must have the same cost (denoted as `b`), and all knight's moves must have the same cost (denoted as `c`). For the DIST_C and DIST_L1 types, the distance is calculated precisely, whereas for DIST_L2 (Euclidean distance) the distance can be calculated only with a relative error (a  mask gives more accurate results). For `a`,`b`, and `c`, OpenCV uses the values suggested in the original paper:
+ * In other cases, the algorithm Borgefors86 is used. This means that for a pixel the function finds the shortest path to the nearest zero pixel consisting of basic shifts: horizontal, vertical, diagonal, or knight's move (the latest is available for a  mask). The overall distance is calculated as a sum of these basic distances. Since the distance function should be symmetric, all of the horizontal and vertical shifts must have the same cost (denoted as a ), all the diagonal shifts must have the same cost (denoted as `b`), and all knight's moves must have the same cost (denoted as `c`). For the DIST_C and DIST_L1 types, the distance is calculated precisely, whereas for DIST_L2 (Euclidean distance) the distance can be calculated only with a relative error (a  mask gives more accurate results). For `a`,`b`, and `c`, OpenCV uses the values suggested in the original paper:
  * - DIST_L1: `a = 1, b = 2`
  * - DIST_L2:
  * - `3 x 3`: `a=0.955, b=1.3693`
@@ -80,7 +80,7 @@ export declare function distanceTransform(src: InputArray, dst: OutputArray, dis
  * @param dst Output image with calculated distances. It is a 8-bit or 32-bit floating-point, single-channel image of the same size as src.
  * @param labels Output 2D array of labels (the discrete Voronoi diagram). It has the type CV_32SC1 and the same size as src.
  * @param distanceType Type of distance, see DistanceTypes
- * @param maskSize Size of the distance transform mask, see DistanceTransformMasks. DIST_MASK_PRECISE is not supported by this variant. In case of the DIST_L1 or DIST_C distance type, the parameter is forced to 3 because a  mask gives the same result as   or any larger aperture.
+ * @param maskSize Size of the distance transform mask, see DistanceTransformMasks. DIST_MASK_PRECISE is not supported by this variant. In case of the DIST_L1 or DIST_C distance type, the parameter is forced to 3 because a  mask gives the same result as  or any larger aperture.
  * @param labelType Type of the label array to build, see DistanceTransformLabelTypes.
  */
 export declare function distanceTransform(src: InputArray, dst: OutputArray, labels: OutputArray, distanceType: number, maskSize: number, labelType?: number): void
@@ -198,7 +198,7 @@ export declare function integral(src: InputArray, sum: OutputArray, sqsum: Outpu
 export declare function threshold(src: InputArray, dst: OutputArray, thresh: number, maxval: number, type: number): number
 
 /**
- * the threshold value  is a mean of the   neighborhood of  minus C
+ * the threshold value  is a mean of the  neighborhood of  minus C
  */
 export declare const ADAPTIVE_THRESH_MEAN_C: number
 

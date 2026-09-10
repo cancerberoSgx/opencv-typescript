@@ -53,19 +53,37 @@ CMake Error at modules/js/CMakeLists.txt:83 (message):
 
 Can you make sure you use latest versions of cxx and emscripten
 
-# TODO
 
- * opencv-ts version must be the same as opencv's
- * research more opencv.js build parameters for enable more features we want to type.
+# generator args
+in opencv-types-generator command, make all arguments optional and by default with the following values:
 
-# useful commands
-
-cd opencv-types-generator
-pip install -e .
 opencv-types-generator \
-  --opencv-build-dir /home/sg/git/opencv/build_js \
-  --opencv-doc-build-dir /home/sg/git/opencv/build \
+  --opencv-build-dir ../opencv-compiler/output/opencv/build_js \
+  --opencv-doc-build-dir ../opencv-compiler/output/opencv/build \
   --out-dir ../opencv-ts \
   --package-name opencv-ts \
   --package-version 5.0.0 \
   --jobs 8
+
+
+# issues
+I just generated the types again from opencv 5.x branch (see opencv-types-generator) and regenerate all the opencv-ts project again from that build. However, test-projects/node1 compiles fine but when run the command fails like this:
+
+OPENCV_JS_PATH=../../opencv-compiler/output/opencv/build_js/bin/opencv.js node dist/cli.js --inputImage $HOME/Documentos/request-access.png --outputImage $HOME/Documentos/request-access3.png --transformation grayscale
+Type is unsupported
+
+This is probably because previous changes (current changes) in project because I tried incorrectly with opencv 4.x and fixed the project
+
+Can you fix test-projects/node1 always assuming opencv.js version 5.x ? 
+
+# skiplibcheck
+
+    
+in both test-projects, tsconfig.json needs to have "skipLibCheck": true, in order for they to compile. This is something we want to avoid (the opencv-ts library must compile correctly). How can we check this in the opencv-ts project itself
+
+
+
+# TODO
+
+ * opencv-ts version must be the same as opencv's
+ * research more opencv.js build parameters for enable more features we want to type.

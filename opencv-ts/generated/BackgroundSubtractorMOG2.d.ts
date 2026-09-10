@@ -6,7 +6,7 @@ import type { BackgroundSubtractor } from './BackgroundSubtractor';
 /**
  * Gaussian Mixture-based Background/Foreground Segmentation Algorithm.
  *
- * The class implements the Gaussian mixture model background subtraction described in [143] and [142] .
+ * The class implements the Gaussian mixture model background subtraction described in Zivkovic2004 and Zivkovic2006 .
  */
 export declare class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
 /**

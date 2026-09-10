@@ -20,18 +20,25 @@ def build_arg_parser() -> argparse.ArgumentParser:
     )
     p.add_argument(
         "--opencv-build-dir",
-        required=True,
-        help="Path to the opencv.js build dir (contains modules/js_bindings_generator/gen/bindings.cpp)",
+        default="../opencv-compiler/output/opencv/build_js",
+        help=(
+            "Path to the opencv.js build dir (contains modules/js_bindings_generator/gen/bindings.cpp) "
+            "(default: ../opencv-compiler/output/opencv/build_js)"
+        ),
     )
     p.add_argument(
         "--opencv-doc-build-dir",
-        default=None,
-        help="Path to the dir containing doc/doxygen/xml (defaults to --opencv-build-dir)",
+        default="../opencv-compiler/output/opencv/build",
+        help="Path to the dir containing doc/doxygen/xml (default: ../opencv-compiler/output/opencv/build)",
     )
-    p.add_argument("--out-dir", required=True, help="Output folder for the generated npm project")
+    p.add_argument(
+        "--out-dir",
+        default="../opencv-ts",
+        help="Output folder for the generated npm project (default: ../opencv-ts)",
+    )
     p.add_argument("--package-name", default="opencv-ts", help="npm package name (default: opencv-ts)")
-    p.add_argument("--package-version", default="0.0.0", help="npm package version (default: 0.0.0)")
-    p.add_argument("--jobs", type=int, default=0, help="Parallel worker processes (default: os.cpu_count())")
+    p.add_argument("--package-version", default="5.0.0", help="npm package version (default: 5.0.0)")
+    p.add_argument("--jobs", type=int, default=8, help="Parallel worker processes (default: 8)")
     p.add_argument("--debug", action="store_true", help="Verbose logging, incl. unmatched bindings")
     return p
 

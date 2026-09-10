@@ -11,13 +11,13 @@ import type { Dictionary, PredefinedDictionaryType } from './_unresolved';
  * The main functionality of ArucoDetector class is detection of markers in an image. If the markers are grouped as a board, then you can try to recover the missing markers with ArucoDetector::refineDetectedMarkers(). ArUco markers can also be used for advanced chessboard corner finding. To do this, group the markers in the CharucoBoard and find the corners of the chessboard with the CharucoDetector::detectBoard().
  *
  *
- * The implementation is based on the ArUco Library by R. Muñoz-Salinas and S. Garrido-Jurado [51].
+ * The implementation is based on the ArUco Library by R. Muñoz-Salinas and S. Garrido-Jurado Aruco2014.
  *
  *
- * Markers can also be detected based on the AprilTag 2 [131] fiducial marker detection method.
+ * Markers can also be detected based on the AprilTag 2 wang2016iros fiducial marker detection method.
  *
  *
- * @see [51] This code has been originally developed by Sergio Garrido-Jurado as a project for Google Summer of Code 2015 (GSoC 15).
+ * @see Aruco2014 This code has been originally developed by Sergio Garrido-Jurado as a project for Google Summer of Code 2015 (GSoC 15).
  *
  *
  * @warning In OpenCV, the order of the returned corners locations for the AprilTag family is not aligned with the ArUco one.
@@ -156,7 +156,7 @@ export declare const CORNER_REFINE_SUBPIX: number
 export declare const CORNER_REFINE_CONTOUR: number
 
 /**
- * Tag and corners detection based on the AprilTag 2 approach [131].
+ * Tag and corners detection based on the AprilTag 2 approach wang2016iros.
  */
 export declare const CORNER_REFINE_APRILTAG: number
 

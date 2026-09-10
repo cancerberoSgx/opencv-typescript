@@ -5,7 +5,7 @@ import type { CalibrateCRF } from './CalibrateCRF';
 /**
  * Inverse camera response function is extracted for each brightness value by minimizing an objective function as linear system. Objective function is constructed using pixel values on the same position in all images, extra term is added to make the result smoother.
  *
- * For more information see [35] .
+ * For more information see DM97 .
  */
 export declare class CalibrateDebevec extends CalibrateCRF {
   public getLambda(): number

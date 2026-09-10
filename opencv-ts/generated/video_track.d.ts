@@ -9,7 +9,7 @@ import type { Tracking } from './_unresolved';
 /**
  * Computes a dense optical flow using the Gunnar Farneback's algorithm.
  *
- * The function finds an optical flow for each prev pixel using the [42] algorithm so that
+ * The function finds an optical flow for each prev pixel using the Farneback2003 algorithm so that
  *
  *
  *
@@ -37,7 +37,7 @@ export declare function calcOpticalFlowFarneback(prev: InputArray, next: InputAr
 /**
  * Calculates an optical flow for a sparse feature set using the iterative Lucas-Kanade method with pyramids.
  *
- * The function implements a sparse iterative version of the Lucas-Kanade optical flow in pyramids. See [18] . The function is parallelized with the TBB library.
+ * The function implements a sparse iterative version of the Lucas-Kanade optical flow in pyramids. See Bouguet00 . The function is parallelized with the TBB library.
  *
  *
  * @note Some examples:
@@ -57,7 +57,7 @@ export declare function calcOpticalFlowFarneback(prev: InputArray, next: InputAr
  * @param maxLevel 0-based maximal pyramid level number; if set to 0, pyramids are not used (single level), if set to 1, two levels are used, and so on; if pyramids are passed to input then algorithm will use as many levels as pyramids have but no more than maxLevel.
  * @param criteria parameter, specifying the termination criteria of the iterative search algorithm (after the specified maximum number of iterations criteria.maxCount or when the search window moves by less than criteria.epsilon.
  * @param flags operation flags: - **OPTFLOW_USE_INITIAL_FLOW** uses initial estimations, stored in nextPts; if the flag is not set, then prevPts is copied to nextPts and is considered the initial estimate. - **OPTFLOW_LK_GET_MIN_EIGENVALS** use minimum eigen values as an error measure (see minEigThreshold description); if the flag is not set, then L1 distance between patches around the original and a moved point, divided by number of pixels in a window, is used as a error measure.
- * @param minEigThreshold the algorithm calculates the minimum eigen value of a 2x2 normal matrix of optical flow equations (this matrix is called a spatial gradient matrix in [18]), divided by number of pixels in a window; if this value is less than minEigThreshold, then a corresponding feature is filtered out and its flow is not processed, so it allows to remove bad points and get a performance boost.
+ * @param minEigThreshold the algorithm calculates the minimum eigen value of a 2x2 normal matrix of optical flow equations (this matrix is called a spatial gradient matrix in Bouguet00), divided by number of pixels in a window; if this value is less than minEigThreshold, then a corresponding feature is filtered out and its flow is not processed, so it allows to remove bad points and get a performance boost.
  */
 export declare function calcOpticalFlowPyrLK(prevImg: InputArray, nextImg: InputArray, prevPts: InputArray, nextPts: InputOutputArray, status: OutputArray, err: OutputArray, winSize?: Size, maxLevel?: number, criteria?: TermCriteria, flags?: number, minEigThreshold?: number): void
 
@@ -71,14 +71,14 @@ export declare function calcOpticalFlowPyrLK(prevImg: InputArray, nextImg: Input
  *
  * @param probImage Back projection of the object histogram. See calcBackProject.
  * @param window Initial search window.
- * @param criteria Stop criteria for the underlying meanShift. returns (in old interfaces) Number of iterations CAMSHIFT took to converge The function implements the CAMSHIFT object tracking algorithm [20] . First, it finds an object center using meanShift and then adjusts the window size and finds the optimal rotation. The function returns the rotated rectangle structure that includes the object position, size, and orientation. The next position of the search window can be obtained with RotatedRect::boundingRect()
+ * @param criteria Stop criteria for the underlying meanShift. returns (in old interfaces) Number of iterations CAMSHIFT took to converge The function implements the CAMSHIFT object tracking algorithm Bradski98 . First, it finds an object center using meanShift and then adjusts the window size and finds the optimal rotation. The function returns the rotated rectangle structure that includes the object position, size, and orientation. The next position of the search window can be obtained with RotatedRect::boundingRect()
  */
 export declare function CamShift(probImage: InputArray, window: any, criteria: TermCriteria): RotatedRect
 
 /**
- * Finds the geometric transform (warp) between two images in terms of the ECC criterion [41] .
+ * Finds the geometric transform (warp) between two images in terms of the ECC criterion EP08 .
  *
- * The function estimates the optimum transformation (warpMatrix) with respect to ECC criterion ([41]), that is
+ * The function estimates the optimum transformation (warpMatrix) with respect to ECC criterion (EP08), that is
  *
  *
  *

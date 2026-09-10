@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/opencv/loadOpenCv.ts","./src/opencv/operations.ts","./src/opencv/useOpenCv.ts"],"version":"5.9.3"}

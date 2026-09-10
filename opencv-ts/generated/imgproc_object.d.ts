@@ -42,7 +42,7 @@ export declare const TM_CCORR: number
 export declare const TM_CCORR_NORMED: number
 
 /**
- * where    with mask:
+ * where   with mask:
  */
 export declare const TM_CCOEFF: number
 

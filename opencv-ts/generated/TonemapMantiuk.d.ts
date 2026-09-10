@@ -5,7 +5,7 @@ import type { Tonemap } from './Tonemap';
 /**
  * This algorithm transforms image to contrast using gradients on all levels of gaussian pyramid, transforms contrast values to HVS response and scales the response. After this the image is reconstructed from new contrast values.
  *
- * For more information see [83] .
+ * For more information see MM06 .
  */
 export declare class TonemapMantiuk extends Tonemap {
   public getSaturation(): number

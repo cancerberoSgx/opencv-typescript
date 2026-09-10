@@ -25,7 +25,7 @@ export declare function approxPolyDP(curve: InputArray, approxCurve: OutputArray
  * T he cv::approxPolyN function approximates a polygon with *a convex hull so that the difference between the contour area of the original contour and the new polygon is minimal. It uses a greedy algorithm for contracting two vertices into one in such a way that the additional area is minimal. Straight lines formed by each edge of the convex contour are drawn and the areas of the resulting triangles are considered. Each vertex will lie either on the original contour or outside it.
  *
  *
- * The algorithm based on the paper [68] .
+ * The algorithm based on the paper LowIlie2003 .
  *
  * @param curve Input vector of a 2D points stored in std::vector or Mat, points must be float or integer.
  * @param approxCurve Result of the approximation. The type is vector of a 2D point (Point2f or Point) in std::vector or Mat.
@@ -50,6 +50,9 @@ export declare function arcLength(curve: InputArray, closed: boolean): number
  *
  * The function calculates and returns the minimal up-right bounding rectangle for the specified point set or non-zero pixels of gray-scale image.
  *
+ *
+ * @note Point coordinates that the resulting Rect cannot represent - outside of the int range, or infinite - are saturated to INT_MIN / INT_MAX, and its width and height are clamped to INT_MAX.
+ *
  * @param array Input gray-scale image or 2D point set, stored in std::vector or Mat.
  */
 export declare function boundingRect(array: InputArray): Rect
@@ -57,7 +60,7 @@ export declare function boundingRect(array: InputArray): Rect
 /**
  * Finds the four vertices of a rotated rect. Useful to draw the rotated rectangle.
  *
- * The function finds the four vertices of a rotated rectangle. The four vertices are returned in clockwise order starting from the point with greatest . If two points have the same  coordinate the rightmost is the starting point. This function is useful to draw the rectangle. In C++, instead of using this function, you can directly use RotatedRect::points method. Please visit the tutorial on Creating Bounding rotated boxes and ellipsesfor contours for more information.
+ * The function finds the four vertices of a rotated rectangle. The four vertices are returned in clockwise order starting from the point with greatest . If two points have the same  coordinate the rightmost is the starting point. This function is useful to draw the rectangle. In C++, instead of using this function, you can directly use RotatedRect::points method. Please visit the tutorial on Creating Bounding rotated boxes and ellipsesfor contours" for more information.
  *
  * @param box The input rotated rectangle. It may be the output of minAreaRect.
  * @param points The output array of four vertices of rectangles.
@@ -93,7 +96,7 @@ export declare function contourArea(contour: InputArray, oriented?: boolean): nu
 /**
  * Finds the convex hull of a point set.
  *
- * The function cv::convexHull finds the convex hull of a 2D point set using the Sklansky's algorithm [112] that has *O(N logN)* complexity in the current implementation.
+ * The function cv::convexHull finds the convex hull of a 2D point set using the Sklansky's algorithm Sklansky82 that has *O(N logN)* complexity in the current implementation.
  *
  *
  * @note `points` and `hull` should be different arrays, inplace processing isn't supported.
@@ -127,7 +130,7 @@ export declare function convexityDefects(contour: InputArray, convexhull: InputA
 /**
  * Fits an ellipse around a set of 2D points.
  *
- * The function calculates the ellipse that fits (in a least-squares sense) a set of 2D points best of all. It returns the rotated rectangle in which the ellipse is inscribed. The first algorithm described by [47] is used. Developer should keep in mind that it is possible that the returned ellipse/rotatedRect data contains negative indices, due to the data points being close to the border of the containing Mat element.
+ * The function calculates the ellipse that fits (in a least-squares sense) a set of 2D points best of all. It returns the rotated rectangle in which the ellipse is inscribed. The first algorithm described by Fitzgibbon95 is used. Developer should keep in mind that it is possible that the returned ellipse/rotatedRect data contains negative indices, due to the data points being close to the border of the containing Mat element.
  *
  *
  * @note Input point types are Point2i or Point2f and at least 5 points are required.
@@ -141,10 +144,10 @@ export declare function fitEllipse(points: InputArray): RotatedRect
 /**
  * Fits an ellipse around a set of 2D points.
  *
- * The function calculates the ellipse that fits a set of 2D points. It returns the rotated rectangle in which the ellipse is inscribed. The Approximate Mean Square (AMS) proposed by [120] is used.
+ * The function calculates the ellipse that fits a set of 2D points. It returns the rotated rectangle in which the ellipse is inscribed. The Approximate Mean Square (AMS) proposed by Taubin1991 is used.
  *
  *
- * For an ellipse, this basis set is , which is a set of six free coefficients . However, to specify an ellipse, all that is needed is five numbers; the major and minor axes lengths , the position , and the orientation . This is because the basis set includes lines, quadratics, parabolic and hyperbolic functions as well as elliptical functions as possible fits. If the fit is found to be a parabolic or hyperbolic function then the standard fitEllipse method is used. The AMS method restricts the fit to parabolic, hyperbolic and elliptical curves by imposing the condition that  where the matrices  and  are the partial derivatives of the design matrix  with respect to x and y. The matrices are formed row by row applying the following to each of the points in the set:      The AMS method minimizes the cost function
+ * For an ellipse, this basis set is , which is a set of six free coefficients . However, to specify an ellipse, all that is needed is five numbers; the major and minor axes lengths , the position , and the orientation . This is because the basis set includes lines, quadratics, parabolic and hyperbolic functions as well as elliptical functions as possible fits. If the fit is found to be a parabolic or hyperbolic function then the standard fitEllipse method is used. The AMS method restricts the fit to parabolic, hyperbolic and elliptical curves by imposing the condition that  where the matrices  and  are the partial derivatives of the design matrix  with respect to x and y. The matrices are formed row by row applying the following to each of the points in the set:   The AMS method minimizes the cost function
  *
  *
  * The minimum cost is found by solving the generalized eigenvalue problem.
@@ -164,7 +167,7 @@ export declare function fitEllipseAMS(points: InputArray): RotatedRect
 /**
  * Fits an ellipse around a set of 2D points.
  *
- * The function calculates the ellipse that fits a set of 2D points. It returns the rotated rectangle in which the ellipse is inscribed. The Direct least square (Direct) method by [97] is used.
+ * The function calculates the ellipse that fits a set of 2D points. It returns the rotated rectangle in which the ellipse is inscribed. The Direct least square (Direct) method by oy1998NumericallySD is used.
  *
  *
  * For an ellipse, this basis set is , which is a set of six free coefficients . However, to specify an ellipse, all that is needed is five numbers; the major and minor axes lengths , the position , and the orientation . This is because the basis set includes lines, quadratics, parabolic and hyperbolic functions as well as elliptical functions as possible fits. The Direct method confines the fit to ellipses by ensuring that . The condition imposed is that  which satisfies the inequality and as the coefficients can be arbitrarily scaled is not overly restrictive.
@@ -302,7 +305,7 @@ export declare function HuMoments(m: any, hu: OutputArray): void
 /**
  * Calculates seven Hu invariants.
  *
- * The function calculates seven Hu invariants (introduced in [62]; see also https://en.wikipedia.org/wiki/Image_moment (https://en.wikipedia.org/wiki/Image_moment)) defined as:
+ * The function calculates seven Hu invariants (introduced in Hu62; see also https://en.wikipedia.org/wiki/Image_moment (https://en.wikipedia.org/wiki/Image_moment)) defined as:
  *
  *
  *
@@ -401,7 +404,7 @@ export declare function minEnclosingCircle(points: InputArray, center: any, radi
  *
  *
  *
- * The implementation of the algorithm is based on O'Rourke's [96] and Klee and Laskowski's [67] papers. O'Rourke provides a  algorithm for finding the minimal enclosing triangle of a 2D convex polygon with n vertices. Since the minEnclosingTriangle function takes a 2D point set as input an additional preprocessing step of computing the convex hull of the 2D point set is required. The complexity of the convexHull function is  which is higher than . Thus the overall complexity of the function is .
+ * The implementation of the algorithm is based on O'Rourke's ORourke86 and Klee and Laskowski's KleeLaskowski85 papers. O'Rourke provides a  algorithm for finding the minimal enclosing triangle of a 2D convex polygon with n vertices. Since the minEnclosingTriangle function takes a 2D point set as input an additional preprocessing step of computing the convex hull of the 2D point set is required. The complexity of the convexHull function is  which is higher than . Thus the overall complexity of the function is .
  *
  * @param points Input vector of 2D points with depth CV_32S or CV_32F, stored in std::vector<> or Mat
  * @param triangle Output vector of three 2D points defining the vertices of the triangle. The depth of the OutputArray must be CV_32F.
@@ -491,7 +494,7 @@ export declare const DIST_L2: number
 export declare const DIST_C: number
 
 /**
- * L1-L2 metric: distance = 2(sqrt(1+x*x/2) - 1)).
+ * L1-L2 metric: distance = 2(sqrt(1+x*x/2) - 1))
  */
 export declare const DIST_L12: number
 

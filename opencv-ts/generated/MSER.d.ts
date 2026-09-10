@@ -12,8 +12,8 @@ import type { Ptr } from './_unresolved';
  *
  *
  * - there are two different implementation of MSER: one for grey image, one for color image
- * - the grey image algorithm is taken from: [94] ; the paper claims to be faster than union-find method; it actually get 1.5~2m/s on my centrino L7200 1.2GHz laptop.
- * - the color image algorithm is taken from: [48] ; it should be much slower than grey image method ( 3~4 times )
+ * - the grey image algorithm is taken from: nister2008linear ; the paper claims to be faster than union-find method; it actually get 1.5~2m/s on my centrino L7200 1.2GHz laptop.
+ * - the color image algorithm is taken from: forssen2007maximally ; it should be much slower than grey image method ( 3~4 times )
  * - (Python) A complete example showing the use of the MSER detector can be found at samples/python/mser.py
  */
 export declare class MSER extends Feature2D {

@@ -28,7 +28,7 @@ import type { IntelligentScissorsMB, L2gradient } from './_unresolved';
  * tool.getContour(target_point,pts);
  *
  *
- * Reference: "Intelligent Scissors for Image Composition" (http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.138.3811&rep=rep1&type=pdf) algorithm designed by Eric N. Mortensen and William A. Barrett, Brigham Young University [90]
+ * Reference: "Intelligent Scissors for Image Composition" (http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.138.3811&rep=rep1&type=pdf) algorithm designed by Eric N. Mortensen and William A. Barrett, Brigham Young University Mortensen95intelligentscissors
  */
 export declare class segmentation_IntelligentScissorsMB {
   public IntelligentScissorsMB(): any

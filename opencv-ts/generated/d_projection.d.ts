@@ -17,7 +17,7 @@ import type { Mat } from './Mat';
  * where  is a 3D point expressed with respect to the world coordinate system,  is a 2D pixel in the image plane,  is the camera intrinsic matrix,  and  are the rotation and translation that describe the change of coordinates from world to camera coordinate systems (or camera frame) and  is the projective transformation's arbitrary scaling and not part of the camera model.
  *
  *
- * The camera intrinsic matrix  (notation used as in [140] and also generally notated as ) projects 3D points given in the camera coordinate system to 2D pixel coordinates, i.e.
+ * The camera intrinsic matrix  (notation used as in Zhang2000 and also generally notated as ) projects 3D points given in the camera coordinate system to 2D pixel coordinates, i.e.
  *
  *
  *
@@ -131,7 +131,7 @@ import type { Mat } from './Mat';
  *
  *
  *
- * In some cases, the image sensor may be tilted in order to focus an oblique plane in front of the camera (Scheimpflug principle). This can be useful for particle image velocimetry (PIV) or triangulation with a laser fan. The tilt causes a perspective distortion of  and . This distortion can be modeled in the following way, see e.g. [76].
+ * In some cases, the image sensor may be tilted in order to focus an oblique plane in front of the camera (Scheimpflug principle). This can be useful for particle image velocimetry (PIV) or triangulation with a laser fan. The tilt causes a perspective distortion of  and . This distortion can be modeled in the following way, see e.g. Louhichi07.
  *
  *
  *
@@ -351,12 +351,12 @@ export declare function projectPoints(objectPoints: InputArray, rvec: InputArray
  *
  *
  * @note More information about the computation of the derivative of a 3D rotation matrix with respect to its exponential coordinate can be found in:
- * - A Compact Formula for the Derivative of a 3-D Rotation in Exponential Coordinates, Guillermo Gallego, Anthony J. Yezzi [50]
+ * - A Compact Formula for the Derivative of a 3-D Rotation in Exponential Coordinates, Guillermo Gallego, Anthony J. Yezzi Gallego2014ACF
  *
  * @note Useful information on SE(3) and Lie Groups can be found in:
- * - A tutorial on SE(3) transformation parameterizations and on-manifold optimization, Jose-Luis Blanco [13]
- * - Lie Groups for 2D and 3D Transformation, Ethan Eade [40]
- * - A micro Lie theory for state estimation in robotics, Joan Solà, Jérémie Deray, Dinesh Atchuthan [114]
+ * - A tutorial on SE(3) transformation parameterizations and on-manifold optimization, Jose-Luis Blanco blanco2010tutorial
+ * - Lie Groups for 2D and 3D Transformation, Ethan Eade Eade17
+ * - A micro Lie theory for state estimation in robotics, Joan Solà, Jérémie Deray, Dinesh Atchuthan Sol2018AML
  *
  * @param src Input rotation vector (3x1 or 1x3) or rotation matrix (3x3).
  * @param dst Output rotation matrix (3x3) or rotation vector (3x1 or 1x3), respectively.
@@ -449,7 +449,7 @@ export declare function solvePnPRansac(objectPoints: InputArray, imagePoints: In
  * @see Perspective-n-Point (PnP) pose computation
  *
  *
- * The function refines the object pose given at least 3 object points, their corresponding image projections, an initial solution for the rotation and translation vector, as well as the camera intrinsic matrix and the distortion coefficients. The function minimizes the projection error with respect to the rotation and the translation vectors, according to a Levenberg-Marquardt iterative minimization [81] [39] process.
+ * The function refines the object pose given at least 3 object points, their corresponding image projections, an initial solution for the rotation and translation vector, as well as the camera intrinsic matrix and the distortion coefficients. The function minimizes the projection error with respect to the rotation and the translation vectors, according to a Levenberg-Marquardt iterative minimization Madsen04 Eade13 process.
  *
  * @param objectPoints Array of object points in the object coordinate space, Nx3 1-channel or 1xN/Nx1 3-channel, where N is the number of points. vector<Point3d> can also be passed here.
  * @param imagePoints Array of corresponding image points, Nx2 1-channel or 1xN/Nx1 2-channel, where N is the number of points. vector<Point2d> can also be passed here.
@@ -572,7 +572,7 @@ export declare const SCORE_METHOD_MAGSAC: number
 export declare const SCORE_METHOD_LMEDS: number
 
 /**
- * Pose refinement using non-linear Levenberg-Marquardt minimization scheme [81] [39]
+ * Pose refinement using non-linear Levenberg-Marquardt minimization scheme Madsen04 Eade13
  *
  *  Initial solution for non-planar "objectPoints" needs at least 6 points and uses the DLT algorithm.
  *
@@ -581,29 +581,29 @@ export declare const SCORE_METHOD_LMEDS: number
 export declare const SOLVEPNP_ITERATIVE: number
 
 /**
- * EPnP: Efficient Perspective-n-Point Camera Pose Estimation [71].
+ * EPnP: Efficient Perspective-n-Point Camera Pose Estimation lepetit2009epnp.
  */
 export declare const SOLVEPNP_EPNP: number
 
 /**
- * Revisiting the P3P Problem [36].
+ * Revisiting the P3P Problem ding2023revisiting.
  */
 export declare const SOLVEPNP_P3P: number
 
 /**
- * An Efficient Algebraic Solution to the Perspective-Three-Point Problem [66].
+ * An Efficient Algebraic Solution to the Perspective-Three-Point Problem Ke17.
  */
 export declare const SOLVEPNP_AP3P: number
 
 /**
- * Infinitesimal Plane-Based Pose Estimation [33]
+ * Infinitesimal Plane-Based Pose Estimation Collins14
  *
  *  Object points must be coplanar.
  */
 export declare const SOLVEPNP_IPPE: number
 
 /**
- * Infinitesimal Plane-Based Pose Estimation [33]
+ * Infinitesimal Plane-Based Pose Estimation Collins14
  *
  *  This is a special case suitable for marker pose estimation.
  *
@@ -616,6 +616,6 @@ export declare const SOLVEPNP_IPPE: number
 export declare const SOLVEPNP_IPPE_SQUARE: number
 
 /**
- * SQPnP: A Consistently Fast and Globally OptimalSolution to the Perspective-n-Point Problem [123].
+ * SQPnP: A Consistently Fast and Globally OptimalSolution to the Perspective-n-Point Problem Terzakis2020SQPnP.
  */
 export declare const SOLVEPNP_SQPNP: number

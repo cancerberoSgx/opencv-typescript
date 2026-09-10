@@ -12,7 +12,7 @@ import type { MergeExposures } from './MergeExposures';
  * The resulting image doesn't require tonemapping and can be converted to 8-bit image by multiplying by 255, but it's recommended to apply gamma correction and/or linear tonemapping.
  *
  *
- * For more information see [87] .
+ * For more information see MK07 .
  */
 export declare class MergeMertens extends MergeExposures {
   public getContrastWeight(): number

@@ -10,7 +10,7 @@ import type { CV_NODISCARD_STD, Ptr } from './_unresolved';
  */
 export declare class BFMatcher extends DescriptorMatcher {
 /**
- * Brute-force matcher constructor (obsolete). Please use BFMatcher.create().
+ * Brute-force matcher constructor (obsolete). Please use BFMatcher.create()
  */
   public constructor(normType?: number, crossCheck?: boolean)
 

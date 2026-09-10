@@ -32,7 +32,7 @@ export declare class FontFace {
 /**
  * sets the current variable font instance.
  *
- * @param params The list of pairs key1, value1, key2, value2, ..., e.g. `myfont.setInstance({CV_FOURCC('w','g','h','t'), 400<<16, CV_FOURCC('s','l','n','t'), -(15<<16)});` Note that the parameter values are specified in 16.16 fixed-point format, that is, integer values need to be shifted by 16 (or multiplied by 65536).
+ * @param params The list of pairs key1, value1, key2, value2, ..., e.g. myfont.setInstance({CV_FOURCC('w,'g','h','t'), 400<<16, CV_FOURCC('s','l','n','t'), -(15<<16)});` Note that the parameter values are specified in 16.16 fixed-point format, that is, integer values need to be shifted by 16 (or multiplied by 65536).
  */
   public setInstance(params: any): boolean
 

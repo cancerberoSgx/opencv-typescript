@@ -6,7 +6,7 @@ import type { Ptr, WTA_K } from './_unresolved';
 /**
  * Class implementing the ORB (*oriented BRIEF*) keypoint detector and descriptor extractor.
  *
- * described in [105] . The algorithm uses FAST in pyramids to detect stable keypoints, selects the strongest features using FAST or Harris response, finds their orientation using first-order moments and computes the descriptors using BRIEF (where the coordinates of random point pairs (or k-tuples) are rotated according to the measured orientation).
+ * described in RRKB11 . The algorithm uses FAST in pyramids to detect stable keypoints, selects the strongest features using FAST or Harris response, finds their orientation using first-order moments and computes the descriptors using BRIEF (where the coordinates of random point pairs (or k-tuples) are rotated according to the measured orientation).
  */
 export declare class ORB extends Feature2D {
 /**

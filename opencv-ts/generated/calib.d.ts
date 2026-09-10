@@ -13,7 +13,7 @@
  * where  is a 3D point expressed with respect to the world coordinate system,  is a 2D pixel in the image plane,  is the camera intrinsic matrix,  and  are the rotation and translation that describe the change of coordinates from world to camera coordinate systems (or camera frame) and  is the projective transformation's arbitrary scaling and not part of the camera model.
  *
  *
- * The camera intrinsic matrix  (notation used as in [140] and also generally notated as ) projects 3D points given in the camera coordinate system to 2D pixel coordinates, i.e.
+ * The camera intrinsic matrix  (notation used as in Zhang2000 and also generally notated as ) projects 3D points given in the camera coordinate system to 2D pixel coordinates, i.e.
  *
  *
  *
@@ -127,7 +127,7 @@
  *
  *
  *
- * In some cases, the image sensor may be tilted in order to focus an oblique plane in front of the camera (Scheimpflug principle). This can be useful for particle image velocimetry (PIV) or triangulation with a laser fan. The tilt causes a perspective distortion of  and . This distortion can be modeled in the following way, see e.g. [76].
+ * In some cases, the image sensor may be tilted in order to focus an oblique plane in front of the camera (Scheimpflug principle). This can be useful for particle image velocimetry (PIV) or triangulation with a laser fan. The tilt causes a perspective distortion of  and . This distortion can be modeled in the following way, see e.g. Louhichi07.
  *
  *
  *
@@ -194,7 +194,7 @@
  *
  * **Homogeneous Transformations, Object frame / Camera frame**
  *
- *  Change of basis or computing the 3D coordinates from one frame to another frame can be achieved easily using the following notation:                       For a 3D points ( ) expressed in the object frame, the homogeneous transformation matrix  allows computing the corresponding coordinate ( ) in the camera frame. This transformation matrix is composed of a 3x3 rotation matrix  and a 3x1 translation vector . The 3x1 translation vector  is the position of the object frame in the camera frame and the 3x3 rotation matrix  the orientation of the object frame in the camera frame. With this simple notation, it is easy to chain the transformations. For instance, to compute the 3D coordinates of a point expressed in the object frame in the world frame can be done with:       Similarly, computing the inverse transformation can be done with:      The inverse of an homogeneous transformation matrix is then:        One can note that the inverse of a 3x3 rotation matrix is directly its matrix transpose.
+ *  Change of basis or computing the 3D coordinates from one frame to another frame can be achieved easily using the following notation:     For a 3D points ( ) expressed in the object frame, the homogeneous transformation matrix  allows computing the corresponding coordinate ( ) in the camera frame. This transformation matrix is composed of a 3x3 rotation matrix  and a 3x1 translation vector . The 3x1 translation vector  is the position of the object frame in the camera frame and the 3x3 rotation matrix  the orientation of the object frame in the camera frame. With this simple notation, it is easy to chain the transformations. For instance, to compute the 3D coordinates of a point expressed in the object frame in the world frame can be done with:   Similarly, computing the inverse transformation can be done with:   The inverse of an homogeneous transformation matrix is then:   One can note that the inverse of a 3x3 rotation matrix is directly its matrix transpose.
  *  This figure summarizes the whole process. The object pose returned for instance by the solvePnP function or pose from fiducial marker detection is this  transformation. The camera intrinsic matrix  allows projecting the 3D point expressed in the camera frame onto the image plane assuming a perspective projection model (pinhole camera model). Image coordinates extracted from classical image processing functions assume a (u,v) top-left coordinates frame. @note - for an online video course on this topic, see for instance:
  * - "3.3.1. Homogeneous Transformation Matrices", Modern Robotics, Kevin M. Lynch and Frank C. Park (https://modernrobotics.northwestern.edu/nu-gm-book-resource/3-3-1-homogeneous-transformation-matrices/)
  * - the 3x3 rotation matrix is composed of 9 values but describes a 3 dof transformation
@@ -204,7 +204,7 @@
  * - interpolating rotation can be done using the Slerp (spherical linear interpolation) (https://en.wikipedia.org/wiki/Slerp) method
  * - quick conversions between the different rotation formalisms can be done using this online tool (https://www.andre-gaschler.com/rotationconverter/) **Intrinsic parameters from camera lens specifications**
  *
- *  When dealing with industrial cameras, the camera intrinsic matrix or more precisely  can be deduced, approximated from the camera specifications:    In a same way, the physical focal length can be deduced from the angular field of view:    This latter conversion can be useful when using a rendering software to mimic a physical camera device.
+ *  When dealing with industrial cameras, the camera intrinsic matrix or more precisely  can be deduced, approximated from the camera specifications:   In a same way, the physical focal length can be deduced from the angular field of view:   This latter conversion can be useful when using a rendering software to mimic a physical camera device.
  *
  * @note - See also calibrationMatrixValues
  *
@@ -370,36 +370,36 @@ export declare const CALIB_MODEL_PINHOLE: number
 export declare const CALIB_MODEL_FISHEYE: number
 
 /**
- * A New Technique for Fully Autonomous and Efficient 3D Robotics Hand/Eye Calibration [125].
+ * A New Technique for Fully Autonomous and Efficient 3D Robotics Hand/Eye Calibration Tsai89.
  */
 export declare const CALIB_HAND_EYE_TSAI: number
 
 /**
- * Robot Sensor Calibration: Solving AX = XB on the Euclidean Group [98].
+ * Robot Sensor Calibration: Solving AX = XB on the Euclidean Group Park94.
  */
 export declare const CALIB_HAND_EYE_PARK: number
 
 /**
- * Hand-eye Calibration [60].
+ * Hand-eye Calibration Horaud95.
  */
 export declare const CALIB_HAND_EYE_HORAUD: number
 
 /**
- * On-line Hand-Eye Calibration [3].
+ * On-line Hand-Eye Calibration Andreff99.
  */
 export declare const CALIB_HAND_EYE_ANDREFF: number
 
 /**
- * Hand-Eye Calibration Using Dual Quaternions [34].
+ * Hand-Eye Calibration Using Dual Quaternions Daniilidis98.
  */
 export declare const CALIB_HAND_EYE_DANIILIDIS: number
 
 /**
- * Solving the robot-world/hand-eye calibration problem using the kronecker product [110].
+ * Solving the robot-world/hand-eye calibration problem using the kronecker product Shah2013SolvingTR.
  */
 export declare const CALIB_ROBOT_WORLD_HAND_EYE_SHAH: number
 
 /**
- * Simultaneous robot-world and hand-eye calibration using dual-quaternions and kronecker product [72].
+ * Simultaneous robot-world and hand-eye calibration using dual-quaternions and kronecker product Li2010SimultaneousRA.
  */
 export declare const CALIB_ROBOT_WORLD_HAND_EYE_LI: number

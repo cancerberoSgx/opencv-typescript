@@ -8,7 +8,7 @@ import type { Tonemap } from './Tonemap';
  * Mapping function is controlled by adaptation parameter, that is computed using light adaptation and color adaptation.
  *
  *
- * For more information see [102] .
+ * For more information see RD05 .
  */
 export declare class TonemapReinhard extends Tonemap {
   public getColorAdaptation(): number

@@ -5,7 +5,7 @@ import type { Point } from '../hacks/scalars';
 /* @defgroup Point-cloud sampling and segmentation */
 
 /**
- * The RANSAC algorithm described in [46].
+ * The RANSAC algorithm described in fischler1981random.
  */
 export declare const SAC_METHOD_RANSAC: number
 

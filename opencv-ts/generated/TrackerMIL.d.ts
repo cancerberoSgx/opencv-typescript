@@ -6,7 +6,7 @@ import type { Ptr } from './_unresolved';
 /**
  * The MIL algorithm trains a classifier in an online manner to separate the object from the background.
  *
- * Multiple Instance Learning avoids the drift problem for a robust tracking. The implementation is based on [5] .
+ * Multiple Instance Learning avoids the drift problem for a robust tracking. The implementation is based on MIL .
  *
  *
  * Original code can be found here http://vision.ucsd.edu/~bbabenko/project_miltrack.shtml (http://vision.ucsd.edu/~bbabenko/project_miltrack.shtml)

@@ -241,18 +241,12 @@ export declare class dnn_Net {
   public getImplRef(): any
 
 /**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- *
- *
- * Deprecatedto be removed
+ * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. Deprecatedto be removed
  */
   public getLayer(layerId: LayerId): Ptr
 
 /**
- * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
- *
- *
- * DeprecatedUse int getLayerId(const String &layer)
+ * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. DeprecatedUse int getLayerId(const String &layer)
  */
   public getLayer(layerName: String): Ptr
 

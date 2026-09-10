@@ -6,7 +6,7 @@ import type { MergeExposures } from './MergeExposures';
 /**
  * The resulting HDR image is calculated as weighted average of the exposures considering exposure values and camera response.
  *
- * For more information see [103] .
+ * For more information see RB99 .
  */
 export declare class MergeRobertson extends MergeExposures {
   public process(src: InputArrayOfArrays, dst: OutputArray, times: InputArray): void

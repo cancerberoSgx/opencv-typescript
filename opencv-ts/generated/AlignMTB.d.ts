@@ -14,7 +14,7 @@ import type { AlignExposures } from './AlignExposures';
  * In this implementation new image regions are filled with zeros.
  *
  *
- * For more information see [132] .
+ * For more information see GW03 .
  */
 export declare class AlignMTB extends AlignExposures {
 /**

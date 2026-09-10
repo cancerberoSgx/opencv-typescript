@@ -6,7 +6,7 @@ import type { Mat } from './Mat';
 /**
  * Inverse camera response function is extracted for each brightness value by minimizing an objective function as linear system. This algorithm uses all image pixels.
  *
- * For more information see [103] .
+ * For more information see RB99 .
  */
 export declare class CalibrateRobertson extends CalibrateCRF {
   public getMaxIter(): number

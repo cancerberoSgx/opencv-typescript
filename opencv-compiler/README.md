@@ -55,7 +55,7 @@ to `build.sh` (see `.env.example`):
 | Variable                  | Default                                 | Meaning                                                          |
 | -------------------------- | ---------------------------------------- | ------------------------------------------------------------------ |
 | `OPENCV_REPO`              | `https://github.com/opencv/opencv.git`  | opencv git repo to clone                                            |
-| `OPENCV_REF`               | `4.x`                                   | branch/tag/commit to check out (pick the version you want typings for) |
+| `OPENCV_REF`               | `5.x`                                   | branch/tag/commit to check out (pick the version you want typings for) |
 | `OUTPUT_DIR`               | `./output/opencv`                       | host dir the opencv checkout and both build folders land in         |
 | `FORCE_REBUILD_OPENCVJS`   | `0`                                      | set to `1` to recompile opencv.js even if cached                    |
 | `FORCE_REBUILD_DOCS`       | `0`                                      | set to `1` to rebuild the doxygen XML docs even if cached           |

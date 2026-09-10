@@ -6,7 +6,7 @@ import type { MergeExposures } from './MergeExposures';
 /**
  * The resulting HDR image is calculated as weighted average of the exposures considering exposure values and camera response.
  *
- * For more information see [35] .
+ * For more information see DM97 .
  */
 export declare class MergeDebevec extends MergeExposures {
   public process(src: InputArrayOfArrays, dst: OutputArray, times: InputArray): void

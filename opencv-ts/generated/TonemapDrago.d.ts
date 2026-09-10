@@ -8,10 +8,10 @@ import type { Tonemap } from './Tonemap';
  * Since it's a global operator the same function is applied to all the pixels, it is controlled by the bias parameter.
  *
  *
- * Optional saturation enhancement is possible as described in [43] .
+ * Optional saturation enhancement is possible as described in FL02 .
  *
  *
- * For more information see [37] .
+ * For more information see DM03 .
  */
 export declare class TonemapDrago extends Tonemap {
   public getBias(): number

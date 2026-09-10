@@ -68,7 +68,7 @@ export declare class aruco_Board {
   public getRightBottomCorner(): Point3f
 
 /**
- * Given a board configuration and a set of detected markers, returns the corresponding image points and object points, can be used in solvePnP().
+ * Given a board configuration and a set of detected markers, returns the corresponding image points and object points, can be used in solvePnP()
  *
  * @see solvePnP
  *
