@@ -98,7 +98,8 @@ Visually I want to keep using your proposal (from a given ts project, a script g
 
 Can you implement there an initial project that uses typescript ts-morph for analything ts and a script that generates the  static html ? Is there any information  missing ? 
 
-# typescript 
+# tsdocs
+Analyze the best typescript api docs tool to generate nice html apidocs from typescript project. Create a new project generate-api-docs that uses the library and has a script to generate apidocs of opencv-ts in a new folder /pages/opencv-ts-docs . Then create a github actions that publish /pages folder with an index.html with a link to this documentation
 
 # FUTURE
 
