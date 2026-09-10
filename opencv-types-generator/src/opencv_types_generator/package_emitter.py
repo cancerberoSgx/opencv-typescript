@@ -123,9 +123,11 @@ def emit_package(
     _write(out / "generation-report.json", json.dumps(report.to_dict(), indent=2) + "\n")
     _write(out / "README.md", _readme(package_name))
     _write(out / "LICENSE", _LICENSE)
+    _write(out / ".gitignore", _read_template("gitignore.tmpl"))
 
     _write(out / "smoke-test" / "index.ts", _read_template("smoke-test.ts.tmpl"))
     _write(out / "smoke-test" / "tsconfig.json", _read_template("smoke-test.tsconfig.json.tmpl"))
+    _write(out / "smoke-test" / "tsconfig.node.json", _read_template("smoke-test.tsconfig.node.json.tmpl"))
 
 
 _INDEX_DTS = """\

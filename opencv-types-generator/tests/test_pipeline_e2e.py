@@ -46,10 +46,15 @@ def test_emitted_package_has_expected_layout(tmp_path):
     assert (out / "generated" / "Mat.d.ts").exists()
     assert (out / "generated" / "core_array.d.ts").exists()
     assert (out / "hacks" / "scalars.d.ts").exists()
+    assert (out / ".gitignore").exists()
+    assert (out / "smoke-test" / "index.ts").exists()
+    assert (out / "smoke-test" / "tsconfig.json").exists()
+    assert (out / "smoke-test" / "tsconfig.node.json").exists()
 
     package_json = json.loads((out / "package.json").read_text())
     assert package_json["name"] == "opencv-ts"
     assert package_json["version"] == "0.1.0"
+    assert package_json["scripts"]["test"] == "npm run typecheck && npm run typecheck:node"
 
     report = json.loads((out / "generation-report.json").read_text())
     assert report["unmatched"]["functions"] == ["notRegisteredElsewhere"]

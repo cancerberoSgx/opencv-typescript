@@ -30,9 +30,12 @@ link_imports.py: auto-inject `import type { ... }` per generated file, based on 
   internal types opencv.js never binds, e.g. `Matx`, `Point_`, `MatIterator_`).
                 │
                 ▼
-full npm project: package.json, tsconfig.json, index.d.ts (ambient global `cv`),
-  opencv.js.d.ts (module augmentation), generated/*.d.ts, hacks/*.d.ts,
-  generation-report.json, smoke-test/ (a real .ts file, type-checked as a publish gate).
+full npm project: package.json, tsconfig.json, .gitignore, index.d.ts (ambient global
+  `cv`), opencv.js.d.ts (module augmentation), generated/*.d.ts, hacks/*.d.ts,
+  generation-report.json, README.md, LICENSE, smoke-test/ (real .ts + tsconfig.json +
+  tsconfig.node.json, type-checked as a publish gate). Every file under opencv-ts/ is
+  produced here - none of it is hand-maintained, so the whole directory can be deleted
+  and rebuilt from a fresh `opencv-types-generator` run without losing anything.
 ```
 
 ## Two structural fixes vs. mirada/doxygen2typescript

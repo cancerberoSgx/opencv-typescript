@@ -1,0 +1,12 @@
+{
+  // Same publish gate as tsconfig.json, but without "DOM" in `lib` - this is what catches
+  // declarations that only happen to type-check because the browser variant has DOM
+  // globals (HTMLElement, HTMLVideoElement, ...) in scope. Mirrors the lib shape a Node
+  // consumer's tsconfig actually uses (see test-projects/node1/tsconfig.json).
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "lib": ["ES2020"]
+  },
+  "include": ["index.ts", "../index.d.ts", "../opencv.js.d.ts", "../generated/**/*.d.ts", "../hacks/**/*.d.ts"]
+}
