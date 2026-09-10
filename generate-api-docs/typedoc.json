@@ -1,0 +1,21 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["../opencv-ts/index.d.ts"],
+  "tsconfig": "../opencv-ts/tsconfig.json",
+  "out": "../pages/opencv-ts-docs",
+  "name": "opencv-ts API Docs",
+  "readme": "../opencv-ts/README.md",
+  "includeVersion": true,
+  "excludeExternals": true,
+  "excludePrivate": true,
+  "excludeInternal": true,
+  "cleanOutputDir": true,
+  "githubPages": true,
+  "hideGenerator": false,
+  "searchInComments": true,
+  "sort": ["source-order"],
+  "navigationLinks": {
+    "GitHub": "https://github.com/cancerberoSgx/opencv-typescript",
+    "npm": "https://www.npmjs.com/package/opencv-ts"
+  }
+}

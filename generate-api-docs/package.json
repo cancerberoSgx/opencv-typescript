@@ -1,0 +1,15 @@
+{
+  "name": "generate-api-docs",
+  "version": "1.0.0",
+  "description": "Generates static HTML API docs for opencv-ts using TypeDoc, into /pages/opencv-ts-docs.",
+  "private": true,
+  "scripts": {
+    "generate": "typedoc",
+    "clean": "rimraf ../pages/opencv-ts-docs"
+  },
+  "devDependencies": {
+    "typedoc": "^0.28.0",
+    "typescript": "^5.5.0",
+    "rimraf": "^6.0.0"
+  }
+}
