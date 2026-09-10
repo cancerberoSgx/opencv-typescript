@@ -6,7 +6,11 @@ on:
     paths:
       - "opencv-ts/**"
       - "generate-api-docs/**"
-      - "pages/**"
+      - "test-projects/react1/**"
+      - "pages/index.html"
+      - "pages/demos/index.html"
+      - "pages/demos/assets/opencv.js"
+      - "scripts/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch: {}
 
@@ -31,16 +35,8 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install generate-api-docs dependencies
-        working-directory: generate-api-docs
-        run: npm install
-
-      - name: Generate opencv-ts API docs
-        working-directory: generate-api-docs
-        run: npm run generate
-
-      - name: Ensure .nojekyll
-        run: touch pages/.nojekyll
+      - name: Build pages
+        run: scripts/build-pages.sh
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
