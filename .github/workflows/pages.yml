@@ -7,6 +7,8 @@ on:
       - "opencv-ts/**"
       - "generate-api-docs/**"
       - "pages/**"
+      - "test-projects/react1/**"
+      - "test-projects/code-editor/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch: {}
 
@@ -29,7 +31,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install generate-api-docs dependencies
         working-directory: generate-api-docs
@@ -38,6 +40,24 @@ jobs:
       - name: Generate opencv-ts API docs
         working-directory: generate-api-docs
         run: npm run generate
+
+      - name: Build react1 demo
+        working-directory: test-projects/react1
+        run: |
+          npm install
+          npm run build
+
+      - name: Build code-editor demo
+        working-directory: test-projects/code-editor
+        run: |
+          npm install
+          npm run build
+
+      - name: Copy demo builds into pages
+        run: |
+          mkdir -p pages/react1 pages/code-editor
+          cp -r test-projects/react1/dist/. pages/react1/
+          cp -r test-projects/code-editor/dist/. pages/code-editor/
 
       - name: Ensure .nojekyll
         run: touch pages/.nojekyll

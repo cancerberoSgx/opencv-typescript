@@ -113,6 +113,12 @@ Does this make sense ? is there any missing part ? My objective is to use test-p
 
 is it possible to, in a react html app, render monaco editor which displays a full project folder (files and folders) with some typescript dependencies and have it load a typescript language server that perform typechecking, navigation, search references, autocomplete, etc just like in vscode ? Just answer if possible , don't write any code yet
 
+
+# add demos to pages
+currently in github pages (.github/workflows/pages.yml) the api-docs are succesfully generated. Now I also want to add links and deploy the demo applications test-projects/react1 test-projects/code-editor . These are both web apps that can be compiled to be statically served in pages. Please do as simpler as possible - just want them to work in pages no matter other factors
+
+
+
 # FUTURE
 
 
