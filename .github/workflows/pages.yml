@@ -48,11 +48,11 @@ jobs:
           npm run build
 
 
-      - name: Build code-editor preconditions
-        working-directory: test-projects/project-to-vfs
-        run: |
-          npm install
-          sh scripts/generate.sh
+      # - name: Build code-editor preconditions
+      #   working-directory: test-projects/project-to-vfs
+      #   run: |
+      #     npm install
+      #     sh scripts/generate.sh
 
       - name: Build code-editor demo
         working-directory: test-projects/code-editor
