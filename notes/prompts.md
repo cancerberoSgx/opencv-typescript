@@ -101,6 +101,18 @@ Can you implement there an initial project that uses typescript ts-morph for ana
 # tsdocs
 Analyze the best typescript api docs tool to generate nice html apidocs from typescript project. Create a new project generate-api-docs that uses the library and has a script to generate apidocs of opencv-ts in a new folder /pages/opencv-ts-docs . Then create a github actions that publish /pages folder with an index.html with a link to this documentation
 
+p2
+yes I want a 100% in browser implementation. How can I "bundle" a whole typescript project with its dependencies to "FEED" this editor ? 
+
+p3
+ok can we prototype a first version ? Build first a generic code editor project at test-projects/code-editor which, given a vfs input it will render the files/folders and support all features mentioned
+On another project test-projects/project-to-vfs create a project that given a native npm / node.js project (which can be npm install) it build its vfs so I can feed it into test-projects/code-editor
+Does this make sense ? is there any missing part ? My objective is to use test-projects/code-editor and be able to load different projects using different typescript libraries and dependencies so users can playground with each of them
+
+# monaco editor with typescript server 
+
+is it possible to, in a react html app, render monaco editor which displays a full project folder (files and folders) with some typescript dependencies and have it load a typescript language server that perform typechecking, navigation, search references, autocomplete, etc just like in vscode ? Just answer if possible , don't write any code yet
+
 # FUTURE
 
 

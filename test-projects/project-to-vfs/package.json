@@ -1,0 +1,21 @@
+{
+  "name": "project-to-vfs",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Builds a VFS bundle (source files + resolved dependency .d.ts) from a real npm/TypeScript project, for test-projects/code-editor to load.",
+  "type": "module",
+  "bin": {
+    "project-to-vfs": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "cli": "tsx src/cli.ts"
+  },
+  "dependencies": {
+    "typescript": "^5.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0"
+  }
+}
