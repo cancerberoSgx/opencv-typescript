@@ -8,7 +8,11 @@ sibling `../code-editor` playground (100% in-browser, no backend).
 See `src/types.ts` for the bundle shape (kept in sync manually with
 `code-editor/src/vfs/types.ts`).
 
+
+
 ## Usage
+
+Note: to generate opencv demo project's and install it to code-editor just exec `sh scripts/generate.sh` 
 
 ```sh
 npm install
