@@ -1,0 +1,31 @@
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+<compounddef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="d1/d99/classcv_1_1dnn_1_1Net" kind="class" language="C++" prot="public">
+    <compoundname>cv::dnn::Net</compoundname>
+    <includes local="no">opencv2/dnn/dnn.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="d1/d99/classcv_1_1dnn_1_1Net_1a0000000000000000000000000000000" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type/>
+        <definition>cv::dnn::Net::Net</definition>
+        <argsstring>()</argsstring>
+        <name>Net</name>
+        <briefdescription>
+<para>Default constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="opencv2/dnn/dnn.hpp" line="1" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This class allows to create and manipulate comprehensive artificial neural networks. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="opencv2/dnn/dnn.hpp" line="1" column="1" bodyfile="opencv2/dnn/dnn.hpp" bodystart="1" bodyend="-1"/>
+    <listofallmembers>
+      <member refid="d1/d99/classcv_1_1dnn_1_1Net_1a0000000000000000000000000000000" prot="public" virt="non-virtual"><scope>cv::dnn::Net</scope><name>Net</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

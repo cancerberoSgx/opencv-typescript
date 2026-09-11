@@ -2,7 +2,8 @@
 
 import type { InputArray, InputArrayOfArrays, OutputArray } from '../hacks/mat';
 import type { Size } from '../hacks/scalars';
-import type { Board, Dictionary, Point3f } from './_unresolved';
+import type { Point3f } from './_unresolved';
+import type { aruco_Dictionary } from './aruco_Dictionary';
 
 /**
  * Board of ArUco markers.
@@ -13,7 +14,7 @@ import type { Board, Dictionary, Point3f } from './_unresolved';
  * - The identifier of all the markers in the board.
  */
 export declare class aruco_Board {
-  public Board(): any
+  public constructor()
 
 /**
  * Common Board constructor.
@@ -22,7 +23,7 @@ export declare class aruco_Board {
  * @param dictionary the dictionary of markers employed for this board
  * @param ids vector of the identifiers of the markers in the board
  */
-  public Board(objPoints: InputArrayOfArrays, dictionary: Dictionary, ids: InputArray): any
+  public constructor(objPoints: InputArrayOfArrays, dictionary: aruco_Dictionary, ids: InputArray)
 
 /**
  * Draw a planar board.
@@ -39,7 +40,7 @@ export declare class aruco_Board {
 /**
  * return the Dictionary of markers employed for this board
  */
-  public getDictionary(): Dictionary
+  public getDictionary(): aruco_Dictionary
 
 /**
  * vector of the identifiers of the markers in the board (should be the same size as objPoints)

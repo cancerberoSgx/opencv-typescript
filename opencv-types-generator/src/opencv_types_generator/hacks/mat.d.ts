@@ -38,15 +38,22 @@ export declare class Mat_ extends Vector<Mat> {
 }
 
 // In C++, InputArray/OutputArray/InputOutputArray etc. are reference/proxy types accepting
-// a Mat, a Scalar, or a std::vector - at the opencv.js/embind boundary they're all just a
-// Mat. Aliasing them keeps the generated signatures that mention these names valid.
+// a Mat, a Scalar, or a std::vector - at the opencv.js/embind boundary a plain (non "OfArrays")
+// one is just a Mat, but the "OfArrays" family (a std::vector<Mat>, e.g. findContours's
+// `contours` parameter) is bound as an actual MatVector, not a Mat - passing a Mat there
+// throws at runtime ("Expected null or instance of MatVector, got an instance of Mat").
+// Confirmed against the real embind binding, not just doxygen's C++-side signature.
 export type InputArray = Mat;
 export type OutputArray = Mat;
 export type InputOutputArray = Mat;
-export type InputArrayOfArrays = Mat;
-export type OutputArrayOfArrays = Mat;
-export type InputOutputArrayOfArrays = Mat;
-export type MatVector = Vector<Mat>;
+export type InputArrayOfArrays = MatVector;
+export type OutputArrayOfArrays = MatVector;
+export type InputOutputArrayOfArrays = MatVector;
+
+// A real runtime class (like IntVector/FloatVector/etc. in runtime.d.ts), not just a type
+// alias - `new cv.MatVector()` is how the "OfArrays" family above actually gets constructed
+// (see e.g. findContours's `contours` parameter).
+export declare class MatVector extends Vector<Mat> {}
 
 export declare function matFromImageData(imageData: ImageData): Mat;
 export declare function matFromArray(

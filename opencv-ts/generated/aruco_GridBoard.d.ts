@@ -2,8 +2,8 @@
 
 import type { InputArray } from '../hacks/mat';
 import type { Size } from '../hacks/scalars';
-import type { Dictionary, GridBoard } from './_unresolved';
 import type { aruco_Board } from './aruco_Board';
+import type { aruco_Dictionary } from './aruco_Dictionary';
 
 /**
  * Planar board with grid arrangement of markers.
@@ -11,7 +11,7 @@ import type { aruco_Board } from './aruco_Board';
  * More common type of board. All markers are placed in the same plane in a grid arrangement. The board image can be drawn using generateImage() method.
  */
 export declare class aruco_GridBoard extends aruco_Board {
-  public GridBoard(): any
+  public constructor()
 
 /**
  * GridBoard constructor.
@@ -22,7 +22,7 @@ export declare class aruco_GridBoard extends aruco_Board {
  * @param dictionary dictionary of markers indicating the type of markers
  * @param ids set of marker ids in dictionary to use on board.
  */
-  public GridBoard(size: Size, markerLength: number, markerSeparation: number, dictionary: Dictionary, ids?: InputArray): any
+  public constructor(size: Size, markerLength: number, markerSeparation: number, dictionary: aruco_Dictionary, ids?: InputArray)
 
   public getGridSize(): Size
 

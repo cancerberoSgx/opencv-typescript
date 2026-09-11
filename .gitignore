@@ -1,3 +1,5 @@
 tmp*
 .pytest_cache
 /pages/opencv-ts-docs/
+/pages/demos/react1/
+/pages/.nojekyll

@@ -20,6 +20,11 @@
 #                           which is more portable across emsdk image versions;
 #                           if left at 0 and you need to remove ./output later,
 #                           use `sudo rm -rf output`)
+#   EMBIND_ALL              1 = bind every class/method/free-function the header parser
+#                           finds into opencv.js, instead of only what
+#                           platforms/js/opencv_js.config.py's curated whitelist covers
+#                           (default: 1 - maximizes typings coverage; set to 0 for
+#                           opencv's normal, smaller, curated opencv.js)
 #
 # Extra arguments are forwarded to `docker build` (e.g. --no-cache).
 
@@ -42,6 +47,7 @@ fi
 : "${FORCE_REBUILD_DOCS:=0}"
 : "${BUILD_JOBS:=0}"
 : "${RUN_AS_HOST_USER:=0}"
+: "${EMBIND_ALL:=1}"
 
 if ! command -v docker >/dev/null 2>&1; then
   echo "docker is required but was not found on PATH. Install Docker and try again." >&2
@@ -69,6 +75,7 @@ docker run --rm \
   -e FORCE_REBUILD_OPENCVJS="$FORCE_REBUILD_OPENCVJS" \
   -e FORCE_REBUILD_DOCS="$FORCE_REBUILD_DOCS" \
   -e BUILD_JOBS="$BUILD_JOBS" \
+  -e EMBIND_ALL="$EMBIND_ALL" \
   -e HOME=/tmp \
   "$IMAGE_TAG"
 

@@ -198,6 +198,25 @@ export declare function integral(src: InputArray, sum: OutputArray, sqsum: Outpu
 export declare function threshold(src: InputArray, dst: OutputArray, thresh: number, maxval: number, type: number): number
 
 /**
+ * Same as threshold, but with an optional mask.
+ *
+ * @note If the mask is empty, thresholdWithMask is equivalent to threshold. If the mask is not empty, dst *must* be of the same size and type as src, so that outliers pixels are left as-is
+ *
+ *
+ * @return the computed threshold value if Otsu's or Triangle methods used.
+ *
+ * @see threshold, adaptiveThreshold, findContours, compare, min, max
+ *
+ * @param src input array (multiple-channel, 8-bit or 32-bit floating point).
+ * @param dst output array of the same size and type and the same number of channels as src.
+ * @param mask optional mask (same size as src, 8-bit).
+ * @param thresh threshold value.
+ * @param maxval maximum value to use with the THRESH_BINARY and THRESH_BINARY_INV thresholding types.
+ * @param type thresholding type (see ThresholdTypes).
+ */
+export declare function thresholdWithMask(src: InputArray, dst: InputOutputArray, mask: InputArray, thresh: number, maxval: number, type: number): number
+
+/**
  * the threshold value  is a mean of the  neighborhood of  minus C
  */
 export declare const ADAPTIVE_THRESH_MEAN_C: number

@@ -25,9 +25,12 @@ def _run(out_dir: Path, jobs: int):
 def test_pipeline_renders_expected_classes_and_groups(tmp_path, jobs):
     class_files, group_files, report = _run(tmp_path / "out", jobs)
 
-    assert set(class_files) == {"Mat"}
+    # dnn::Net is registered alongside Mat purely so hacks/dnn-loaders.d.ts (bundled
+    # unconditionally into every emitted package) has a real `generated/dnn_Net` module to
+    # import - see test_emitted_package_type_checks_with_real_tsc.
+    assert set(class_files) == {"Mat", "dnn_Net"}
     assert set(group_files) == {"core_array"}
-    assert report.classes_rendered == 1
+    assert report.classes_rendered == 2
     assert report.groups_rendered == 1
     assert report.errors == []
     # the mini bindings.cpp registers a free function with no matching doxygen node -

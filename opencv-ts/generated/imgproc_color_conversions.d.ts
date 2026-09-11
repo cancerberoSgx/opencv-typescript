@@ -38,6 +38,19 @@ import type { AlgorithmHint } from './_unresolved';
 export declare function cvtColor(src: InputArray, dst: OutputArray, code: number, dstCn?: number, hint?: AlgorithmHint): void
 
 /**
+ * Converts an image from one color space to another where the source image is stored in two planes.
+ *
+ * This function only supports YUV420 to RGB conversion as of now.
+ *
+ * @param src1 8-bit image (CV_8U) of the Y plane.
+ * @param src2 image containing interleaved U/V plane.
+ * @param dst output image.
+ * @param code Specifies the type of conversion. It can take any of the following values: - COLOR_YUV2BGR_NV12 - COLOR_YUV2RGB_NV12 - COLOR_YUV2BGRA_NV12 - COLOR_YUV2RGBA_NV12 - COLOR_YUV2BGR_NV21 - COLOR_YUV2RGB_NV21 - COLOR_YUV2BGRA_NV21 - COLOR_YUV2RGBA_NV21
+ * @param hint Implementation modification flags. See AlgorithmHint
+ */
+export declare function cvtColorTwoPlane(src1: InputArray, src2: InputArray, dst: OutputArray, code: number, hint?: AlgorithmHint): void
+
+/**
  * main function for all demosaicing processes
  *
  * The function can do the following transformations:

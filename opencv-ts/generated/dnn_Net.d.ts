@@ -2,8 +2,10 @@
 
 import type { Vector } from '../hacks/runtime';
 import type { Scalar } from '../hacks/scalars';
+import type { AsyncArray } from './AsyncArray';
 import type { Mat } from './Mat';
-import type { Arg, ArgData, ArgKind, AsyncArray, CV_ND, CV_WRAP_FILE_PATH, LayerId, LayerParams, MatShape, ModelFormat, Net, ProfilingMode, Ptr, TracingMode } from './_unresolved';
+import type { MatShape } from './MatShape';
+import type { Arg, ArgData, ArgKind, CV_ND, CV_WRAP_FILE_PATH, LayerId, LayerParams, ModelFormat, ProfilingMode, Ptr, TracingMode } from './_unresolved';
 
 /**
  * This class allows to create and manipulate comprehensive artificial neural networks.
@@ -20,7 +22,7 @@ export declare class dnn_Net {
 /**
  * Default constructor.
  */
-  public Net(): any
+  public constructor()
 
 /**
  * Adds new layer to the net.
@@ -684,7 +686,7 @@ export declare class dnn_Net {
  * @param bufferModelConfig buffer with model's configuration.
  * @param bufferWeights buffer with model's trained weights.
  */
-  public static readFromModelOptimizer(bufferModelConfig: number, bufferWeights: number): Net
+  public static readFromModelOptimizer(bufferModelConfig: number, bufferWeights: number): dnn_Net
 
 /**
  * Create a network from Intel's Model Optimizer in-memory buffers with intermediate representation (IR).
@@ -696,7 +698,7 @@ export declare class dnn_Net {
  * @param bufferWeightsPtr buffer pointer of model's trained weights.
  * @param bufferWeightsSize buffer size of model's trained weights.
  */
-  public static readFromModelOptimizer(bufferModelConfigPtr: number, bufferModelConfigSize: number, bufferWeightsPtr: number, bufferWeightsSize: number): Net
+  public static readFromModelOptimizer(bufferModelConfigPtr: number, bufferModelConfigSize: number, bufferWeightsPtr: number, bufferWeightsSize: number): dnn_Net
 
 /**
  * Create a network from Intel's Model Optimizer intermediate representation (IR).
@@ -704,5 +706,5 @@ export declare class dnn_Net {
  * @param xml XML configuration file with network's topology.
  * @param bin Binary file with trained weights. Networks imported from Intel's Model Optimizer are launched in Intel's Inference Engine backend.
  */
-  public static readFromModelOptimizer(xml: CV_WRAP_FILE_PATH, bin: CV_WRAP_FILE_PATH): Net
+  public static readFromModelOptimizer(xml: CV_WRAP_FILE_PATH, bin: CV_WRAP_FILE_PATH): dnn_Net
 }

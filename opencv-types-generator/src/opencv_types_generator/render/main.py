@@ -51,7 +51,10 @@ def render_task(task: RenderTask) -> RenderResult:
 
     if task.kind == "group":
         content, emitted_functions, emitted_constants = render_group(
-            compound, set(task.registered_function_names), set(task.registered_constant_names)
+            compound,
+            set(task.registered_function_names),
+            set(task.registered_constant_names),
+            task.cpp_type_to_js_name,
         )
         stem = normalize_id(compound.compoundname or compound.title or "group")
         return RenderResult(

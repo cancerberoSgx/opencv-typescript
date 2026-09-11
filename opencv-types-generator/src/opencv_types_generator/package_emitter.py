@@ -47,6 +47,18 @@ def emit_package(
     generated_dir.mkdir(parents=True)
     hacks_dir.mkdir(parents=True)
 
+    # A hack file's whole reason for existing is to hand-provide something the generator
+    # can't (see e.g. hacks/scalars.d.ts's KeyPoint/RotatedRect - opencv.js's actual runtime
+    # shape for these, vs. their raw doxygen-documented C++ shape). If opencv.js's bindings
+    # *also* happen to register a real class of the same name (as KeyPoint/RotatedRect now
+    # do), generating it too would fight the hack for the same exported name - `_barrel.d.ts`
+    # re-exporting both makes every use of the name ambiguous (TS2308). The hack always wins:
+    # drop the would-be-generated class entirely rather than emit a name collision.
+    hack_provided_names: set[str] = set()
+    for hack_file in sorted(_HACKS_DIR.glob("*.d.ts")):
+        hack_provided_names |= extract_exported_names(hack_file.read_text(encoding="utf-8"))
+    class_files = {stem: content for stem, content in class_files.items() if stem not in hack_provided_names}
+
     # Deterministic tie-break: a group compound whose file stem collides with an
     # already-written class name (rare, but possible - doxygen group titles and class
     # names live in different namespaces) gets a `group_` prefix instead of clobbering

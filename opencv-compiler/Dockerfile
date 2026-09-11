@@ -24,9 +24,11 @@ ENV OPENCV_REF=4.x
 ENV FORCE_REBUILD_OPENCVJS=0
 ENV FORCE_REBUILD_DOCS=0
 ENV BUILD_JOBS=0
+ENV EMBIND_ALL=1
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+COPY patch-embindgen-bind-all.py /usr/local/bin/patch-embindgen-bind-all.py
+RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/patch-embindgen-bind-all.py
 
 WORKDIR /work
 VOLUME ["/work/opencv"]

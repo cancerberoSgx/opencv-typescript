@@ -2,7 +2,10 @@
 
 import type { InputArray, InputOutputArray, InputOutputArrayOfArrays, OutputArray, OutputArrayOfArrays } from '../hacks/mat';
 import type { Algorithm } from './Algorithm';
-import type { CharucoBoard, CharucoDetector, CharucoParameters, DetectorParameters, RefineParameters } from './_unresolved';
+import type { aruco_CharucoBoard } from './aruco_CharucoBoard';
+import type { aruco_CharucoParameters } from './aruco_CharucoParameters';
+import type { aruco_DetectorParameters } from './aruco_DetectorParameters';
+import type { aruco_RefineParameters } from './aruco_RefineParameters';
 
 export declare class aruco_CharucoDetector extends Algorithm {
 /**
@@ -13,7 +16,7 @@ export declare class aruco_CharucoDetector extends Algorithm {
  * @param detectorParams marker detection parameters
  * @param refineParams marker refine detection parameters
  */
-  public CharucoDetector(board: CharucoBoard, charucoParams?: CharucoParameters, detectorParams?: DetectorParameters, refineParams?: RefineParameters): any
+  public constructor(board: aruco_CharucoBoard, charucoParams?: aruco_CharucoParameters, detectorParams?: aruco_DetectorParameters, refineParams?: aruco_RefineParameters)
 
 /**
  * detect aruco markers and interpolate position of ChArUco board corners
@@ -49,19 +52,19 @@ export declare class aruco_CharucoDetector extends Algorithm {
  */
   public detectDiamonds(image: InputArray, diamondCorners: OutputArrayOfArrays, diamondIds: OutputArray, markerCorners?: InputOutputArrayOfArrays, markerIds?: InputOutputArray): void
 
-  public getBoard(): CharucoBoard
+  public getBoard(): aruco_CharucoBoard
 
-  public getCharucoParameters(): CharucoParameters
+  public getCharucoParameters(): aruco_CharucoParameters
 
-  public getDetectorParameters(): DetectorParameters
+  public getDetectorParameters(): aruco_DetectorParameters
 
-  public getRefineParameters(): RefineParameters
+  public getRefineParameters(): aruco_RefineParameters
 
-  public setBoard(board: CharucoBoard): void
+  public setBoard(board: aruco_CharucoBoard): void
 
-  public setCharucoParameters(charucoParameters: CharucoParameters): void
+  public setCharucoParameters(charucoParameters: aruco_CharucoParameters): void
 
-  public setDetectorParameters(detectorParameters: DetectorParameters): void
+  public setDetectorParameters(detectorParameters: aruco_DetectorParameters): void
 
-  public setRefineParameters(refineParameters: RefineParameters): void
+  public setRefineParameters(refineParameters: aruco_RefineParameters): void
 }

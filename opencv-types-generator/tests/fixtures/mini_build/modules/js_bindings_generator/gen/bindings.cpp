@@ -8,6 +8,13 @@ EMSCRIPTEN_BINDINGS(testBinding) {
         .constructor<>()
         ;
 
+    // Registered so hacks/dnn-loaders.d.ts (bundled unconditionally into every emitted
+    // package, see package_emitter.py) has a real `generated/dnn_Net` module to import -
+    // see test_emitted_package_type_checks_with_real_tsc.
+    emscripten::class_<cv::dnn::Net>("dnn_Net")
+        .constructor<>()
+        ;
+
     function("absdiff", select_overload<void(const Mat&, const Mat&, Mat&)>(&binding_utils::absdiff));
     function("notRegisteredElsewhere", &binding_utils::somethingElse);
 

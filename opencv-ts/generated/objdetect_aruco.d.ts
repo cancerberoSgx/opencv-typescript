@@ -2,7 +2,8 @@
 
 import type { InputArray, InputArrayOfArrays, InputOutputArray, OutputArray } from '../hacks/mat';
 import type { Scalar } from '../hacks/scalars';
-import type { Dictionary, PredefinedDictionaryType } from './_unresolved';
+import type { PredefinedDictionaryType } from './_unresolved';
+import type { aruco_Dictionary } from './aruco_Dictionary';
 
 /**
  * ArUco Marker Detection Square fiducial markers (also known as Augmented Reality Markers) are useful for easy, fast and robust camera pose estimation.
@@ -115,7 +116,7 @@ export declare function drawDetectedMarkers(image: InputOutputArray, corners: In
  * @param baseDictionary Include the markers in this dictionary at the beginning (optional)
  * @param randomSeed a user supplied seed for theRNG()
  */
-export declare function extendDictionary(nMarkers: number, markerSize: number, baseDictionary?: any, randomSeed?: number): Dictionary
+export declare function extendDictionary(nMarkers: number, markerSize: number, baseDictionary?: any, randomSeed?: number): aruco_Dictionary
 
 /**
  * Generate a canonical marker image.
@@ -133,12 +134,12 @@ export declare function generateImageMarker(dictionary: any, id: number, sidePix
 /**
  * Returns one of the predefined dictionaries referenced by DICT_*.
  */
-export declare function getPredefinedDictionary(dict: number): Dictionary
+export declare function getPredefinedDictionary(dict: number): aruco_Dictionary
 
 /**
  * Returns one of the predefined dictionaries defined in PredefinedDictionaryType.
  */
-export declare function getPredefinedDictionary(name: PredefinedDictionaryType): Dictionary
+export declare function getPredefinedDictionary(name: PredefinedDictionaryType): aruco_Dictionary
 
 /**
  * Tag and corners detection based on the ArUco approach.
