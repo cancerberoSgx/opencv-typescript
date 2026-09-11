@@ -50,6 +50,7 @@ export type MatAllocator = any;
 export type MatExpr = any;
 export type MatType = any;
 export type ModelFormat = any;
+export type Moments = any;
 export type NeighborSearchMethod = any;
 export type P1 = any;
 export type P2 = any;

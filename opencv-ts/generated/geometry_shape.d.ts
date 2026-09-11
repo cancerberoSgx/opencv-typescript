@@ -4,8 +4,7 @@ import type { InputArray, OutputArray } from '../hacks/mat';
 import type { Vector } from '../hacks/runtime';
 import type { Point2f, Rect, RotatedRect } from '../hacks/scalars';
 import type { Mat } from './Mat';
-import type { Moments } from './Moments';
-import type { M, MSTAlgorithm } from './_unresolved';
+import type { M, MSTAlgorithm, Moments } from './_unresolved';
 
 /* @defgroup Shape analysis and fitting */
 
