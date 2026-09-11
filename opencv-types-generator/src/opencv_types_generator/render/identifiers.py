@@ -33,6 +33,22 @@ HACK_OVERRIDDEN_MEMBERS: dict[str, set[str]] = {
     "Mat": {"data", "size", "clone"},
 }
 
+# Classes whose own doxygen-documented override of a specific base-class method is *valid*
+# real C++ (a derived class overriding one virtual overload of a multi-overload base member
+# - e.g. cv::Algorithm/DescriptorMatcher's `read`/`write` have both a virtual
+# `(const FileNode&)` overload and a separate, non-virtual `(const String&)` convenience
+# wrapper that opens the file and calls the virtual one; a subclass overriding only the
+# virtual one is unremarkable in C++) but rejected by TypeScript's structural method-override
+# check (TS2416: the override doesn't cover every call shape the base's declares). Dropping
+# the subclass's own (narrower) declaration and leaving it to inherit the base's (wider) one
+# is always safe here: embind's actual runtime dispatch doesn't care about compile-time
+# overload sets, and the base's declared shape is a superset of what the subclass's own
+# override actually is - the same idea as HACK_OVERRIDDEN_MEMBERS above, for a different
+# reason (a real inheritance incompatibility, not a better hand-written alternative).
+INHERITED_ONLY_MEMBERS: dict[str, set[str]] = {
+    "FlannBasedMatcher": {"read", "write"},
+}
+
 # Classes whose own doxygen-documented static member(s) genuinely collide, by name, with a
 # same-named static already declared on their real base class, with an incompatible
 # signature (e.g. `BFMatcher.create(normType?, crossCheck?)` vs.

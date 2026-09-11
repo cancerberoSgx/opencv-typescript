@@ -8,6 +8,26 @@ Projects:
  * [test-projects](test-projects/README.md): some typescript projects testing the typings both in web and node.js using npm and modern bundlers.
  * [generate-api-docs](generate-api-docs/README.md): generates static HTML API docs for opencv-ts with TypeDoc into `/pages/opencv-ts-docs`, published on GitHub Pages by `.github/workflows/pages.yml`.
 
+# GitHub Pages
+
+Published from the [`pages`](pages) folder via GitHub Actions. Repo setting: **Settings →
+Pages → Build and deployment → Source: "GitHub Actions"** (not "Deploy from a branch" - no
+branch/folder to pick).
+
+* [`.github/workflows/pages.yml`](.github/workflows/pages.yml) runs `scripts/build-pages.sh`
+  on every push to `main` (see its `paths:` filter) and publishes the result. It generates
+  the `opencv-ts` API docs (`scripts/build-api-docs.sh` → `generate-api-docs`) and builds
+  the `test-projects/react1` demo (`scripts/build-demo-react1.sh`) into `pages/demos/react1`.
+  Everything it produces is git-ignored and rebuilt from scratch on every push.
+* **`pages/demos/assets/opencv.js`** is the one exception: it *is* committed to git, and is
+  the single `opencv.js` every demo under `pages/demos/**` loads (e.g. via a relative
+  `../assets/opencv.js` URL), instead of each one bundling its own multi-MB copy. Update it
+  with `scripts/sync-opencv-asset.sh` (copies from a local opencv.js build - defaults to
+  `test-projects/react1/public/opencv.js`, override with `OPENCV_JS_SRC=...`) and commit the
+  result whenever the reference build changes; nothing rebuilds it in CI.
+
+To preview the whole thing locally: `scripts/build-pages.sh` then serve `pages/` (e.g.
+`npx http-server pages`).
 
 # TODO
  * better versioning: detect opencv source version and set it in opencv-ts/package.json appropriately. For example openvc 4.x types are different to 5.x and maybe different "hacks" are needed to fully support it. So there's some work still to support other opencv versions than 5.0 which is the currently supported.

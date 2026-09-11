@@ -4,6 +4,10 @@
     <name>cv::Mat</name>
     <member refid="d3/d63/classcv_1_1Mat_1af1d014cecd1510cdf580bf2ed7e5aafc" kind="function"><name>Mat</name></member>
   </compound>
+  <compound refid="d1/d99/classcv_1_1dnn_1_1Net" kind="class">
+    <name>cv::dnn::Net</name>
+    <member refid="d1/d99/classcv_1_1dnn_1_1Net_1a0000000000000000000000000000000" kind="function"><name>Net</name></member>
+  </compound>
   <compound refid="group__core__array" kind="group">
     <name>core_array</name>
     <member refid="gafn1" kind="function"><name>absdiff</name></member>

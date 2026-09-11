@@ -6,6 +6,7 @@ from ..doxygen_schema import CompoundDef, Member
 from .enums import render_class_enums
 from .identifiers import (
     HACK_OVERRIDDEN_MEMBERS,
+    INHERITED_ONLY_MEMBERS,
     STATIC_SIDE_INCOMPATIBLE_SUBCLASSES,
     is_templated,
     is_valid_id,
@@ -26,6 +27,8 @@ def _valid_attr(m: Member, class_js_name: str) -> bool:
 def _valid_method(m: Member, class_js_name: str) -> bool:
     if m.name in HACK_OVERRIDDEN_MEMBERS.get(class_js_name, ()):
         return False
+    if m.name in INHERITED_ONLY_MEMBERS.get(class_js_name, ()):
+        return False
     return (
         is_valid_id(m.name)
         and not m.name.startswith("~")
@@ -34,23 +37,27 @@ def _valid_method(m: Member, class_js_name: str) -> bool:
     )
 
 
-def _render_method(f: Member, class_js_name: str) -> str:
-    name = "constructor" if f.name == class_js_name else f.name
+def _render_method(
+    f: Member, class_js_name: str, class_bare_name: str, cpp_type_to_js_name: dict[str, str]
+) -> str:
+    name = "constructor" if f.name == class_bare_name else f.name
     prot = "private" if f.prot == "package" else f.prot
     static = "static " if f.static == "yes" else ""
-    params = ", ".join(render_param(p) for p in f.params)
-    ret = "" if name == "constructor" else f": {render_type(f.type)}"
+    params = ", ".join(render_param(p, cpp_type_to_js_name) for p in f.params)
+    ret = "" if name == "constructor" else f": {render_type(f.type, cpp_type_to_js_name)}"
     doc = jsdoc_function(f)
     sig = f"  {prot} {static}{name}({params}){ret}"
     return f"{doc}\n{sig}" if doc else sig
 
 
-def _render_attr(f: Member, class_js_name: str) -> str:
-    name = "constructor" if f.name == class_js_name else f.name
+def _render_attr(
+    f: Member, class_js_name: str, class_bare_name: str, cpp_type_to_js_name: dict[str, str]
+) -> str:
+    name = "constructor" if f.name == class_bare_name else f.name
     prot = "private" if f.prot == "package" else f.prot
     static = "static " if f.static == "yes" else ""
     doc = to_jsdoc(f)
-    sig = f"  {prot} {static}{name}: {render_type(f.type)}"
+    sig = f"  {prot} {static}{name}: {render_type(f.type, cpp_type_to_js_name)}"
     return f"{doc}\n{sig}" if doc else sig
 
 
@@ -69,11 +76,22 @@ def render_compound_class(
     instance_only_base = class_js_name in STATIC_SIDE_INCOMPATIBLE_SUBCLASSES
     extends = f" extends {base_name}" if base_name and not instance_only_base else ""
 
+    # The doxygen-documented constructor member is named after the class's own *bare* C++
+    # name (e.g. "Net"), not its flattened embind name (e.g. "dnn_Net" - only equal to the
+    # bare name for classes with no namespace prefix), so a namespace-nested class's own
+    # constructor was never actually recognized as one, and rendered as a same-named,
+    # any-returning method instead of a real `constructor(...)`.
+    class_bare_name = compound.compoundname.rsplit("::", 1)[-1] if compound.compoundname else class_js_name
+
     attrs = "\n\n".join(
-        _render_attr(f, class_js_name) for f in compound.public_attribs if _valid_attr(f, class_js_name)
+        _render_attr(f, class_js_name, class_bare_name, cpp_type_to_js_name)
+        for f in compound.public_attribs
+        if _valid_attr(f, class_js_name)
     )
     methods = "\n\n".join(
-        _render_method(f, class_js_name) for f in compound.public_funcs if _valid_method(f, class_js_name)
+        _render_method(f, class_js_name, class_bare_name, cpp_type_to_js_name)
+        for f in compound.public_funcs
+        if _valid_method(f, class_js_name)
     )
     body = "\n\n".join(part for part in (attrs, methods) if part)
 

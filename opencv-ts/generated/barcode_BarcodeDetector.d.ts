@@ -3,13 +3,13 @@
 import type { InputArray, OutputArray } from '../hacks/mat';
 import type { Vector } from '../hacks/runtime';
 import type { GraphicalCodeDetector } from './GraphicalCodeDetector';
-import type { BarcodeDetector, CV_WRAP_FILE_PATH } from './_unresolved';
+import type { CV_WRAP_FILE_PATH } from './_unresolved';
 
 export declare class barcode_BarcodeDetector extends GraphicalCodeDetector {
 /**
  * Initialize the BarcodeDetector. Super resolution is disabled.
  */
-  public BarcodeDetector(): any
+  public constructor()
 
 /**
  * Initialize the BarcodeDetector with a Super Resolution model.
@@ -21,7 +21,7 @@ export declare class barcode_BarcodeDetector extends GraphicalCodeDetector {
  *
  * @param super_resolution_model_path path to a single-file ONNX Super Resolution model.
  */
-  public BarcodeDetector(super_resolution_model_path: CV_WRAP_FILE_PATH): any
+  public constructor(super_resolution_model_path: CV_WRAP_FILE_PATH)
 
 /**
  * Decodes barcode in image once it's found by the detect() method.
@@ -75,7 +75,7 @@ export declare class barcode_BarcodeDetector extends GraphicalCodeDetector {
  *
  * @param sizes box filter sizes, relative to minimum dimension of the image (default [0.01, 0.03, 0.06, 0.08])
  */
-  public setDetectorScales(sizes: any): BarcodeDetector
+  public setDetectorScales(sizes: any): barcode_BarcodeDetector
 
 /**
  * Set detector downsampling threshold.
@@ -85,7 +85,7 @@ export declare class barcode_BarcodeDetector extends GraphicalCodeDetector {
  *
  * @param thresh downsampling limit to apply (default 512)
  */
-  public setDownsamplingThreshold(thresh: number): BarcodeDetector
+  public setDownsamplingThreshold(thresh: number): barcode_BarcodeDetector
 
 /**
  * Set detector gradient magnitude threshold.
@@ -94,5 +94,5 @@ export declare class barcode_BarcodeDetector extends GraphicalCodeDetector {
  *
  * @param thresh gradient magnitude threshold (default 64).
  */
-  public setGradientThreshold(thresh: number): BarcodeDetector
+  public setGradientThreshold(thresh: number): barcode_BarcodeDetector
 }

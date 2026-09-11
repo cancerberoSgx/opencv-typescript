@@ -4,8 +4,10 @@ import type { InputArray, InputArrayOfArrays } from '../hacks/mat';
 import type { Vector } from '../hacks/runtime';
 import type { KeyPoint, Size } from '../hacks/scalars';
 import type { Algorithm } from './Algorithm';
+import type { FileNode } from './FileNode';
+import type { FileStorage } from './FileStorage';
 import type { Mat } from './Mat';
-import type { CV_NODISCARD_STD, FileNode, FileStorage, Ptr } from './_unresolved';
+import type { CV_NODISCARD_STD, Ptr } from './_unresolved';
 
 /**
  * Abstract base class for matching keypoint descriptors.

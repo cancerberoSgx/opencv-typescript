@@ -3,7 +3,8 @@
 import type { InputArray, InputArrayOfArrays, OutputArray, OutputArrayOfArrays } from '../hacks/mat';
 import type { Vector } from '../hacks/runtime';
 import type { Algorithm } from './Algorithm';
-import type { FileNode, FileStorage } from './_unresolved';
+import type { FileNode } from './FileNode';
+import type { FileStorage } from './FileStorage';
 
 /**
  * Abstract base class for 2D image feature detectors and descriptor extractors.

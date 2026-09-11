@@ -69,7 +69,7 @@ def _build_render_tasks(matched, doc_xml_dir: str) -> list[RenderTask]:
             RenderTask(
                 kind="group",
                 xml_file=compound_xml_path(doc_xml_dir, member.compound_refid),
-                cpp_type_to_js_name={},
+                cpp_type_to_js_name=matched.cpp_type_to_js_name,
                 registered_function_names=registered_function_names,
                 registered_constant_names=registered_constant_names,
             )

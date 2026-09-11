@@ -280,6 +280,67 @@ export declare function fillPoly(img: InputOutputArray, pts: InputArrayOfArrays,
 export declare function getFontScaleFromHeight(fontFace: any, pixelHeight: any, thickness?: any): number
 
 /**
+ * Calculates the width and height of a text string.
+ *
+ * The function cv::getTextSize calculates and returns the size of a box that contains the specified text. That is, the following code renders some text, the tight box surrounding it, and the baseline: : Stringtext="Funnytextinsidethebox";
+ * intfontFace=FONT_HERSHEY_SCRIPT_SIMPLEX;
+ * doublefontScale=2;
+ * intthickness=3;
+ *
+ * Matimg(600,800,CV_8UC3,Scalar::all(0));
+ *
+ * intbaseline=0;
+ * SizetextSize=getTextSize(text,fontFace,
+ * fontScale,thickness,&baseline);
+ * baseline+=thickness;
+ *
+ * //centerthetext
+ * PointtextOrg((img.cols-textSize.width)/2,
+ * (img.rows+textSize.height)/2);
+ *
+ * //drawthebox
+ * rectangle(img,textOrg+Point(0,baseline),
+ * textOrg+Point(textSize.width,-textSize.height),
+ * Scalar(0,0,255));
+ * //...andthebaselinefirst
+ * line(img,textOrg+Point(0,thickness),
+ * textOrg+Point(textSize.width,thickness),
+ * Scalar(0,0,255));
+ *
+ * //thenputthetextitself
+ * putText(img,text,textOrg,fontFace,fontScale,
+ * Scalar::all(255),thickness,8);
+ *
+ *
+ * @return The size of a box that contains the specified text.
+ *
+ * @see putText
+ *
+ * @param text Input text string.
+ * @param fontFace Font to use, see HersheyFonts.
+ * @param fontScale Font scale factor that is multiplied by the font-specific base size.
+ * @param thickness Thickness of lines used to render the text. See putText for details.
+ * @param baseLine y-coordinate of the baseline relative to the bottom-most text point.
+ */
+export declare function getTextSize(text: any, fontFace: number, fontScale: number, thickness: number, baseLine: any): Size
+
+/**
+ * Calculates the bounding rect for the text.
+ *
+ * The function cv::getTextSize calculates and returns the size of a box that contains the specified text. That is, the following code renders some text, the tight box surrounding it, and the baseline: :
+ *
+ * @param imgsize Size of the target image, can be empty
+ * @param text Text string to be drawn.
+ * @param org Bottom-left corner of the first character of the printed text (see PUT_TEXT_ALIGN_... though)
+ * @param fface The font to use for the text
+ * @param size Font size in pixels (by default) or pts
+ * @param weight Font weight, 100..1000, where 100 is "thin" font, 400 is "regular", 600 is "semibold", 800 is "bold" and beyond that is "black". The default weight means "400" for variable-weight fonts or whatever "default" weight the used font provides.
+ * @param flags Various flags, see PUT_TEXT_...
+ * @param wrap The optional text wrapping range; see putText.
+ */
+export declare function getTextSize(imgsize: Size, text: any, org: Point, fface: any, size: number, weight?: number, flags?: PutTextFlags, wrap?: Range): Rect
+
+/**
  * Draws a line segment connecting two points.
  *
  * The function line draws the line segment between pt1 and pt2 points in the image. The line is clipped by the image boundaries. For non-antialiased lines with integer coordinates, the 8-connected or 4-connected Bresenham algorithm is used. Thick lines are drawn with rounding endings. Antialiased lines are drawn using Gaussian filtering.

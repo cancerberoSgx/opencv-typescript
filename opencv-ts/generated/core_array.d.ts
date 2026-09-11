@@ -3,6 +3,7 @@
 import type { InputArray, InputArrayOfArrays, InputOutputArray, InputOutputArrayOfArrays, OutputArray, OutputArrayOfArrays } from '../hacks/mat';
 import type { Scalar } from '../hacks/scalars';
 import type { Mat } from './Mat';
+import type { K, R } from './_unresolved';
 
 /* @defgroup Operations on arrays */
 
@@ -68,6 +69,13 @@ export declare function add(src1: InputArray, src2: InputArray, dst: OutputArray
 export declare function addWeighted(src1: InputArray, alpha: number, src2: InputArray, beta: number, gamma: number, dst: OutputArray, dtype?: number): void
 
 /**
+ * naive nearest neighbor finder
+ *
+ * see http://en.wikipedia.org/wiki/Nearest_neighbor_search (http://en.wikipedia.org/wiki/Nearest_neighbor_search) Tododocument
+ */
+export declare function batchDistance(src1: InputArray, src2: InputArray, dist: OutputArray, dtype: number, nidx: OutputArray, normType?: number, K?: number, mask?: InputArray, update?: number, crosscheck?: boolean): void
+
+/**
  * computes bitwise conjunction of the two arrays (dst = src1 & src2) Calculates the per-element bit-wise conjunction of two arrays or an array and a scalar.
  *
  * The function cv::bitwise_and calculates the per-element bit-wise logical conjunction for: Two arrays when src1 and src2 have the same size:  An array and a scalar when src2 is constructed from Scalar or has the same number of elements as `src1.channels()`:  A scalar and an array when src1 is constructed from Scalar or has the same number of elements as `src2.channels()`:  In case of floating-point arrays, their machine-specific bit representations (usually IEEE754-compliant) are used for the operation. In case of multi-channel arrays, each channel is processed independently. In the second and third cases above, the scalar is first converted to the array type.
@@ -115,6 +123,66 @@ export declare function bitwise_or(src1: InputArray, src2: InputArray, dst: Outp
 export declare function bitwise_xor(src1: InputArray, src2: InputArray, dst: OutputArray, mask?: InputArray): void
 
 /**
+ * Computes the source location of an extrapolated pixel.
+ *
+ * The function computes and returns the coordinate of a donor pixel corresponding to the specified extrapolated pixel when using the specified extrapolation border mode. For example, if you use cv::BORDER_WRAP mode in the horizontal direction, cv::BORDER_REFLECT_101 in the vertical direction and want to compute value of the "virtual" pixel Point(-5, 100) in a floating-point image img, it looks like: floatval=img.at<float>(borderInterpolate(100,img.rows,cv::BORDER_REFLECT_101),
+ * borderInterpolate(-5,img.cols,cv::BORDER_WRAP));
+ *  Normally, the function is not called directly. It is used inside filtering functions and also in copyMakeBorder.
+ * @see copyMakeBorder
+ *
+ * @param p 0-based coordinate of the extrapolated pixel along one of the axes, likely <0 or >= len
+ * @param len Length of the array along the corresponding axis.
+ * @param borderType Border type, one of the BorderTypes, except for BORDER_TRANSPARENT and BORDER_ISOLATED. When borderType==BORDER_CONSTANT, the function always returns -1, regardless of p and len.
+ */
+export declare function borderInterpolate(p: number, len: number, borderType: number): number
+
+/**
+ * Broadcast the given Mat to the given shape.
+ *
+ * @param src input array
+ * @param shape target shape. Note that negative values are not supported.
+ * @param dst output array that has the given shape
+ */
+export declare function broadcast(src: InputArray, shape: any, dst: OutputArray): void
+
+/**
+ * Broadcast the given Mat to the given shape.
+ *
+ * @param src input array
+ * @param shape target shape. Should be a list of CV_32S numbers. Note that negative values are not supported.
+ * @param dst output array that has the given shape
+ */
+export declare function broadcast(src: InputArray, shape: InputArray, dst: OutputArray): void
+
+/**
+ * Calculates the covariance matrix of a set of vectors.
+ *
+ * The function cv::calcCovarMatrix calculates the covariance matrix and, optionally, the mean vector of the set of input vectors.
+ * @see PCA, mulTransposed, Mahalanobis
+ *
+ * TodoInputArrayOfArrays
+ *
+ * @param samples samples stored as separate matrices
+ * @param nsamples number of samples
+ * @param covar output covariance matrix of the type ctype and square size.
+ * @param mean input or output (depending on the flags) array as the average value of the input vectors.
+ * @param flags operation flags as a combination of CovarFlags
+ * @param ctype type of the matrixl; it equals 'CV_64F' by default.
+ */
+export declare function calcCovarMatrix(samples: any, nsamples: number, covar: any, mean: any, flags: number, ctype?: number): void
+
+/**
+ * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. @note use COVAR_ROWS or COVAR_COLS flag
+ *
+ * @param samples samples stored as rows/columns of a single matrix.
+ * @param covar output covariance matrix of the type ctype and square size.
+ * @param mean input or output (depending on the flags) array as the average value of the input vectors.
+ * @param flags operation flags as a combination of CovarFlags
+ * @param ctype type of the matrixl; it equals 'CV_64F' by default.
+ */
+export declare function calcCovarMatrix(samples: InputArray, covar: OutputArray, mean: InputOutputArray, flags: number, ctype?: number): void
+
+/**
  * Calculates the magnitude and angle of 2D vectors.
  *
  * The function cv::cartToPolar calculates either the magnitude, angle, or both for every 2D vector (x(I),y(I)):
@@ -146,6 +214,21 @@ export declare function cartToPolar(x: InputArray, y: InputArray, magnitude: Out
  * @param cmpop a flag, that specifies correspondence between the arrays (cv::CmpTypes)
  */
 export declare function compare(src1: InputArray, src2: InputArray, dst: OutputArray, cmpop: number): void
+
+/**
+ * Copies the lower or the upper half of a square matrix to its another half.
+ *
+ * The function cv::completeSymm copies the lower or the upper half of a square matrix to its another half. The matrix diagonal remains unchanged:
+ * - for  if lowerToUpper=false
+ * - for  if lowerToUpper=true
+ *
+ *
+ * @see flip, transpose
+ *
+ * @param m input-output floating-point square matrix.
+ * @param lowerToUpper operation flag; if true, the lower half is copied to the upper half. Otherwise, the upper half is copied to the lower half.
+ */
+export declare function completeSymm(m: InputOutputArray, lowerToUpper?: boolean): void
 
 /**
  * Scales, calculates absolute values, and converts the result to 8-bit.
@@ -205,6 +288,15 @@ export declare function convertScaleAbs(src: InputArray, dst: OutputArray, alpha
 export declare function copyMakeBorder(src: InputArray, dst: OutputArray, top: number, bottom: number, left: number, right: number, borderType: number, value?: any): void
 
 /**
+ * This is an overloaded member function, provided for convenience (python) Copies the matrix to another one. When the operation mask is specified, if the Mat::create call shown above reallocates the matrix, the newly allocated matrix is initialized with all zeros before copying the data.
+ *
+ * @param src source matrix.
+ * @param dst Destination matrix. If it does not have a proper size or type before the operation, it is reallocated.
+ * @param mask Operation mask of the same size as *this. Its non-zero elements indicate which matrix elements need to be copied. The mask has to be of type CV_8U, CV_8S or CV_Bool and can have 1 or multiple channels.
+ */
+export declare function copyTo(src: InputArray, dst: OutputArray, mask: InputArray): void
+
+/**
  * Counts non-zero array elements.
  *
  * The function returns the number of non-zero elements in src :
@@ -225,6 +317,35 @@ export declare function copyMakeBorder(src: InputArray, dst: OutputArray, top: n
  * @param src single-channel array.
  */
 export declare function countNonZero(src: InputArray): number
+
+/**
+ * Performs a forward or inverse discrete Cosine transform of 1D or 2D array.
+ *
+ * The function cv::dct performs a forward or inverse discrete Cosine transform (DCT) of a 1D or 2D floating-point array:
+ * - Forward Cosine transform of a 1D vector of N elements:  where  and ,  for *j > 0*.
+ * - Inverse Cosine transform of a 1D vector of N elements:  (since  is an orthogonal matrix,  )
+ * - Forward 2D Cosine transform of M x N matrix:
+ * - Inverse 2D Cosine transform of M x N matrix:
+ *
+ *
+ * The function chooses the mode of operation by looking at the flags and size of the input array:
+ * - If (flags & DCT_INVERSE) == 0, the function does a forward 1D or 2D transform. Otherwise, it is an inverse 1D or 2D transform.
+ * - If (flags & DCT_ROWS) != 0, the function performs a 1D transform of each row.
+ * - If the array is a single column or a single row, the function performs a 1D transform.
+ * - If none of the above is true, the function performs a 2D transform.
+ *
+ *
+ * @note Currently dct supports even-size arrays (2, 4, 6 ...). For data analysis and approximation, you can pad the array when necessary. Also, the function performance depends very much, and not monotonically, on the array size (see getOptimalDFTSize ). In the current implementation DCT of a vector of size N is calculated via DFT of a vector of size N/2 . Thus, the optimal DCT size N1 >= N can be calculated as: size_tgetOptimalDCTSize(size_tN){return2*getOptimalDFTSize((N+1)/2);}
+ * N1=getOptimalDCTSize(N);
+ *
+ *
+ * @see dft, getOptimalDFTSize, idct
+ *
+ * @param src input floating-point array.
+ * @param dst output array of the same size and type as src .
+ * @param flags transformation flags as a combination of cv::DftFlags (DCT_*)
+ */
+export declare function dct(src: InputArray, dst: OutputArray, flags?: number): void
 
 /**
  * Returns the determinant of a square floating-point matrix.
@@ -467,6 +588,22 @@ export declare function divSpectrums(a: InputArray, b: InputArray, c: OutputArra
 export declare function eigen(src: InputArray, eigenvalues: OutputArray, eigenvectors?: OutputArray): boolean
 
 /**
+ * Calculates eigenvalues and eigenvectors of a non-symmetric matrix (real eigenvalues only).
+ *
+ * @note Assumes real eigenvalues.
+ *
+ * The function calculates eigenvalues and eigenvectors (optional) of the square matrix src: src*eigenvectors.row(i).t()=eigenvalues.at<srcType>(i)*eigenvectors.row(i).t()
+ *
+ *
+ * @see eigen
+ *
+ * @param src input matrix (CV_32FC1 or CV_64FC1 type).
+ * @param eigenvalues output vector of eigenvalues (type is the same type as src).
+ * @param eigenvectors output matrix of eigenvectors (type is the same type as src). The eigenvectors are stored as subsequent matrix rows, in the same order as the corresponding eigenvalues.
+ */
+export declare function eigenNonSymmetric(src: InputArray, eigenvalues: OutputArray, eigenvectors: OutputArray): void
+
+/**
  * Calculates the exponent of every array element.
  *
  * The function cv::exp calculates the exponent of every element of the input array:
@@ -481,6 +618,59 @@ export declare function eigen(src: InputArray, eigenvalues: OutputArray, eigenve
 export declare function exp(src: InputArray, dst: OutputArray): void
 
 /**
+ * Extracts a single channel from src (coi is 0-based index)
+ *
+ * @see mixChannels, split
+ *
+ * @param src input array
+ * @param dst output array
+ * @param coi index of channel to extract
+ */
+export declare function extractChannel(src: InputArray, dst: OutputArray, coi: number): void
+
+/**
+ * Returns the list of locations of non-zero pixels.
+ *
+ * Given a binary matrix (likely returned from an operation such as threshold(), compare(), >, ==, etc, return all of the non-zero indices as a cv::Mat or std::vector<cv::Point> (x,y) For example: cv::MatbinaryImage;//input,binaryimage
+ * cv::Matlocations;//output,locationsofnon-zeropixels
+ * cv::findNonZero(binaryImage,locations);
+ *
+ * //accesspixelcoordinates
+ * Pointpnt=locations.at<Point>(i);
+ *  or cv::MatbinaryImage;//input,binaryimage
+ * vector<Point>locations;//output,locationsofnon-zeropixels
+ * cv::findNonZero(binaryImage,locations);
+ *
+ * //accesspixelcoordinates
+ * Pointpnt=locations[i];
+ *
+ *
+ * The function do not work with multi-channel arrays. If you need to find non-zero elements across all the channels, use Mat::reshape first to reinterpret the array as single-channel. Or you may extract the particular channel using either extractImageCOI, or mixChannels, or split.
+ *
+ *
+ * @note - CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
+ * - If only count of non-zero array elements is important, countNonZero is helpful.
+ * - If only whether there are non-zero elements is important, hasNonZero is helpful.
+ *
+ *
+ * @see countNonZero, hasNonZero
+ *
+ * @param src single-channel array
+ * @param idx the output array, type of cv::Mat or std::vector<Point>, corresponding to non-zero indices in the input
+ */
+export declare function findNonZero(src: InputArray, idx: OutputArray): void
+
+/**
+ * Generates a mask of finite float values, i.e. not NaNs nor Infs.
+ *
+ * An element is set to 255 (all 1-bits) if all channels are finite.
+ *
+ * @param src Input matrix, should contain float or double elements of 1 to 4 channels
+ * @param mask Output matrix of the same size as input of type CV_8UC1
+ */
+export declare function finiteMask(src: InputArray, mask: OutputArray): void
+
+/**
  * Flips a 2D array around vertical, horizontal, or both axes.
  *
  * The function cv::flip flips the array in one of three different ways (row and column indices are 0-based):   The example scenarios of using the function are the following: Vertical flipping of the image (flipCode == 0) to switch between top-left and bottom-left image origin. This is a typical operation in video processing on Microsoft Windows* OS. Horizontal flipping of the image with the subsequent horizontal shift and absolute difference calculation to check for a vertical-axis symmetry (flipCode > 0). Simultaneous horizontal and vertical flipping of the image with the subsequent shift and absolute difference calculation to check for a central symmetry (flipCode < 0). Reversing the order of point arrays (flipCode > 0 or flipCode == 0).
@@ -491,6 +681,15 @@ export declare function exp(src: InputArray, dst: OutputArray): void
  * @param flipCode a flag to specify how to flip the array; 0 means flipping around the x-axis and positive value (for example, 1) means flipping around y-axis. Negative value (for example, -1) means flipping around both axes.
  */
 export declare function flip(src: InputArray, dst: OutputArray, flipCode: number): void
+
+/**
+ * Flips a n-dimensional at given axis.
+ *
+ * @param src input array
+ * @param dst output array that has the same shape of src
+ * @param axis axis that performs a flip on. 0 <= axis < src.dims.
+ */
+export declare function flipND(src: InputArray, dst: OutputArray, axis: number): void
 
 /**
  * Performs generalized matrix multiplication.
@@ -533,6 +732,28 @@ export declare function gemm(src1: InputArray, src2: InputArray, alpha: number, 
  * @param vecsize vector size.
  */
 export declare function getOptimalDFTSize(vecsize: number): number
+
+/**
+ * Checks for the presence of at least one non-zero array element.
+ *
+ * The function returns whether there are non-zero elements in src
+ *
+ *
+ * The function do not work with multi-channel arrays. If you need to check non-zero array elements across all the channels, use Mat::reshape first to reinterpret the array as single-channel. Or you may extract the particular channel using either extractImageCOI, or mixChannels, or split.
+ *
+ *
+ * @note - CV_16F/CV_16BF/CV_Bool/CV_64U/CV_64S/CV_32U are not supported for src.
+ * - If the location of non-zero array elements is important, findNonZero is helpful.
+ * - If the count of non-zero array elements is important, countNonZero is helpful.
+ *
+ *
+ * @see mean, meanStdDev, norm, minMaxLoc, calcCovarMatrix
+ *
+ * @see findNonZero, countNonZero
+ *
+ * @param src single-channel array.
+ */
+export declare function hasNonZero(src: InputArray): boolean
 
 /**
  * Applies horizontal concatenation to given matrices.
@@ -601,6 +822,32 @@ export declare function hconcat(src1: InputArray, src2: InputArray, dst: OutputA
 export declare function hconcat(src: InputArrayOfArrays, dst: OutputArray): void
 
 /**
+ * Calculates the inverse Discrete Cosine Transform of a 1D or 2D array.
+ *
+ * idct(src, dst, flags) is equivalent to dct(src, dst, flags | DCT_INVERSE).
+ * @see dct, dft, idft, getOptimalDFTSize
+ *
+ * @param src input floating-point single-channel array.
+ * @param dst output array of the same size and type as src.
+ * @param flags operation flags.
+ */
+export declare function idct(src: InputArray, dst: OutputArray, flags?: number): void
+
+/**
+ * Calculates the inverse Discrete Fourier Transform of a 1D or 2D array.
+ *
+ * idft(src, dst, flags) is equivalent to dft(src, dst, flags | DFT_INVERSE) . @note None of dft and idft scales the result by default. So, you should pass DFT_SCALE to one of dft or idft explicitly to make these transforms mutually inverse.
+ *
+ * @see dft, dct, idct, mulSpectrums, getOptimalDFTSize
+ *
+ * @param src input floating-point real or complex array.
+ * @param dst output array whose size and type depend on the flags.
+ * @param flags operation flags (see dft and DftFlags).
+ * @param nonzeroRows number of dst rows to process; the rest of the rows have undefined content (see the convolution sample in dft description.
+ */
+export declare function idft(src: InputArray, dst: OutputArray, flags?: number, nonzeroRows?: number): void
+
+/**
  * Checks if array elements lie between the elements of two other arrays.
  *
  * The function checks the range as follows:
@@ -620,6 +867,17 @@ export declare function hconcat(src: InputArrayOfArrays, dst: OutputArray): void
  * @param dst output array of the same size as src and CV_8U type.
  */
 export declare function inRange(src: InputArray, lowerb: InputArray, upperb: InputArray, dst: OutputArray): void
+
+/**
+ * Inserts a single channel to dst (coi is 0-based index)
+ *
+ * @see mixChannels, merge
+ *
+ * @param src input array
+ * @param dst output array
+ * @param coi index of channel for insertion
+ */
+export declare function insertChannel(src: InputArray, dst: InputOutputArray, coi: number): void
 
 /**
  * Finds the inverse or pseudo-inverse of a matrix.
@@ -683,6 +941,17 @@ export declare function LUT(src: InputArray, lut: InputArray, dst: OutputArray):
  * @param magnitude output array of the same size and type as x.
  */
 export declare function magnitude(x: InputArray, y: InputArray, magnitude: OutputArray): void
+
+/**
+ * Calculates the Mahalanobis distance between two vectors.
+ *
+ * The function cv::Mahalanobis calculates and returns the weighted distance between two vectors:  The covariance matrix may be calculated using the calcCovarMatrix function and then inverted using the invert function (preferably using the DECOMP_SVD method, as the most accurate).
+ *
+ * @param v1 first 1D input vector.
+ * @param v2 second 1D input vector.
+ * @param icovar inverse covariance matrix.
+ */
+export declare function Mahalanobis(v1: InputArray, v2: InputArray, icovar: InputArray): number
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. needed to avoid conflicts with const _Tp& std::min(const _Tp&, const _Tp&, _Compare)
@@ -883,6 +1152,22 @@ export declare function mixChannels(src: InputArrayOfArrays, dst: InputOutputArr
 export declare function mixChannels(src: InputArrayOfArrays, dst: InputOutputArrayOfArrays, fromTo: any): void
 
 /**
+ * Performs the per-element multiplication of two Fourier spectrums.
+ *
+ * The function cv::mulSpectrums performs the per-element multiplication of the two CCS-packed or complex matrices that are results of a real or complex Fourier transform.
+ *
+ *
+ * The function, together with dft and idft, may be used to calculate convolution (pass conjB=false ) or correlation (pass conjB=true ) of two arrays rapidly. When the arrays are complex, they are simply multiplied (per element) with an optional conjugation of the second-array elements. When the arrays are real, they are assumed to be CCS-packed (see dft for details).
+ *
+ * @param a first input array.
+ * @param b second input array of the same size and type as src1 .
+ * @param c output array of the same size and type as src1 .
+ * @param flags operation flags; currently, the only supported flag is cv::DFT_ROWS, which indicates that each row of src1 and src2 is an independent 1D Fourier spectrum. If you do not want to use this flag, then simply add a `0` as value.
+ * @param conjB optional flag that conjugates the second input array before the multiplication (true) or not (false).
+ */
+export declare function mulSpectrums(a: InputArray, b: InputArray, c: OutputArray, flags: number, conjB?: boolean): void
+
+/**
  * Calculates the per-element scaled product of two arrays.
  *
  * The function multiply calculates the per-element product of two arrays:
@@ -911,6 +1196,21 @@ export declare function mixChannels(src: InputArrayOfArrays, dst: InputOutputArr
  * @param dtype optional depth of the output array
  */
 export declare function multiply(src1: InputArray, src2: InputArray, dst: OutputArray, scale?: number, dtype?: number): void
+
+/**
+ * Calculates the product of a matrix and its transposition.
+ *
+ * The function cv::mulTransposed calculates the product of src and its transposition:  if aTa=true, and  otherwise. The function is used to calculate the covariance matrix. With zero delta, it can be used as a faster substitute for general matrix product A*B when B=A'
+ * @see calcCovarMatrix, gemm, repeat, reduce
+ *
+ * @param src input single-channel matrix. Note that unlike gemm, the function can multiply not only floating-point matrices.
+ * @param dst output square matrix.
+ * @param aTa Flag specifying the multiplication ordering. See the description below.
+ * @param delta Optional delta matrix subtracted from src before the multiplication. When the matrix is empty ( delta=noArray() ), it is assumed to be zero, that is, nothing is subtracted. If it has the same size as src, it is simply subtracted. Otherwise, it is "repeated" (see repeat ) to cover the full src and then subtracted. Type of the delta matrix, when it is not empty, must be the same as the type of created output matrix. See the dtype parameter description below.
+ * @param scale Optional scale factor for the matrix product.
+ * @param dtype Optional type of the output matrix. When it is negative, the output matrix will have the same type as src . Otherwise, it will be type=CV_MAT_DEPTH(dtype) that should be either CV_32F or CV_64F .
+ */
+export declare function mulTransposed(src: InputArray, dst: OutputArray, aTa: boolean, delta?: InputArray, scale?: number, dtype?: number): void
 
 /**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
@@ -1027,6 +1327,46 @@ export declare function normalize(src: any, dst: any, alpha: number, normType: n
 export declare function normalize(src: InputArray, dst: InputOutputArray, alpha?: number, beta?: number, norm_type?: number, dtype?: number, mask?: InputArray): void
 
 /**
+ * Replaces NaNs (Not-a-Number values) in a matrix with the specified value.
+ *
+ * This function modifies the input matrix in-place. The input matrix must be of type `CV_32F` or `CV_64F`; other types are not supported.
+ *
+ * @param a Input/output matrix (CV_32F or CV_64F type).
+ * @param val Value used to replace NaNs (defaults to 0).
+ */
+export declare function patchNaNs(a: InputOutputArray, val?: number): void
+
+/**
+ * wrap PCA::backProject
+ */
+export declare function PCABackProject(data: InputArray, mean: InputArray, eigenvectors: InputArray, result: OutputArray): void
+
+/**
+ * wrap PCA::operator()
+ */
+export declare function PCACompute(data: InputArray, mean: InputOutputArray, eigenvectors: OutputArray, retainedVariance: number): void
+
+/**
+ * wrap PCA::operator()
+ */
+export declare function PCACompute(data: InputArray, mean: InputOutputArray, eigenvectors: OutputArray, maxComponents?: number): void
+
+/**
+ * wrap PCA::operator() and add eigenvalues output parameter
+ */
+export declare function PCACompute(data: InputArray, mean: InputOutputArray, eigenvectors: OutputArray, eigenvalues: OutputArray, retainedVariance: number): void
+
+/**
+ * wrap PCA::operator() and add eigenvalues output parameter
+ */
+export declare function PCACompute(data: InputArray, mean: InputOutputArray, eigenvectors: OutputArray, eigenvalues: OutputArray, maxComponents?: number): void
+
+/**
+ * wrap PCA::project
+ */
+export declare function PCAProject(data: InputArray, mean: InputArray, eigenvectors: InputArray, result: OutputArray): void
+
+/**
  * Performs the perspective matrix transformation of vectors.
  *
  * The function cv::perspectiveTransform transforms every element of src by treating it as a 2D or 3D vector, in the following way:  where  and
@@ -1045,6 +1385,21 @@ export declare function normalize(src: InputArray, dst: InputOutputArray, alpha?
  * @param m 3x3 or 4x4 floating-point transformation matrix.
  */
 export declare function perspectiveTransform(src: InputArray, dst: OutputArray, m: InputArray): void
+
+/**
+ * Calculates the rotation angle of 2D vectors.
+ *
+ * The function cv::phase calculates the rotation angle of each 2D vector that is formed from the corresponding elements of x and y :
+ *
+ *
+ * The angle estimation accuracy is about 0.3 degrees. When x(I)=y(I)=0 , the corresponding angle(I) is set to 0.
+ *
+ * @param x input floating-point array of x-coordinates of 2D vectors.
+ * @param y input array of y-coordinates of 2D vectors; it must have the same size and the same type as x.
+ * @param angle output array of vector angles; it has the same size and same type as x .
+ * @param angleInDegrees when true, the function calculates the angle in degrees, otherwise, they are measured in radians.
+ */
+export declare function phase(x: InputArray, y: InputArray, angle: OutputArray, angleInDegrees?: boolean): void
 
 /**
  * Calculates x and y coordinates of 2D vectors from their magnitude and angle.
@@ -1083,6 +1438,26 @@ export declare function polarToCart(magnitude: InputArray, angle: InputArray, x:
  * @param dst output array of the same size and type as src.
  */
 export declare function pow(src: InputArray, power: number, dst: OutputArray): void
+
+/**
+ * Computes the Peak Signal-to-Noise Ratio (PSNR) image quality metric.
+ *
+ * This function calculates the Peak Signal-to-Noise Ratio (PSNR) image quality metric in decibels (dB), between two input arrays src1 and src2. The arrays must have the same type.
+ *
+ *
+ * The PSNR is calculated as follows:
+ *
+ *
+ *
+ *
+ *
+ * where R is the maximum integer value of depth (e.g. 255 in the case of CV_8U data) and MSE is the mean squared error between the two arrays.
+ *
+ * @param src1 first input array.
+ * @param src2 second input array of the same size as src1.
+ * @param R the maximum pixel value (255 by default)
+ */
+export declare function PSNR(src1: InputArray, src2: InputArray, R?: number): number
 
 /**
  * Fills the array with normally distributed random numbers.
@@ -1155,6 +1530,40 @@ export declare function randu(dst: InputOutputArray, low: InputArray, high: Inpu
 export declare function reduce(src: InputArray, dst: OutputArray, dim: number, rtype: number, dtype?: number): void
 
 /**
+ * Finds indices of max elements along provided axis.
+ *
+ * @note - If input or output array is not continuous, this function will create an internal copy.
+ * - NaN handling is left unspecified, see patchNaNs().
+ * - The returned index is always in bounds of input matrix.
+ *
+ *
+ * @see reduceArgMin, minMaxLoc, min, max, compare, reduce
+ *
+ * @param src input single-channel array.
+ * @param dst output array of type CV_32SC1 with the same dimensionality as src, except for axis being reduced - it should be set to 1.
+ * @param axis axis to reduce along.
+ * @param lastIndex whether to get the index of first or last occurrence of max.
+ */
+export declare function reduceArgMax(src: InputArray, dst: OutputArray, axis: number, lastIndex?: boolean): void
+
+/**
+ * Finds indices of min elements along provided axis.
+ *
+ * @note - If input or output array is not continuous, this function will create an internal copy.
+ * - NaN handling is left unspecified, see patchNaNs().
+ * - The returned index is always in bounds of input matrix.
+ *
+ *
+ * @see reduceArgMax, minMaxLoc, min, max, compare, reduce
+ *
+ * @param src input single-channel array.
+ * @param dst output array of type CV_32SC1 with the same dimensionality as src, except for axis being reduced - it should be set to 1.
+ * @param axis axis to reduce along.
+ * @param lastIndex whether to get the index of first or last occurrence of min.
+ */
+export declare function reduceArgMin(src: InputArray, dst: OutputArray, axis: number, lastIndex?: boolean): void
+
+/**
  * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
  *
  * @param src input array to replicate.
@@ -1186,6 +1595,22 @@ export declare function repeat(src: InputArray, ny: number, nx: number, dst: Out
  * @param rotateCode an enum to specify how to rotate the array; see the enum RotateFlags
  */
 export declare function rotate(src: InputArray, dst: OutputArray, rotateCode: number): void
+
+/**
+ * Calculates the sum of a scaled array and another array.
+ *
+ * The function scaleAdd is one of the classical primitive linear algebra operations, known as DAXPY or SAXPY in BLAS (http://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms). It calculates the sum of a scaled array and another array:  The function can also be emulated with a matrix expression, for example: MatA(3,3,CV_64F);
+ * ...
+ * A.row(0)=A.row(1)*2+A.row(2);
+ *
+ * @see add, addWeighted, subtract, Mat::dot, Mat::convertTo
+ *
+ * @param src1 first input array.
+ * @param alpha scale factor for the first array.
+ * @param src2 second input array of the same size and type as src1.
+ * @param dst output array of the same size and type as src1.
+ */
+export declare function scaleAdd(src1: InputArray, alpha: number, src2: InputArray, dst: OutputArray): void
 
 /**
  * Initializes a scaled identity matrix.
@@ -1235,6 +1660,22 @@ export declare function setRNGSeed(seed: number): void
 export declare function solve(src1: InputArray, src2: InputArray, dst: OutputArray, flags?: number): boolean
 
 /**
+ * Finds the real roots of a cubic equation.
+ *
+ * The function solveCubic finds the real roots of a cubic equation:
+ * - if coeffs is a 4-element vector:
+ * - if coeffs is a 3-element vector:
+ *
+ *
+ * The roots are stored in the roots array.
+ * @return number of real roots. It can be -1 (all real numbers), 0, 1, 2 or 3.
+ *
+ * @param coeffs equation coefficients, an array of 3 or 4 elements.
+ * @param roots output array of real roots that has 0, 1, 2 or 3 elements.
+ */
+export declare function solveCubic(coeffs: InputArray, roots: OutputArray): number
+
+/**
  * Finds the real or complex roots of a polynomial equation.
  *
  * The function cv::solvePoly finds real and complex roots of a polynomial equation:
@@ -1244,6 +1685,37 @@ export declare function solve(src1: InputArray, src2: InputArray, dst: OutputArr
  * @param maxIters maximum number of iterations the algorithm does.
  */
 export declare function solvePoly(coeffs: InputArray, roots: OutputArray, maxIters?: number): number
+
+/**
+ * Sorts each row or each column of a matrix.
+ *
+ * The function cv::sort sorts each matrix row or each matrix column in ascending or descending order. So you should pass two operation flags to get desired behaviour. If you want to sort matrix rows or columns lexicographically, you can use STL std::sort generic function with the proper comparison predicate.
+ *
+ *
+ * @see sortIdx, randShuffle
+ *
+ * @param src input single-channel array.
+ * @param dst output array of the same size and type as src.
+ * @param flags operation flags, a combination of SortFlags
+ */
+export declare function sort(src: InputArray, dst: OutputArray, flags: number): void
+
+/**
+ * Sorts each row or each column of a matrix.
+ *
+ * The function cv::sortIdx sorts each matrix row or each matrix column in the ascending or descending order. So you should pass two operation flags to get desired behaviour. Instead of reordering the elements themselves, it stores the indices of sorted elements in the output array. For example: MatA=Mat::eye(3,3,CV_32F),B;
+ * sortIdx(A,B,SORT_EVERY_ROW+SORT_ASCENDING);
+ * //Bwillprobablycontain
+ * //(becauseofequalelementsinAsomepermutationsarepossible):
+ * //[[1,2,0],[0,2,1],[0,1,2]]
+ *
+ * @see sort, randShuffle
+ *
+ * @param src input single-channel array.
+ * @param dst output integer array of the same size as src.
+ * @param flags operation flags that could be a combination of cv::SortFlags
+ */
+export declare function sortIdx(src: InputArray, dst: OutputArray, flags: number): void
 
 /**
  * Divides a multi-channel array into several single-channel arrays.
@@ -1322,6 +1794,27 @@ export declare function sqrt(src: InputArray, dst: OutputArray): void
 export declare function subtract(src1: InputArray, src2: InputArray, dst: OutputArray, mask?: InputArray, dtype?: number): void
 
 /**
+ * wrap SVD::backSubst
+ */
+export declare function SVBackSubst(w: InputArray, u: InputArray, vt: InputArray, rhs: InputArray, dst: OutputArray): void
+
+/**
+ * wrap SVD::compute
+ */
+export declare function SVDecomp(src: InputArray, w: OutputArray, u: OutputArray, vt: OutputArray, flags?: number): void
+
+/**
+ * Evaluate a broadcasting element-wise expression over the input arrays.
+ *
+ * The expression is a small std::format-like string over placeholders `{0}`, `{1}`, ... (the entries of `inputs`), C-style arithmetic / comparison / bitwise operators, type-cast and math function calls (`uint8(...)`, `min`, `max`, `absdiff`, `pow`, ...), `;`-separated named temporaries and a parenthesized tuple for multiple results. All operands broadcast against each other (numpy rules, channels innermost) and the whole expression is fused into a single traversal of the data.
+ *
+ * @param expr the expression string, e.g. `"{0} * 2.5 + {1}"` or `"({0} + {1}, {0} - {1})"`.
+ * @param inputs the arrays bound to `{0}`, `{1}`, ...
+ * @param outputs receives one array per top-level result (one entry, or several for a tuple).
+ */
+export declare function texpr(expr: any, inputs: InputArrayOfArrays, outputs: OutputArrayOfArrays): void
+
+/**
  * Returns the trace of a matrix.
  *
  * The function cv::trace returns the sum of the diagonal elements of the matrix mtx .
@@ -1357,6 +1850,17 @@ export declare function transform(src: InputArray, dst: OutputArray, m: InputArr
  * @param dst output array of the same type as src.
  */
 export declare function transpose(src: InputArray, dst: OutputArray): void
+
+/**
+ * Transpose for n-dimensional matrices.
+ *
+ * @note Input should be continuous single-channel matrix.
+ *
+ * @param src input array.
+ * @param order a permutation of [0,1,..,N-1] where N is the number of axes of src. The i'th axis of dst will correspond to the axis numbered order[i] of the input.
+ * @param dst output array of the same type as src.
+ */
+export declare function transposeND(src: InputArray, order: any, dst: OutputArray): void
 
 /**
  * Applies vertical concatenation to given matrices.

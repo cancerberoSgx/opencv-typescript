@@ -3,8 +3,8 @@
 import type { InputArray } from '../hacks/mat';
 import type { Vector } from '../hacks/runtime';
 import type { Size } from '../hacks/scalars';
-import type { CharucoBoard, Dictionary } from './_unresolved';
 import type { aruco_Board } from './aruco_Board';
+import type { aruco_Dictionary } from './aruco_Dictionary';
 
 /**
  * ChArUco board is a planar chessboard where the markers are placed inside the white squares of a chessboard.
@@ -12,7 +12,7 @@ import type { aruco_Board } from './aruco_Board';
  * The benefits of ChArUco boards is that they provide both, ArUco markers versatility and chessboard corner precision, which is important for calibration and pose estimation. The board image can be drawn using generateImage() method.
  */
 export declare class aruco_CharucoBoard extends aruco_Board {
-  public CharucoBoard(): any
+  public constructor()
 
 /**
  * CharucoBoard constructor.
@@ -23,7 +23,7 @@ export declare class aruco_CharucoBoard extends aruco_Board {
  * @param dictionary dictionary of markers indicating the type of markers
  * @param ids array of id used markers The first markers in the dictionary are used to fill the white chessboard squares.
  */
-  public CharucoBoard(size: Size, squareLength: number, markerLength: number, dictionary: Dictionary, ids?: InputArray): any
+  public constructor(size: Size, squareLength: number, markerLength: number, dictionary: aruco_Dictionary, ids?: InputArray)
 
 /**
  * check whether the ChArUco markers are collinear

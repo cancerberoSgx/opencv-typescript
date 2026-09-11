@@ -23,6 +23,7 @@ git config --global --add safe.directory '*'
 : "${FORCE_REBUILD_OPENCVJS:=0}"
 : "${FORCE_REBUILD_DOCS:=0}"
 : "${BUILD_JOBS:=0}"
+: "${EMBIND_ALL:=1}"
 
 if [ "$BUILD_JOBS" = "0" ]; then
   BUILD_JOBS="$(nproc)"
@@ -44,11 +45,26 @@ git -C "$OPENCV_DIR" checkout "$OPENCV_REF"
 
 # --- step 1: compile opencv.js ----------------------------------------------
 if [ "$FORCE_REBUILD_OPENCVJS" = "1" ] || [ ! -f "$OPENCV_JS_MARKER" ]; then
+  if [ "$EMBIND_ALL" = "1" ]; then
+    log "Patching embindgen.py for OPENCV_JS_BIND_ALL (bind every class/method/function found, not just platforms/js/opencv_js.config.py's curated whitelist)"
+    # Reset to pristine first - the checkout may be reused across runs, and
+    # patch-embindgen-bind-all.py's replacements assume unpatched source.
+    git -C "$OPENCV_DIR" checkout -- modules/js/generator/embindgen.py
+    python3 /usr/local/bin/patch-embindgen-bind-all.py "$OPENCV_DIR/modules/js/generator/embindgen.py"
+  fi
+
+  # CMake's custom command for (re)generating bindings.cpp doesn't track embindgen.py
+  # itself as a dependency, so on a reused build dir it considers an already-generated
+  # bindings.cpp up to date even after the line above just changed the generator - wipe it
+  # so it's always regenerated from the current embindgen.py/opencv_js.config.py on a
+  # forced rebuild (cheap: this doesn't touch the rest of build_js's compiled object cache).
+  rm -rf "$OPENCV_JS_BUILD_DIR/modules/js_bindings_generator"
+
   log "Building opencv.js (emcmake build_js.py --build_wasm --simd)"
   # Recent emscripten (this image tracks emsdk's "latest") requires C++17 for
   # Embind, but opencv's own CMakeLists.txt doesn't raise CMAKE_CXX_STANDARD
   # past its default (11) on its own - force it here.
-  ( cd "$OPENCV_DIR" && emcmake python3 platforms/js/build_js.py "$OPENCV_JS_BUILD_DIR" --build_wasm --simd \
+  ( cd "$OPENCV_DIR" && OPENCV_JS_BIND_ALL="$EMBIND_ALL" emcmake python3 platforms/js/build_js.py "$OPENCV_JS_BUILD_DIR" --build_wasm --simd \
       --cmake_option="-DCMAKE_CXX_STANDARD=17" \
       --cmake_option="-DCMAKE_CXX_STANDARD_REQUIRED=ON" )
 else

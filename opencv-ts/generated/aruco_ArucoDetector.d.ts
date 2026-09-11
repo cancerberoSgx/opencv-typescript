@@ -3,7 +3,12 @@
 import type { InputArray, InputOutputArray, InputOutputArrayOfArrays, OutputArray, OutputArrayOfArrays } from '../hacks/mat';
 import type { Vector } from '../hacks/runtime';
 import type { Algorithm } from './Algorithm';
-import type { ArucoDetector, Board, DetectorParameters, Dictionary, FileNode, FileStorage, RefineParameters } from './_unresolved';
+import type { FileNode } from './FileNode';
+import type { FileStorage } from './FileStorage';
+import type { aruco_Board } from './aruco_Board';
+import type { aruco_DetectorParameters } from './aruco_DetectorParameters';
+import type { aruco_Dictionary } from './aruco_Dictionary';
+import type { aruco_RefineParameters } from './aruco_RefineParameters';
 
 /**
  * The main functionality of ArucoDetector class is detection of markers in an image with detectMarkers() method.
@@ -21,7 +26,7 @@ export declare class aruco_ArucoDetector extends Algorithm {
  * @param detectorParams marker detection parameters
  * @param refineParams marker refine detection parameters
  */
-  public ArucoDetector(dictionary?: Dictionary, detectorParams?: DetectorParameters, refineParams?: RefineParameters): any
+  public constructor(dictionary?: aruco_Dictionary, detectorParams?: aruco_DetectorParameters, refineParams?: aruco_RefineParameters)
 
 /**
  * ArucoDetector constructor for multiple dictionaries.
@@ -30,7 +35,7 @@ export declare class aruco_ArucoDetector extends Algorithm {
  * @param detectorParams marker detection parameters
  * @param refineParams marker refine detection parameters
  */
-  public ArucoDetector(dictionaries: Dictionary, detectorParams?: DetectorParameters, refineParams?: RefineParameters): any
+  public constructor(dictionaries: aruco_Dictionary, detectorParams?: aruco_DetectorParameters, refineParams?: aruco_RefineParameters)
 
 /**
  * Basic marker detection.
@@ -76,7 +81,7 @@ export declare class aruco_ArucoDetector extends Algorithm {
  */
   public detectMarkersWithConfidence(image: InputArray, corners: OutputArrayOfArrays, ids: OutputArray, markersConfidence: OutputArray, rejectedImgPoints?: OutputArrayOfArrays): void
 
-  public getDetectorParameters(): DetectorParameters
+  public getDetectorParameters(): aruco_DetectorParameters
 
 /**
  * Returns all dictionaries currently used for marker detection as a vector.
@@ -90,9 +95,9 @@ export declare class aruco_ArucoDetector extends Algorithm {
  *
  * @return The first dictionary from the configured ArucoDetector.
  */
-  public getDictionary(): Dictionary
+  public getDictionary(): aruco_Dictionary
 
-  public getRefineParameters(): RefineParameters
+  public getRefineParameters(): aruco_RefineParameters
 
 /**
  * Reads algorithm parameters from a file storage.
@@ -113,9 +118,9 @@ export declare class aruco_ArucoDetector extends Algorithm {
  * @param distCoeffs optional vector of distortion coefficients  of 4, 5, 8 or 12 elements
  * @param recoveredIdxs Optional array to returns the indexes of the recovered candidates in the original rejectedCorners array.
  */
-  public refineDetectedMarkers(image: InputArray, board: Board, detectedCorners: InputOutputArrayOfArrays, detectedIds: InputOutputArray, rejectedCorners: InputOutputArrayOfArrays, cameraMatrix?: InputArray, distCoeffs?: InputArray, recoveredIdxs?: OutputArray): void
+  public refineDetectedMarkers(image: InputArray, board: aruco_Board, detectedCorners: InputOutputArrayOfArrays, detectedIds: InputOutputArray, rejectedCorners: InputOutputArrayOfArrays, cameraMatrix?: InputArray, distCoeffs?: InputArray, recoveredIdxs?: OutputArray): void
 
-  public setDetectorParameters(detectorParameters: DetectorParameters): void
+  public setDetectorParameters(detectorParameters: aruco_DetectorParameters): void
 
 /**
  * Sets the entire collection of dictionaries to be used for marker detection, replacing any existing dictionaries.
@@ -124,16 +129,16 @@ export declare class aruco_ArucoDetector extends Algorithm {
  *
  * @param dictionaries A std::vector<Dictionary> containing the new set of dictionaries to be used.
  */
-  public setDictionaries(dictionaries: Dictionary): void
+  public setDictionaries(dictionaries: aruco_Dictionary): void
 
 /**
  * Sets and replaces the first dictionary in internal list to be used for marker detection.
  *
  * @param dictionary The new dictionary that will replace the first dictionary in the internal list.
  */
-  public setDictionary(dictionary: Dictionary): void
+  public setDictionary(dictionary: aruco_Dictionary): void
 
-  public setRefineParameters(refineParameters: RefineParameters): void
+  public setRefineParameters(refineParameters: aruco_RefineParameters): void
 
 /**
  * Stores algorithm parameters in a file storage.

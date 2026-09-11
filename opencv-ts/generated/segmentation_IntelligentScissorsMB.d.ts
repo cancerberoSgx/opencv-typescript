@@ -2,7 +2,7 @@
 
 import type { InputArray, OutputArray } from '../hacks/mat';
 import type { Point } from '../hacks/scalars';
-import type { IntelligentScissorsMB, L2gradient } from './_unresolved';
+import type { L2gradient } from './_unresolved';
 
 /**
  * Intelligent Scissors image segmentation.
@@ -31,14 +31,14 @@ import type { IntelligentScissorsMB, L2gradient } from './_unresolved';
  * Reference: "Intelligent Scissors for Image Composition" (http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.138.3811&rep=rep1&type=pdf) algorithm designed by Eric N. Mortensen and William A. Barrett, Brigham Young University Mortensen95intelligentscissors
  */
 export declare class segmentation_IntelligentScissorsMB {
-  public IntelligentScissorsMB(): any
+  public constructor()
 
 /**
  * Specify input image and extract image features.
  *
  * @param image input image. Type is CV_8UC1 / CV_8UC3
  */
-  public applyImage(image: InputArray): IntelligentScissorsMB
+  public applyImage(image: InputArray): segmentation_IntelligentScissorsMB
 
 /**
  * Specify custom features of input image.
@@ -50,7 +50,7 @@ export declare class segmentation_IntelligentScissorsMB {
  * @param gradient_magnitude Specify cost of gradient magnitude function: Type is CV_32FC1. Values should be in range `[0, 1]`.
  * @param image **Optional parameter**. Must be specified if subset of features is specified (non-specified features are calculated internally)
  */
-  public applyImageFeatures(non_edge: InputArray, gradient_direction: InputArray, gradient_magnitude: InputArray, image?: InputArray): IntelligentScissorsMB
+  public applyImageFeatures(non_edge: InputArray, gradient_direction: InputArray, gradient_magnitude: InputArray, image?: InputArray): segmentation_IntelligentScissorsMB
 
 /**
  * Prepares a map of optimal paths for the given source point on the image.
@@ -79,7 +79,7 @@ export declare class segmentation_IntelligentScissorsMB {
  *
  * @see Canny
  */
-  public setEdgeFeatureCannyParameters(threshold1: number, threshold2: number, apertureSize?: number, L2gradient?: boolean): IntelligentScissorsMB
+  public setEdgeFeatureCannyParameters(threshold1: number, threshold2: number, apertureSize?: number, L2gradient?: boolean): segmentation_IntelligentScissorsMB
 
 /**
  * Switch to "Laplacian Zero-Crossing" edge feature extractor and specify its parameters.
@@ -96,7 +96,7 @@ export declare class segmentation_IntelligentScissorsMB {
  *
  * @param gradient_magnitude_min_value Minimal gradient magnitude value for edge pixels (default: 0, check is disabled)
  */
-  public setEdgeFeatureZeroCrossingParameters(gradient_magnitude_min_value?: number): IntelligentScissorsMB
+  public setEdgeFeatureZeroCrossingParameters(gradient_magnitude_min_value?: number): segmentation_IntelligentScissorsMB
 
 /**
  * Specify gradient magnitude max value threshold.
@@ -108,7 +108,7 @@ export declare class segmentation_IntelligentScissorsMB {
  *
  * @param gradient_magnitude_threshold_max Specify gradient magnitude max value threshold (default: 0, disabled)
  */
-  public setGradientMagnitudeMaxLimit(gradient_magnitude_threshold_max?: number): IntelligentScissorsMB
+  public setGradientMagnitudeMaxLimit(gradient_magnitude_threshold_max?: number): segmentation_IntelligentScissorsMB
 
 /**
  * Specify weights of feature functions.
@@ -119,5 +119,5 @@ export declare class segmentation_IntelligentScissorsMB {
  * @param weight_gradient_direction Specify cost of gradient direction function (default: 0.43f)
  * @param weight_gradient_magnitude Specify cost of gradient magnitude function (default: 0.14f)
  */
-  public setWeights(weight_non_edge: number, weight_gradient_direction: number, weight_gradient_magnitude: number): IntelligentScissorsMB
+  public setWeights(weight_non_edge: number, weight_gradient_direction: number, weight_gradient_magnitude: number): segmentation_IntelligentScissorsMB
 }

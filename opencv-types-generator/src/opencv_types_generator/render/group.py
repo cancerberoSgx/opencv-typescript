@@ -12,16 +12,19 @@ from .jsdoc import jsdoc_function, to_jsdoc
 from .types import render_param, render_type
 
 
-def _render_function(f: Member) -> str:
-    params = ", ".join(render_param(p) for p in f.params)
-    ret = f": {render_type(f.type)}"
+def _render_function(f: Member, cpp_type_to_js_name: dict[str, str]) -> str:
+    params = ", ".join(render_param(p, cpp_type_to_js_name) for p in f.params)
+    ret = f": {render_type(f.type, cpp_type_to_js_name)}"
     doc = jsdoc_function(f)
     sig = f"export declare function {f.name}({params}){ret}"
     return f"{doc}\n{sig}" if doc else sig
 
 
 def render_group(
-    compound: CompoundDef, registered_function_names: set[str], registered_constant_names: set[str]
+    compound: CompoundDef,
+    registered_function_names: set[str],
+    registered_constant_names: set[str],
+    cpp_type_to_js_name: dict[str, str] | None = None,
 ) -> tuple[str, set[str], set[str]]:
     """Returns (rendered .d.ts source, emitted function names, emitted constant names)."""
     functions = [
@@ -29,7 +32,7 @@ def render_group(
         for f in compound.functions
         if is_valid_id(f.name) and f.name in registered_function_names and not is_templated(f)
     ]
-    functions_src = "\n\n".join(_render_function(f) for f in functions)
+    functions_src = "\n\n".join(_render_function(f, cpp_type_to_js_name or {}) for f in functions)
     enums_src, emitted_enum_constants = render_group_enum_constants(compound, registered_constant_names)
     defines_src, emitted_defines = render_group_defines(compound, registered_constant_names)
     emitted_constants = emitted_enum_constants | emitted_defines

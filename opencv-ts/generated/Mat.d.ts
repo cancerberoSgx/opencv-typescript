@@ -2,7 +2,8 @@
 
 import type { InputArray, Mat_, OutputArray } from '../hacks/mat';
 import type { MatStep, Point, Range, Rect, Scalar, Size } from '../hacks/scalars';
-import type { AccessFlag, CV_NODISCARD_STD, MatAllocator, MatExpr, MatShape, UMat, UMatData, UMatUsageFlags } from './_unresolved';
+import type { MatShape } from './MatShape';
+import type { AccessFlag, CV_NODISCARD_STD, MatAllocator, MatExpr, UMat, UMatData, UMatUsageFlags } from './_unresolved';
 
 /**
  * n-dimensional dense array class
