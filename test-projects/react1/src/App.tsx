@@ -64,7 +64,7 @@ function runOperation(key: OperationKey, src: Mat): Mat | null {
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const originalImageData = useRef<ImageData | null>(null);
-  const { status, error } = useOpenCv();
+  const { status, error } = useOpenCv("/opencv.js");
   const [active, setActive] = useState<OperationKey>("original");
   const [opError, setOpError] = useState<string | null>(null);
 

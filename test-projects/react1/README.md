@@ -39,16 +39,6 @@ gradient.
 `npm run typecheck` runs `tsc -b --noEmit` on its own, useful for checking the typings
 without starting the dev server.
 
-## Deployed demo
-
-This app is also published as a GitHub Pages demo at `pages/demos/react1` (see the root
-[README](../../README.md#github-pages)). That build points at a shared `opencv.js` used by
-every demo instead of bundling its own: `useOpenCv()` (`src/opencv/useOpenCv.ts`) defaults
-to `/opencv.js` for local dev, but `scripts/build-demo-react1.sh` overrides that via the
-`VITE_OPENCV_URL` build-time env var to a relative `../assets/opencv.js`, resolving to
-`pages/demos/assets/opencv.js`. `vite.config.ts`'s `base: "./"` keeps every other asset URL
-relative too, so the same build works under whatever subpath GitHub Pages serves it from.
-
 ## Notable typings/DX points this app exercises
 
 - **Ambient global `cv`**: `opencv-ts` declares `declare global { var cv: CV }`. This app

@@ -8,16 +8,8 @@ export interface UseOpenCvResult {
   error: string | null;
 }
 
-/**
- * Loads opencv.js once and reports its readiness for React components to react to.
- *
- * Defaults to public/opencv.js (see the repo root README's `setup:opencv`) for local dev,
- * but the Pages build overrides this via `VITE_OPENCV_URL` to point at the shared
- * pages/demos/assets/opencv.js instead - see scripts/build-demo-react1.sh.
- */
-export function useOpenCv(
-  scriptUrl = import.meta.env.VITE_OPENCV_URL ?? "/opencv.js",
-): UseOpenCvResult {
+/** Loads opencv.js once and reports its readiness for React components to react to. */
+export function useOpenCv(scriptUrl = "/opencv.js"): UseOpenCvResult {
   const [status, setStatus] = useState<OpenCvStatus>("loading");
   const [error, setError] = useState<string | null>(null);
 

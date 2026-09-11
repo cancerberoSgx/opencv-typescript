@@ -1,9 +1,0 @@
-node_modules
-dist
-dist-ssr
-*.local
-*.tsbuildinfo
-
-# Copied in by `npm run setup:opencv` from a local OpenCV build - large generated binary,
-# and its version must match whatever `opencv-ts` was generated from (see README.md).
-public/opencv.js

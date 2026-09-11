@@ -98,25 +98,10 @@ Visually I want to keep using your proposal (from a given ts project, a script g
 
 Can you implement there an initial project that uses typescript ts-morph for analything ts and a script that generates the  static html ? Is there any information  missing ? 
 
-
 # tsdocs
 Analyze the best typescript api docs tool to generate nice html apidocs from typescript project. Create a new project generate-api-docs that uses the library and has a script to generate apidocs of opencv-ts in a new folder /pages/opencv-ts-docs . Then create a github actions that publish /pages folder with an index.html with a link to this documentation
 
-# other demo
-in /home/sg/git/mirada/mirada-ts-playground/src/examples/toPack I've implemented several opencv examples with a similar typescript bindins in /home/sg/git/mirada/mirada
-can we implement a test-projects/react2 example with all of this examples and code editing but adapting the code and typings to match our current ones in opencv-ts ? The demo should have both an code editor if possible with typechecking and autocomplete in the browser using monaco editor and ts language server.
-if usefule this is a live demo of /home/sg/git/mirada/mirada-ts-playground/ https://cancerberosgx.github.io/demos/mirada-ts-playground we would like to have the same experience but using the new types in opencv-ts
-
-
 # FUTURE
-
-
-# pages
-in github we want to publish an index.html file with some links to apidocs or demos (test-projects like react1)
-Create a /pages folder, github actions to publish pages on each push to "main" branch and scripts that build generate-api-docs and copy the output there. 
-Also build test-projects/react1 web demo and copy it in docs/demos/react1. Since we plan to have other demos using other web frameworks than react js can we have a single opencv.js file in docs/demos/assets/opencv.js and make all projects load it from there easily ?
-I've configured classic github pages experience pointing to branch main and folder /docs 
-
 
 
  * opencv-ts version must be the same as opencv's
